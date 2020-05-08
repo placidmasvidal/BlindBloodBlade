@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+//Test branch
 public class BlindBloodBlade extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
@@ -15,6 +16,7 @@ public class BlindBloodBlade extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
+
 
 	@Override
 	public void render () {
