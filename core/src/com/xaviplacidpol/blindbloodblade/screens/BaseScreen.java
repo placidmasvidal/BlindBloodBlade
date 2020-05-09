@@ -1,12 +1,13 @@
 package com.jumpdontdie;
 
 import com.badlogic.gdx.Screen;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 
 public abstract class BaseScreen implements Screen {
 
-    protected MainGame game;
+    protected BlindBloodBlade game;
 
-    public BaseScreen(MainGame game){
+    public BaseScreen(BlindBloodBlade game){
         this.game = game;
     }
     @Override
