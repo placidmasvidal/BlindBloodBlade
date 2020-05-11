@@ -14,11 +14,9 @@ public class MenuScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     private Texture btStart;
-    private int btStartPositionX;
-    private int btStartPositionY;
+    private float btStartPositionX;
+    private float btStartPositionY;
     private Texture btScore;
-//    private int btScorePositionX;
-//    private int btScorePositionY;
     private float btScorePositionX;
     private float btScorePositionY;
 
