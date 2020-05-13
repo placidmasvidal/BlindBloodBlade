@@ -1,5 +1,8 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
+
+
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
@@ -33,9 +36,6 @@ public class Constants {
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjamove";
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/pol
 
 }
