@@ -30,9 +30,8 @@ public class MenuScreen extends ScreenAdapter {
         viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         btStart = new Texture("btstart.png");
 
-
-        btStartPositionX = 10;
-        btStartPositionY = 10;
+//        btStartPositionX = 10;
+//        btStartPositionY = 10;
 
         btScore = new Texture("btscore.png");
 
