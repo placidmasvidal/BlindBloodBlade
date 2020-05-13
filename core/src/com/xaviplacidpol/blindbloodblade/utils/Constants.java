@@ -1,11 +1,5 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/pol
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
