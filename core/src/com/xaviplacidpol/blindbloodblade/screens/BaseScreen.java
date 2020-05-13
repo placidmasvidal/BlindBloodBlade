@@ -14,6 +14,10 @@ public abstract class BaseScreen implements Screen {
     public BaseScreen(BlindBloodBlade game){
         this.game = game;
     }
+    public BaseScreen(){
+
+    }
+
     @Override
     public void show() {
 
