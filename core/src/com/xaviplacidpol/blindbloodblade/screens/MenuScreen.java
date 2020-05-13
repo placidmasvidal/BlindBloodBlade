@@ -17,18 +17,34 @@ public class MenuScreen extends BaseScreen {
 
     private SpriteBatch batch;
     private Texture btStart;
-    private int btStartPositionX;
-    private int btStartPositionY;
+    private float btStartPositionX;
+    private float btStartPositionY;
     private Texture btScore;
+<<<<<<< HEAD
     private int btScorePositionX;
     private int btScorePositionY;
+=======
+    private float btScorePositionX;
+    private float btScorePositionY;
+
+    private ExtendViewport viewport;
+
+
+>>>>>>> origin/pol
 
     public MenuScreen(BlindBloodBlade game){
         super(game);
         batch = new SpriteBatch();
         btStart = new Texture("btstart.png");
+<<<<<<< HEAD
         btStartPositionX = screenWidth/3;
         btStartPositionY = screenHeight/3;
+=======
+
+//        btStartPositionX = 10;
+//        btStartPositionY = 10;
+
+>>>>>>> origin/pol
         btScore = new Texture("btscore.png");
         btScorePositionX = screenWidth/3;
         btScorePositionY = screenHeight / 3 - (btStart.getHeight()/2)-(btStart.getHeight()/3);

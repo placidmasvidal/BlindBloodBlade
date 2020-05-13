@@ -19,7 +19,10 @@ public class BlindBloodBlade extends Game {
 
 		setScreen(new GameScreen());
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/pol
 	}
 
 }
