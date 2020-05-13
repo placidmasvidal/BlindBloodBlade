@@ -67,7 +67,9 @@ public class MenuScreen extends BaseScreen {
                 //destruct current screen
                 this.dispose();
                 //load a GameScreen instance
-                game.setScreen(new GameScreen(game));
+
+                //game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen());
             }
 
         }
