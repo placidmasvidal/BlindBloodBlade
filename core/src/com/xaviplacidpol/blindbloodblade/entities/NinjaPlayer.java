@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
@@ -21,6 +22,9 @@ public class NinjaPlayer extends Actor {
     //Vector 2 with x and y velocity
     Vector2 velocity;
 
+    // Vector2 to hold ninja's position last frame (useful to verify if is GROUNDED or not)
+    Vector2 lastFramePosition;
+
     //Jump and walking states (enums)
     JumpState jumpState;
     WalkState walkState;
@@ -34,6 +38,9 @@ public class NinjaPlayer extends Actor {
     public NinjaPlayer(){
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT);
+
+        // Initialize a new Vector2 for lastFramePosition
+        lastFramePosition = new Vector2(position);
 
         // Initialize velocity (quiet)
         velocity = new Vector2();
@@ -50,9 +57,14 @@ public class NinjaPlayer extends Actor {
      *
      * It will apply gravity, update all movement, speed, and act if the player do anything with the ninja like jump
      * and attack
+     * Check if player is grounded
      * @param delta
+     * @param grounds Array with all the ground in the level
      */
-    public void update(float delta){
+    public void update(float delta, Array<Ground> grounds){
+        // Update lastFramePosition
+        lastFramePosition.set(position);
+
         // Apply gravity attraction
         // Multiple delta by the acceleration due to gravity and subtract it from player vertical velocity
         velocity.y -= delta * Constants.GRAVITY;
@@ -74,7 +86,21 @@ public class NinjaPlayer extends Actor {
                 position.y = Constants.PLAYER_EYE_HEIGHT;
                 velocity.y = 0;
             }
+            //For each ground, call landedOnGround()
+            for (Ground ground : grounds){
+                if (landedOnGround(ground)) {
+                    //  If true, set jumpState to GROUNDED
+                    jumpState = JumpState.GROUNDED;
+
+                    // Set zero vertical velocity
+                    velocity.y = 0;
+
+                    // Make sure Ninja's feet aren't sticking into the ground
+                    position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
+                }
+            }
         }
+
 
 
         // Jumping
@@ -113,8 +139,33 @@ public class NinjaPlayer extends Actor {
 
     }
 
-    //TODO
+    boolean landedOnGround(Ground ground){
+//        boolean leftFootIn = false;
+//        boolean rightFootIn = false;
+//        boolean straddle = false;
+//
+//        // TODO 2.3.03: First check if GigaGal's feet were above the platform top last frame and below the platform top this frame
+//        if(lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
+//                position.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top){
+//            // TODO 2.3.03: If so, find the position of GigaGal' left and right toes
+//            float leftFoot = position.x - Constants.GIGAGAL_STANCE_WIDTH / 2;
+//            float rightFoot = position.x + Constants.GIGAGAL_STANCE_WIDTH / 2;
+//
+//            // TODO 2.3.03: See if either of GigaGal's toes are on the platform
+//            leftFootIn = (platform.left < leftFoot && platform.right > leftFoot);
+//            rightFootIn = (platform.left < rightFoot && platform.right > rightFoot);
+//
+//            // TODO 2.3.03: See if GigaGal is straddling the platform
+//            straddle = (platform.left > leftFoot && platform.right < rightFoot);
+//
+//        }
+//        // TODO 2.3.03: Return whether or not GigaGal had landed on the platform
+//        return leftFootIn || rightFootIn || straddle;
+return true;
 
+    }
+
+    //TODO
     /**
      * Move constantly to right if player don't collide with any obstacle
      * @param delta

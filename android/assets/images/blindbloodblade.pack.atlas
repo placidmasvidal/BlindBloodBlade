@@ -1,53 +1,88 @@
 blindbloodblade.png
-size: 866, 128
+size: 1860, 1608
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-btscore
+background
   rotate: false
   xy: 0, 0
+  size: 1200, 640
+  orig: 1200, 640
+  offset: 0, 0
+  index: -1
+backgroundgamestage
+  rotate: false
+  xy: 0, 640
+  size: 960, 640
+  orig: 960, 640
+  offset: 0, 0
+  index: -1
+bloodyspikes
+  rotate: false
+  xy: 960, 640
+  size: 324, 200
+  orig: 324, 200
+  offset: 0, 0
+  index: -1
+btscore
+  rotate: false
+  xy: 1284, 640
   size: 256, 118
   orig: 256, 118
   offset: 0, 0
   index: -1
 btstart
   rotate: false
-  xy: 256, 0
+  xy: 1540, 640
   size: 256, 118
   orig: 256, 118
   offset: 0, 0
   index: -1
+ground
+  rotate: false
+  xy: 0, 1280
+  size: 1860, 200
+  orig: 1860, 200
+  offset: 0, 0
+  index: -1
 ninjajump
   rotate: false
-  xy: 512, 0
+  xy: 0, 1480
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjamove
   rotate: false
-  xy: 568, 0
+  xy: 56, 1480
   size: 60, 128
   orig: 60, 128
   offset: 0, 0
   index: -1
 ninjastatic
   rotate: false
-  xy: 628, 0
+  xy: 116, 1480
   size: 60, 128
   orig: 60, 128
   offset: 0, 0
   index: -1
 samuraiatack
   rotate: false
-  xy: 688, 0
+  xy: 176, 1480
   size: 90, 128
   orig: 90, 128
   offset: 0, 0
   index: -1
+samuraijump
+  rotate: false
+  xy: 266, 1480
+  size: 70, 128
+  orig: 70, 128
+  offset: 0, 0
+  index: -1
 samuraistatic
   rotate: false
-  xy: 778, 0
+  xy: 336, 1480
   size: 88, 128
   orig: 88, 128
   offset: 0, 0

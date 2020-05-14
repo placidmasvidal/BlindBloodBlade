@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.xaviplacidpol.blindbloodblade.entities.Ground;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -26,6 +27,9 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
 
     public NinjaAssets ninjaAssets;
+    public GroundAssets groundAssets;
+
+
     private AssetManager assetManager;
 
     private Assets() {
@@ -47,8 +51,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 
-        //Initialize ninjaAssets
+        //Initialize ninjaAssets, floorAssets
         ninjaAssets = new NinjaAssets(atlas);
+        groundAssets = new GroundAssets(atlas);
 
     }
 
@@ -91,6 +96,25 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
+
     }
+
+    /**
+     * Build ground with a NinePatch
+     */
+    public class GroundAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public GroundAssets(TextureAtlas atlas){
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.GROUND_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.GROUND_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+
 
 }

@@ -36,6 +36,12 @@ public class Constants {
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjamove";
 
+    //FLOOR
+    // Ground sprite
+    public static final String GROUND_SPRITE = "ground";
+    // constant holding the size of the stretchable edges in the ground 9 patch
+    public static final int GROUND_EDGE = 8;
+
 
 
 }
