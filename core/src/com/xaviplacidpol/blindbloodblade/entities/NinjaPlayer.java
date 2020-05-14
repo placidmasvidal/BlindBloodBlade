@@ -37,7 +37,7 @@ public class NinjaPlayer extends Actor {
 
     public NinjaPlayer(){
         // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT);
+        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
 
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
@@ -139,29 +139,34 @@ public class NinjaPlayer extends Actor {
 
     }
 
+    /**
+     * Checks if ninjaPlayer is landed on or ground or maybe have his foots out the ground,
+     * for example he maybe is falling to the spikes
+     * @param ground
+     * @return
+     */
     boolean landedOnGround(Ground ground){
-//        boolean leftFootIn = false;
-//        boolean rightFootIn = false;
-//        boolean straddle = false;
-//
-//        // TODO 2.3.03: First check if GigaGal's feet were above the platform top last frame and below the platform top this frame
-//        if(lastFramePosition.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
-//                position.y - Constants.GIGAGAL_EYE_HEIGHT < platform.top){
-//            // TODO 2.3.03: If so, find the position of GigaGal' left and right toes
-//            float leftFoot = position.x - Constants.GIGAGAL_STANCE_WIDTH / 2;
-//            float rightFoot = position.x + Constants.GIGAGAL_STANCE_WIDTH / 2;
-//
-//            // TODO 2.3.03: See if either of GigaGal's toes are on the platform
-//            leftFootIn = (platform.left < leftFoot && platform.right > leftFoot);
-//            rightFootIn = (platform.left < rightFoot && platform.right > rightFoot);
-//
-//            // TODO 2.3.03: See if GigaGal is straddling the platform
-//            straddle = (platform.left > leftFoot && platform.right < rightFoot);
-//
-//        }
-//        // TODO 2.3.03: Return whether or not GigaGal had landed on the platform
-//        return leftFootIn || rightFootIn || straddle;
-return true;
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        // First check if Players's feet were above the platform top last frame and below the platform top this frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
+                position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
+            // If so, find the position of NinjaPlayer left and right toes
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 2;
+
+            // See if either of ninjaPlayer's toes are on the ground
+            leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
+            rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
+
+            // See if NinjaPlayer is straddling the platform
+            straddle = (ground.left > leftFoot && ground.right < rightFoot);
+
+        }
+        // Return whether or not NinjaPlayer had landed on the ground
+        return leftFootIn || rightFootIn || straddle;
 
     }
 
