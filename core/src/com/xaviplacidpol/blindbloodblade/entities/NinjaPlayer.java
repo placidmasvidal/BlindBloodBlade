@@ -160,6 +160,7 @@ public class NinjaPlayer extends Actor {
             float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 3.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 3.5f;
 
+
             // See if either of ninjaPlayer's toes are on the ground
             leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
             rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
