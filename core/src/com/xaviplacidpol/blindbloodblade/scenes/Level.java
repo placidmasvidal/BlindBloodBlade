@@ -54,8 +54,14 @@ public class Level {
      *
      */
     private void addDebugGrounds(){
-        // TODO:  test ground
-        grounds.add(new Ground(0, 20, 200, 40));
+        // TODO:  Add here all grounds in the level
+        grounds.add(new Ground(0, 40, 200, 60));
+
+        grounds.add(new Ground(275, 40, 100, 60));
+
+        //grounds.add(new Ground(300, 150, 200, 60));
+
+
 
     }
 }
