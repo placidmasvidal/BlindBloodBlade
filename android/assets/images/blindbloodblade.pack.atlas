@@ -1,89 +1,131 @@
 blindbloodblade.png
-size: 1860, 1608
+size: 1860, 1624
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 background
   rotate: false
-  xy: 0, 0
+  xy: 0, 784
   size: 1200, 640
   orig: 1200, 640
   offset: 0, 0
   index: -1
 backgroundgamestage
   rotate: false
-  xy: 0, 640
+  xy: 256, 144
   size: 960, 640
   orig: 960, 640
   offset: 0, 0
   index: -1
-bloodyspikes
+block
   rotate: false
-  xy: 960, 640
-  size: 324, 200
-  orig: 324, 200
+  xy: 746, 0
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+bloodsplash
+  rotate: false
+  xy: 632, 0
+  size: 114, 130
+  orig: 114, 130
+  offset: 0, 0
+  index: -1
+bridge
+  rotate: false
+  xy: 1010, 0
+  size: 156, 144
+  orig: 156, 144
   offset: 0, 0
   index: -1
 btscore
   rotate: false
-  xy: 1284, 640
+  xy: 1400, 0
   size: 256, 118
   orig: 256, 118
   offset: 0, 0
   index: -1
 btstart
   rotate: false
-  xy: 1540, 640
+  xy: 0, 144
   size: 256, 118
   orig: 256, 118
   offset: 0, 0
   index: -1
+grassblock
+  rotate: false
+  xy: 878, 0
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
 ground
   rotate: false
-  xy: 0, 1280
+  xy: 0, 1424
   size: 1860, 200
   orig: 1860, 200
   offset: 0, 0
   index: -1
+ninjaatack
+  rotate: false
+  xy: 424, 0
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
+ninjabloody
+  rotate: false
+  xy: 528, 0
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
 ninjajump
   rotate: false
-  xy: 0, 1480
+  xy: 0, 0
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
-ninjamove
+ninjastatic
   rotate: false
-  xy: 56, 1480
+  xy: 56, 0
   size: 60, 128
   orig: 60, 128
   offset: 0, 0
   index: -1
-ninjastatic
+ninjawalk
   rotate: false
-  xy: 116, 1480
+  xy: 116, 0
   size: 60, 128
   orig: 60, 128
   offset: 0, 0
   index: -1
 samuraiatack
   rotate: false
-  xy: 176, 1480
+  xy: 334, 0
   size: 90, 128
   orig: 90, 128
   offset: 0, 0
   index: -1
 samuraijump
   rotate: false
-  xy: 266, 1480
+  xy: 176, 0
   size: 70, 128
   orig: 70, 128
   offset: 0, 0
   index: -1
 samuraistatic
   rotate: false
-  xy: 336, 1480
+  xy: 246, 0
   size: 88, 128
   orig: 88, 128
+  offset: 0, 0
+  index: -1
+spikes
+  rotate: false
+  xy: 1166, 0
+  size: 234, 120
+  orig: 234, 120
   offset: 0, 0
   index: -1
