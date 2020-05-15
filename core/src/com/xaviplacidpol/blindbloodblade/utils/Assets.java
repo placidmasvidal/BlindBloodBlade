@@ -29,6 +29,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public NinjaAssets ninjaAssets;
     public GroundAssets groundAssets;
 
+    public SpikesAssets spikesAssets;
+
 
     private AssetManager assetManager;
 
@@ -51,9 +53,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 
-        //Initialize ninjaAssets, floorAssets
+        //Initialize ninjaAssets, floorAssets, spikesAssets
         ninjaAssets = new NinjaAssets(atlas);
         groundAssets = new GroundAssets(atlas);
+        spikesAssets = new SpikesAssets(atlas);
 
     }
 
@@ -113,6 +116,19 @@ public class Assets implements Disposable, AssetErrorListener {
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
             int edge = Constants.GROUND_EDGE;
             groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     * Build spikes
+     */
+    public class SpikesAssets{
+        // Add an AtlasRegion to hold the spikes sprite
+        public final TextureAtlas.AtlasRegion spike;
+
+        public SpikesAssets(TextureAtlas atlas) {
+            // Find the spikes atlas region
+            spike = atlas.findRegion(Constants.SPIKES_SPRITE);
         }
     }
 

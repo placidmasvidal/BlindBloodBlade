@@ -39,6 +39,10 @@ public class Constants {
     // constant holding the size of the stretchable edges in the ground 9 patch
     public static final int GROUND_EDGE = 8;
 
+    //SPIKES
+    public static final String SPIKES_SPRITE = "spikes";
+    public static final Vector2 SPIKES_CENTER = new Vector2(7, 5);
+
 
 
 }

@@ -1,9 +1,11 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 
 public class Level {
     // Add a ninjaPlayer member variable
@@ -12,6 +14,9 @@ public class Level {
     // Add an Array of Grounds
     Array<Ground> grounds;
 
+    // Add an Array of Spikes
+    Array<Spikes> spikes;
+
     public Level(){
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer();
@@ -19,9 +24,17 @@ public class Level {
         // Initialize the ground array
         grounds = new Array<Ground>();
 
+        // Initialize the spikes array
+        spikes = new Array<Spikes>();
+
         // Add addDebugPlatforms
         addDebugGrounds();
+
+        //Add spikes
+        addSpikes();
     }
+
+
 
     /**
      * Update level and all components
@@ -43,8 +56,16 @@ public class Level {
         for(Ground ground : grounds){
             ground.render(batch);
         }
+
+        // Render all spikes
+        for(Spikes spike: spikes){
+            spike.render(batch);
+        }
+
+
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
+
         batch.end();
     }
 
@@ -61,7 +82,10 @@ public class Level {
 
         //grounds.add(new Ground(300, 150, 200, 60));
 
-
-
     }
+
+    private void addSpikes() {
+        spikes.add(new Spikes(new Vector2(200, 0)));
+    }
+
 }
