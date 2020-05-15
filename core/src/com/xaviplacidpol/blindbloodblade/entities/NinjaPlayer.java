@@ -97,6 +97,9 @@ public class NinjaPlayer extends Actor {
 
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
+
+                    // TODO moure automatic
+                    //moveRight(delta);
                 }
             }
         }
@@ -130,7 +133,7 @@ public class NinjaPlayer extends Actor {
         // TODO in Android
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             moveLeft(delta);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
             moveRight(delta);
         } else{
             walkState = WalkState.BLOCKED;
@@ -140,7 +143,7 @@ public class NinjaPlayer extends Actor {
     }
 
     /**
-     * Checks if ninjaPlayer is landed on or ground or maybe have his foots out the ground,
+     * Checks if ninjaPlayer is landed on ground or have his foots out the ground,
      * for example he maybe is falling to the spikes
      * @param ground
      * @return
@@ -154,8 +157,9 @@ public class NinjaPlayer extends Actor {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2;
-            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 2;
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 3.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 3.5f;
+
 
             // See if either of ninjaPlayer's toes are on the ground
             leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
@@ -270,8 +274,6 @@ public class NinjaPlayer extends Actor {
         } else if(walkState == WalkState.BLOCKED){
             region = Assets.instance.ninjaAssets.ninjaStatic;
         } else if(walkState == WalkState.WALKING){
-            //Before 2.2.10 (NO ANIMATION)
-            //region = Assets.instance.gigaGalAssets.walkingRight;
 
             // Calculate how long we've been walking in seconds
             float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
