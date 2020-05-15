@@ -11,7 +11,7 @@ public class Constants {
     // World
     public static final Color BACKGROUND_COLOR = Color.SKY;
     public static final float WORLD_SIZE = 480;
-    public static final float GRAVITY = 400;
+    public static final float GRAVITY = 500;
 
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
@@ -27,8 +27,8 @@ public class Constants {
     public static final float PLAYER_HEAD_HEIGHT = 23.0f;
     public static final float PLAYER_MOVE_SPEED = 200;
 
-    public static final float JUMP_SPEED = 300;
-    public static final float MAX_JUMP_DURATION = 0.1f;
+    public static final float JUMP_SPEED = 400;
+    public static final float MAX_JUMP_DURATION = 0.15f;
     public static final float WALK_LOOP_DURATION = 0.25f;
 
     //ninja sprites

@@ -81,6 +81,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public NinjaAssets(TextureAtlas atlas) {
+            //Retrieve ninja images from atlas file
             ninjaStatic = atlas.findRegion(Constants.NINJA_STATIC);
 
             ninjaJumping = atlas.findRegion(Constants.NINJA_JUMPING);
