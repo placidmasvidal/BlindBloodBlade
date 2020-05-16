@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
 
+    //Screen    16:9 will be extended as required
+    public static final float SCREEN_W = 512;
+    public static final float SCREEN_H = 288;
+
     // World
     public static final Color BACKGROUND_COLOR = Color.SKY;
     public static final float WORLD_SIZE = 480;
@@ -19,7 +23,7 @@ public class Constants {
 
 
     public static final String TEXTURE_ATLAS = "images/blindbloodblade.pack.atlas";
-
+//    public static final String TEXTURE_ATLAS = "images/bbbtextures.atlas";
     //PLAYER
     public static final Vector2 PLAYER_EYE_POSITION = new Vector2(16, 24);
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
@@ -43,5 +47,9 @@ public class Constants {
     public static final int GROUND_EDGE = 8;
 
 
-
+    //SPLASH SCREEN
+    //Background sprite
+    public static final String SPLASH_SPRITE = "background";
+    public static final String MAIN_TITLE = "Blind Blood Blade";
+    public static final float MAIN_TITLE_SCALE = 1.4f;
 }

@@ -10,14 +10,17 @@ import com.xaviplacidpol.blindbloodblade.screens.MenuScreen;
  */
 public class BlindBloodBlade extends Game {
 
+	private BaseScreen baseScreen;
+//	private MenuScreen menuScreen;
+
 	@Override
 	public void create() {
 
-
-//		menuScreen = new MenuScreen(this);
+		baseScreen = new BaseScreen(this);
+//		menuScreen = new MenuScreen(BaseScreen.game);
 //		this.setScreen(menuScreen);
 
-		setScreen(new GameScreen());
+//		setScreen(new GameScreen());
 
 	}
 

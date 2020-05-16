@@ -157,7 +157,7 @@ public class NinjaPlayer extends Actor {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 3.5f;
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 4.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 3.5f;
 
 

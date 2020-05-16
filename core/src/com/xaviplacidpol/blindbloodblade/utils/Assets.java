@@ -1,15 +1,17 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.xaviplacidpol.blindbloodblade.entities.Ground;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -29,6 +31,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public NinjaAssets ninjaAssets;
     public GroundAssets groundAssets;
 
+    public SplashScreenAssets splashScreenAssets;
 
     private AssetManager assetManager;
 
@@ -54,6 +57,7 @@ public class Assets implements Disposable, AssetErrorListener {
         //Initialize ninjaAssets, floorAssets
         ninjaAssets = new NinjaAssets(atlas);
         groundAssets = new GroundAssets(atlas);
+        splashScreenAssets = new SplashScreenAssets(atlas);
 
     }
 
@@ -117,5 +121,34 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
 
+    public class SplashScreenAssets {
 
+        public BitmapFont bbbattackfont;
+        public TextureAtlas.AtlasRegion backgroundRegion;
+//        public Image background;
+
+        public Texture bgTexture;
+
+        public SplashScreenAssets(TextureAtlas atlas){
+
+            FileHandle fontFile = Gdx.files.internal("fonts/bbbattack.fnt");
+            bbbattackfont = new BitmapFont(fontFile, true);
+            bbbattackfont.getData().setScale(Constants.MAIN_TITLE_SCALE);
+            //            bbbattackfont.getData().setScale(1.4f);
+ //           bbbattackfont.getData().setScale(1.6f);
+
+            backgroundRegion = atlas.findRegion(Constants.SPLASH_SPRITE);
+  //          background = new Image(region);
+
+  //          bgTexture = new Texture(Gdx.files.internal("images/unpacked/background.png"));
+//            background = new Image(bgTexture);
+/*            background.setPosition(0,0);
+            background.setWidth(600);
+            background.setHeight(480);
+*/
+        }
+
+
+
+    }
 }

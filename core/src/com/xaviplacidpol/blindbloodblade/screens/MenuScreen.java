@@ -3,9 +3,15 @@ package com.xaviplacidpol.blindbloodblade.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
+import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 
@@ -13,83 +19,88 @@ public class MenuScreen extends ScreenAdapter {
 
 
     private SpriteBatch batch;
-    private Texture btStart;
-    private float btStartPositionX;
-    private float btStartPositionY;
-    private Texture btScore;
-    private float btScorePositionX;
-    private float btScorePositionY;
+    private Stage stage;
 
-    private ExtendViewport viewport;
 
+    private BlindBloodBlade game;
+
+    private OrthographicCamera camera;
+    private StretchViewport viewport;
+
+//    public static BitmapFont bbbattackfont;
+
+    public Image background;
+
+    private GlyphLayout textLayout;
+
+    public MenuScreen(BlindBloodBlade game) {
+
+        this.game = game;
+
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
+        viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
+        stage = new Stage(viewport);
+        Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
+
+        background = new Image(Assets.instance.splashScreenAssets.backgroundRegion);
+/*
+        textLayout = new GlyphLayout();
+        textLayout.setText(Assets.instance.splashScreenAssets.bbbattackfont, Constants.MAIN_TITLE);
+*/
+
+    }
 
 
     @Override
     public void show() {
-        batch = new SpriteBatch();
-        viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
-        btStart = new Texture("btstart.png");
-
-//        btStartPositionX = 10;
-//        btStartPositionY = 10;
-
-        btScore = new Texture("btscore.png");
 
     }
 
     @Override
     public void render(float delta) {
-        viewport.apply();
-        //set background color and transparency
-        Gdx.gl.glClearColor(1,0,0,1);
-        //clean previous residual content from the bit buffer of the graphic card
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl20.glClearColor(0, 0, 0, 1);
 
+        update(delta);
 
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        background.setPosition(0, 0);
+        background.setWidth(Constants.SCREEN_W);
+        background.setHeight(Constants.SCREEN_H);
+        background.setHeight(300);
+        stage.addActor(background);
 
-        //batch start point, SpriteBatch will draw (or any other thing) to everything from begin to end
+        Label.LabelStyle textStyle = new Label.LabelStyle(Assets.instance.splashScreenAssets.bbbattackfont, null);
+        Label textLbl = new Label(Constants.MAIN_TITLE, textStyle);
+//        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
+        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight());
+        stage.addActor(textLbl);
+
+        stage.draw();
+
         batch.begin();
 
-        batch.draw(btStart, 30, 60, 120, 30);
-        batch.draw(btScore, 30, 30, 120, 30);
-
-
-//        //detect if any kind of input occurred over button zone
-//        if(Gdx.input.getX() < btStartPositionX + btStart.getWidth() && (BaseScreen.getScreenHeight() -
-//        Gdx.input.getY()) < btStartPositionY + btStart.getHeight() && BaseScreen.getScreenHeight()-Gdx.input.getY() > btStartPositionY){
-//
-//            //detect if an input (finger click) occurred, we're now inside button zone
-//            if(Gdx.input.isTouched()){
-//  //              batch.draw(btStart, btStartPositionX, btStartPositionY - (btStart.getHeight()/5), btStart.getWidth(), btStart.getHeight()+(btStart.getHeight()/4));
-//
-//                //destruct current screen
-//                this.dispose();
-//                //load a GameScreen instance
-//                game.setScreen(new GameScreen(game));
-//            }
-//
-//        }
-//
-//        if(Gdx.input.getX() < btScorePositionX + btScore.getWidth() && (BaseScreen.getScreenHeight() -
-//                Gdx.input.getY()) < btScorePositionY + btScore.getHeight() && BaseScreen.getScreenHeight()-Gdx.input.getY() > btScorePositionY) {
-//            Gdx.app.exit();
-//        }
-
+//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width/2+128f,stage.getHeight()-textLayout.height+256f);
+//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width+128f,stage.getHeight()-textLayout.height+64f);
+//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width,stage.getHeight()-textLayout.height);
+//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()/2f,stage.getHeight()/2f);
+//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()/2-textLayout.width/2,stage.getHeight()/2-textLayout.height/2);
         batch.end();
+    }
+
+    private void update(float delta) {
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        stage.getViewport().update(width, height, false);
     }
 
 
 
     @Override
     public void dispose() {
-        btScore.dispose();
-        btStart.dispose();
         batch.dispose();
+        stage.dispose();
     }
 }

@@ -74,9 +74,9 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         //Initialize the Assets instance
-        AssetManager am = new AssetManager();
+/*        AssetManager am = new AssetManager();
         Assets.instance.init(am);
-
+*/
         // Initialize Level
         level = new Level();
 
