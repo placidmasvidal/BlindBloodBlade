@@ -125,27 +125,22 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public BitmapFont bbbattackfont;
         public TextureAtlas.AtlasRegion backgroundRegion;
-//        public Image background;
+        public TextureAtlas.AtlasRegion startButtonRegion;
+        public TextureAtlas.AtlasRegion scoreButtonRegion;
 
-        public Texture bgTexture;
+//        public Texture bgTexture;
 
         public SplashScreenAssets(TextureAtlas atlas){
 
             FileHandle fontFile = Gdx.files.internal("fonts/bbbattack.fnt");
             bbbattackfont = new BitmapFont(fontFile, true);
             bbbattackfont.getData().setScale(Constants.MAIN_TITLE_SCALE);
-            //            bbbattackfont.getData().setScale(1.4f);
- //           bbbattackfont.getData().setScale(1.6f);
 
             backgroundRegion = atlas.findRegion(Constants.SPLASH_SPRITE);
-  //          background = new Image(region);
+            startButtonRegion = atlas.findRegion((Constants.START_BUTTON));
+            scoreButtonRegion = atlas.findRegion((Constants.SCORE_BUTTON));
 
-  //          bgTexture = new Texture(Gdx.files.internal("images/unpacked/background.png"));
-//            background = new Image(bgTexture);
-/*            background.setPosition(0,0);
-            background.setWidth(600);
-            background.setHeight(480);
-*/
+
         }
 
 

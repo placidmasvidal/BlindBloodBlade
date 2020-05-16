@@ -52,4 +52,7 @@ public class Constants {
     public static final String SPLASH_SPRITE = "background";
     public static final String MAIN_TITLE = "Blind Blood Blade";
     public static final float MAIN_TITLE_SCALE = 1.4f;
+    public static final String START_BUTTON = "btstart";
+    public static final String SCORE_BUTTON = "btscore";
+
 }
