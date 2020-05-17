@@ -2,17 +2,20 @@ package com.xaviplacidpol.blindbloodblade.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-public class NinjaPlayer extends Actor {
+public class NinjaPlayer extends InputAdapter {
     public final static String TAG = NinjaPlayer.class.getName();
 
     //Attributes
@@ -35,7 +38,13 @@ public class NinjaPlayer extends Actor {
     //long number to control walking time
     long walkStartTime;
 
-    public NinjaPlayer(){
+    //Viewport with the cam view
+    Viewport viewport;
+
+    //Vector3 with the touched position
+    Vector3 touchPosition;
+
+    public NinjaPlayer(){ //Contructor no utilitzat
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
 
@@ -51,6 +60,64 @@ public class NinjaPlayer extends Actor {
         // Initialize walkState to Standing
         walkState = WalkState.BLOCKED;
     }
+
+    //NinjaPlayer Constructor with viewport
+    public NinjaPlayer(Viewport viewport){
+        this.viewport = viewport;
+        // Initialize NinjaPlayer position with his height
+        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+
+        // Initialize a new Vector2 for lastFramePosition
+        lastFramePosition = new Vector2(position);
+
+        // Initialize velocity (quiet)
+        velocity = new Vector2();
+
+        // Initialize jumpState to falling
+        jumpState = JumpState.FALLING;
+
+        // Initialize walkState to Standing
+        walkState = WalkState.BLOCKED;
+
+        // Initialize touchPosition (empty)
+        touchPosition = new Vector3();
+    }
+
+
+    //TODO provisional touch meitat pantalla esquerra per saltar, meitat dreta per atacar, modificar quan tinguem camera
+    @Override
+    /**
+     * Get touchPosition, verify what side of the screen was touched,
+     * if left side touched then execute jump(),
+     * if right side touched then execute atack()
+     */
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        //Unproject the actual view of the Camera
+        viewport.getCamera().unproject(touchPosition.set(Gdx.input.getX(),Gdx.input.getY(), 0));
+
+        if(touchPosition.x < viewport.getCamera().viewportWidth / 2) { //Half right of the screen touched
+            // Add a switch statement. If the jump key is pressed and player is GROUNDED, then startJump()
+            // If she's JUMPING, then continueJump()
+            // If she's falling, then don't do anything
+            switch (jumpState){
+                case GROUNDED:
+                    startJump();
+                    break;
+                case JUMPING:
+                    continueJump();
+                    break;
+                case FALLING:
+                    break;
+            }
+        }else{
+            //TODO ATTACK when touched the right half of the screen
+        }
+            return true;
+
+    }
+
+
 
     /**
      * Update our ninja every frame
@@ -113,9 +180,9 @@ public class NinjaPlayer extends Actor {
             // If she's JUMPING, then continueJump()
             // If she's falling, then don't do anything
             switch (jumpState){
-                case GROUNDED:
-                    startJump();
-                    break;
+//                case GROUNDED:
+//                    startJump();
+//                    break;
                 case JUMPING:
                     continueJump();
                     break;
@@ -130,7 +197,7 @@ public class NinjaPlayer extends Actor {
 
         // Moving left, right or standing quiet
         // check if the left/right arrow keys are pressed
-        // TODO in Android
+        // TODO in Android AUTO RUN
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             moveLeft(delta);
         }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
@@ -205,6 +272,8 @@ public class NinjaPlayer extends Actor {
         position.x -= delta * Constants.PLAYER_MOVE_SPEED;
 
     }
+
+
 
     /**
      * startJump()

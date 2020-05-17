@@ -77,14 +77,16 @@ public class GameScreen extends ScreenAdapter {
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
 
+        // Initialize the viewport
+        viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+
         // Initialize Level
-        level = new Level();
+        level = new Level(viewport);
 
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
-        // Initialize the viewport
-        viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+
 
     }
 

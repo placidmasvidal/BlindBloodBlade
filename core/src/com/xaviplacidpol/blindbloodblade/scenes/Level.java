@@ -1,8 +1,10 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
@@ -16,6 +18,8 @@ public class Level {
 
     // Add an Array of Spikes
     Array<Spikes> spikes;
+
+    Viewport viewport;
 
     public Level(){
         // Initialize NinjaPlayer
@@ -32,6 +36,24 @@ public class Level {
 
         //Add spikes
         addSpikes();
+    }
+    public Level(Viewport viewport){
+        // Initialize NinjaPlayer
+        ninjaPlayer = new NinjaPlayer(viewport);
+
+        // Initialize the ground array
+        grounds = new Array<Ground>();
+
+        // Initialize the spikes array
+        spikes = new Array<Spikes>();
+
+        // Add addDebugPlatforms
+        addDebugGrounds();
+
+        //Add spikes
+        addSpikes();
+
+        Gdx.input.setInputProcessor(ninjaPlayer);
     }
 
 
