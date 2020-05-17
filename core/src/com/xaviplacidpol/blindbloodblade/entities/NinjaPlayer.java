@@ -113,7 +113,8 @@ public class NinjaPlayer extends InputAdapter {
         }else{
             //TODO ATTACK when touched the right half of the screen
         }
-            return true;
+
+        return true;
 
     }
 
