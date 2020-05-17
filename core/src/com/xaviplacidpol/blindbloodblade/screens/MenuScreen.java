@@ -89,7 +89,9 @@ public class MenuScreen extends ScreenAdapter {
 //        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
         textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
 
-        startButton.setPosition(128, 50);
+        startButton.setPosition(196, 80);
+        startButton.setWidth(128);
+        startButton.setHeight(64);
         startButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -97,7 +99,9 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
 
-        scoreButton.setPosition(128, startButton.getY()-startButton.getHeight()/2 - 15f);
+        scoreButton.setPosition(196, startButton.getY()-startButton.getHeight()/2 - 32f);
+        scoreButton.setWidth(128);
+        scoreButton.setHeight(64);
         scoreButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
