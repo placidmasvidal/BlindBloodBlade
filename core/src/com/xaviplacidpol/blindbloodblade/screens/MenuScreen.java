@@ -79,24 +79,13 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void setStageContent() {
-        background.setPosition(0, 0);
-        background.setWidth(Constants.SCREEN_W);
-        background.setHeight(Constants.SCREEN_H);
-        background.setHeight(300);
+        setBackground();
+        setTitle();
+        setStartButton();
+        setScoreButton();
+    }
 
-
-
-//        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
-        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
-
-        startButton.setPosition(128, 50);
-        startButton.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen());
-            }
-        });
-
+    private void setScoreButton() {
         scoreButton.setPosition(128, startButton.getY()-startButton.getHeight()/2 - 10f);
         scoreButton.addCaptureListener(new ChangeListener() {
             @Override
@@ -104,6 +93,28 @@ public class MenuScreen extends ScreenAdapter {
                 game.setScreen(new ScoreScreen(game));
             }
         });
+    }
+
+    private void setStartButton() {
+        startButton.setPosition(128, 50);
+        startButton.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new GameScreen());
+            }
+        });
+    }
+
+    private void setTitle() {
+        //        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
+        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
+    }
+
+    private void setBackground() {
+        background.setPosition(0, 0);
+        background.setWidth(Constants.SCREEN_W);
+        background.setHeight(Constants.SCREEN_H);
+        background.setHeight(300);
     }
 
     private void addContentToStage() {
