@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
+import java.awt.Event;
+
 public class NinjaPlayer extends Actor {
     public final static String TAG = NinjaPlayer.class.getName();
 
@@ -157,8 +159,8 @@ public class NinjaPlayer extends Actor {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 3.5f;
-            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 3.5f;
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
 
             // See if either of ninjaPlayer's toes are on the ground

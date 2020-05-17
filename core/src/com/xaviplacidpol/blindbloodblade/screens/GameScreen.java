@@ -6,9 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
+import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 
@@ -70,6 +70,9 @@ public class GameScreen extends ScreenAdapter {
     // Add an ExtendViewport
     ExtendViewport viewport;
 
+    // Add the Cam
+    Cam cam;
+
 
     @Override
     public void show() {
@@ -77,8 +80,8 @@ public class GameScreen extends ScreenAdapter {
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
 
-        // Initialize Level
-        level = new Level();
+        // Initialize the cam
+        cam = new Cam();
 
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
@@ -86,6 +89,8 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the viewport
         viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
 
+        // Configure the cam
+        setCam();
     }
 
     /**
@@ -110,6 +115,8 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         // Level update
         level.update(delta);
+        // Apply the cam
+        cam.update(delta);
         // Apply the viewport
         viewport.apply();
 
@@ -123,6 +130,16 @@ public class GameScreen extends ScreenAdapter {
         // Render the level
         level.render(batch);
 
+    }
+
+    /**
+     * Configure the cam
+     */
+    private void setCam() {
+        level = new Level(viewport);
+        cam.camera = level.viewport.getCamera();
+        cam.target = level.getNinjaPlayer();
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
 

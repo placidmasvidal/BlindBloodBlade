@@ -28,10 +28,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public NinjaAssets ninjaAssets;
     public GroundAssets groundAssets;
-
     public SpikesAssets spikesAssets;
-
-
+    public BridgeAssets bridgeAssets;
     private AssetManager assetManager;
 
     private Assets() {
@@ -57,6 +55,7 @@ public class Assets implements Disposable, AssetErrorListener {
         ninjaAssets = new NinjaAssets(atlas);
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
+        bridgeAssets = new BridgeAssets(atlas);
 
     }
 
@@ -129,6 +128,19 @@ public class Assets implements Disposable, AssetErrorListener {
         public SpikesAssets(TextureAtlas atlas) {
             // Find the spikes atlas region
             spike = atlas.findRegion(Constants.SPIKES_SPRITE);
+        }
+    }
+
+    /**
+     * Build bridges
+     */
+    public class BridgeAssets {
+        // Add an AtlasRegion to hold the bridges sprite
+        public final TextureAtlas.AtlasRegion bridge;
+
+        public BridgeAssets(TextureAtlas atlas) {
+            // Find the bridges atlas region
+            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
         }
     }
 
