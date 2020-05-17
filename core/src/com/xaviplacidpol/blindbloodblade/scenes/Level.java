@@ -74,12 +74,12 @@ public class Level {
         }
 
         // Render all spikes
-        for(Spikes spike: spikes){
+        for(Spikes spike : spikes){
             spike.render(batch);
         }
 
         // Render all bridges
-        for(Bridges bridge: bridges){
+        for(Bridges bridge : bridges){
             bridge.render(batch);
         }
 
