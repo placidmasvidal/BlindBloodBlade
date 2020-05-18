@@ -50,7 +50,6 @@ public class Constants {
     //SPIKES
     public static final String SPIKES_SPRITE = "spikes";
 
-
     //BRIDGES
     public static final String BRIDGE_SPRITE = "bridge";
 

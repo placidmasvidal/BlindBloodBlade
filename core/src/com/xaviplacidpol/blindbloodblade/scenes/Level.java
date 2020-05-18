@@ -26,28 +26,6 @@ public class Level {
     // TODO
     public Viewport viewport;
 
-    /*public Level(){
-
-        // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer();
-
-        // Initialize the ground array
-        grounds = new Array<Ground>();
-
-        // Initialize the spikes array
-        spikes = new Array<Spikes>();
-
-        // Initialize the bridges array
-        bridges = new Array<Bridges>();
-
-        // Add addDebugPlatforms
-        addDebugGrounds();
-
-        //Add spikes
-        addSpikes();
-
-    }*/
-
     public Level(Viewport viewport){
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport);

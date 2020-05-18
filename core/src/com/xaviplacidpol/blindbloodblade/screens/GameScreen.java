@@ -14,51 +14,6 @@ import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 public class GameScreen extends ScreenAdapter {
 
-//    private BlindBloodBlade game;
-//
-//    public GameScreen(BlindBloodBlade game) {
-//        super(game);
-//
-//        this.game = game;
-//    }
-//
-//    @Override
-//    public void show() {
-//        super.show();
-//    }
-//
-//    @Override
-//    public void render(float delta) {
-//        Gdx.gl.glClearColor(0,0,1,1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//    }
-//
-//    @Override
-//    public void resize(int width, int height) {
-//        super.resize(width, height);
-//    }
-//
-//    @Override
-//    public void pause() {
-//        super.pause();
-//    }
-//
-//    @Override
-//    public void resume() {
-//        super.resume();
-//    }
-//
-//    @Override
-//    public void hide() {
-//        super.hide();
-//    }
-//
-//    @Override
-//    public void dispose() {
-//        super.dispose();
-//
-//    }
-
     public static final String TAG = GameScreen.class.getName();
 
     // Add a level
@@ -83,9 +38,6 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the viewport
         viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
 
-        // Initialize the viewport
-        viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
-
         // Initialize the cam
         cam = new Cam();
 
@@ -94,8 +46,6 @@ public class GameScreen extends ScreenAdapter {
 
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
-
-
 
         // Configure the cam
         setCam();
