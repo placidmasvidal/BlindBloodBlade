@@ -26,7 +26,6 @@ public class Ground {
      */
     public void render(SpriteBatch batch) {
 
-
         float width = right - left;
         float height = top - bottom;
 
