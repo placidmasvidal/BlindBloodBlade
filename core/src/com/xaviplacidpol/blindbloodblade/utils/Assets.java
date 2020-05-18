@@ -1,10 +1,13 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
@@ -30,6 +33,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
     public BridgeAssets bridgeAssets;
+    public SplashScreenAssets splashScreenAssets;
     private AssetManager assetManager;
 
     private Assets() {
@@ -56,6 +60,8 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
+        splashScreenAssets = new SplashScreenAssets(atlas);
+
 
     }
 
@@ -144,6 +150,26 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    public class SplashScreenAssets {
+
+        public BitmapFont bbbattackfont;
+        public TextureAtlas.AtlasRegion backgroundRegion;
+        public TextureAtlas.AtlasRegion startButtonRegion;
+        public TextureAtlas.AtlasRegion scoreButtonRegion;
+
+//        public Texture bgTexture;
+
+        public SplashScreenAssets(TextureAtlas atlas){
+
+            FileHandle fontFile = Gdx.files.internal("fonts/bbbattack.fnt");
+            bbbattackfont = new BitmapFont(fontFile, true);
+            bbbattackfont.getData().setScale(Constants.MAIN_TITLE_SCALE);
+            backgroundRegion = atlas.findRegion(Constants.SPLASH_SPRITE);
+            startButtonRegion = atlas.findRegion((Constants.START_BUTTON));
+            scoreButtonRegion = atlas.findRegion((Constants.SCORE_BUTTON));
+        }
 
 
+
+    }
 }
