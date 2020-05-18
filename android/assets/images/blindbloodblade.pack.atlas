@@ -1,5 +1,5 @@
 
-blindbloodblade.png
+blindbloodblade.pack.png
 size: 2048,2048
 format: RGBA8888
 filter: Nearest,Nearest
@@ -104,21 +104,21 @@ ninjabloody
   index: -1
 ninjajump
   rotate: false
-  xy: 1310, 1274
+  xy: 1070, 792
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjastatic
   rotate: false
-  xy: 964, 662
-  size: 60, 128
-  orig: 60, 128
+  xy: 1310, 1274
+  size: 56, 128
+  orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk
   rotate: false
-  xy: 1070, 792
+  xy: 964, 662
   size: 60, 128
   orig: 60, 128
   offset: 0, 0

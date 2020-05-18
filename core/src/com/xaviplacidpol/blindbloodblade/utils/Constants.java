@@ -59,4 +59,11 @@ public class Constants {
     public static final String START_BUTTON = "btstart";
     public static final String SCORE_BUTTON = "btscore";
 
+    //SCORE SCREEN
+    public static final String SCORE = "SCORE";
+    public static final float SCORE_SCREEN_SCALE = 1.0f;
+    public static final float SCORES_SCREEN_SCALE = 0.5f;
+    public static final String BACK_BUTTON = "backicon";
+
+
 }

@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -31,10 +31,7 @@ public class MenuScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private StretchViewport viewport;
 
-//    public static BitmapFont bbbattackfont;
-
     private Image background;
-    //    private Image startImg;
     private Drawable drawable;
     private ImageButton startButton;
     private ImageButton scoreButton;

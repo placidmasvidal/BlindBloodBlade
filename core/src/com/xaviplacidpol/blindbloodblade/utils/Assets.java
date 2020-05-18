@@ -5,14 +5,12 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.xaviplacidpol.blindbloodblade.entities.Ground;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -35,6 +33,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
     public SplashScreenAssets splashScreenAssets;
+    public ScoreScreenAssets scoreScreenAssets;
 
     private AssetManager assetManager;
 
@@ -62,6 +61,7 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
+        scoreScreenAssets = new ScoreScreenAssets(atlas);
 
     }
 
@@ -159,7 +159,28 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
 
+    }
 
+    public class ScoreScreenAssets {
+
+        public BitmapFont bbbscorefont;
+        public BitmapFont bbbscoresfont;
+        public TextureAtlas.AtlasRegion backButtonRegion;
+
+        public ScoreScreenAssets(TextureAtlas atlas){
+
+            backButtonRegion = atlas.findRegion(Constants.BACK_BUTTON);
+
+            FileHandle font = Gdx.files.internal(("fonts/bbbscorefontorangeyellowoutline.fnt"));
+            bbbscorefont = new BitmapFont(font, false);
+            bbbscorefont.getData().setScale(Constants.SCORE_SCREEN_SCALE);
+
+            font = Gdx.files.internal(("fonts/bbbscorefontorangeyellowoutline.fnt"));
+            bbbscoresfont = new BitmapFont(font, false);
+            bbbscoresfont.getData().setScale(Constants.SCORES_SCREEN_SCALE);
+
+        }
 
     }
+
 }
