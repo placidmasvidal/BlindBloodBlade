@@ -25,13 +25,13 @@ public class BlindBloodBlade extends Game {
 	public void create() {
 
 		gameData = Gdx.app.getPreferences("bbbdata");
-		scoresSet = new HashSet<>();
+/*		scoresSet = new HashSet<>();
 		scoresSet.add(19282);
 		scoresSet.add(17384);
 		scoresSet.add(19280);
 		scoresSet.add(21919);
 		scoresSet.add(26738);
-
+*/
 		baseScreen = new BaseScreen(this);
 
 	}
@@ -39,12 +39,12 @@ public class BlindBloodBlade extends Game {
 
 	@Override
 	public void dispose() {
-        int i = 1;
+/*        int i = 1;
         for(Integer score : scoresSet){
 			gameData.putInteger("score"+i, score);
             i++;
         }
-			gameData.flush();
+			gameData.flush();*/
     }
 
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.entities.Bridges;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
@@ -18,11 +19,12 @@ import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import java.util.HashSet;
 import java.util.Set;
 
-//import static com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData;
 
 public class Level implements Disposable {
 
-//    private Set<Integer> scoresSet;
+    private BlindBloodBlade game;
+
+    private Set<Integer> scoresSet;
 
     // Add a ninjaPlayer member variable
     NinjaPlayer ninjaPlayer;
@@ -42,15 +44,16 @@ public class Level implements Disposable {
     Array<Enemy> enemies;
 
 
-    public Level(Viewport viewport){
+    public Level(Viewport viewport, BlindBloodBlade game){
 
-/*        scoresSet = new HashSet<>();
-        scoresSet.add(19282);
-        scoresSet.add(17384);
-        scoresSet.add(19280);
-        scoresSet.add(21919);
-        scoresSet.add(26738);
-*/
+        this.game = game;
+        scoresSet = new HashSet<>();
+        scoresSet.add(19286);
+        scoresSet.add(17388);
+        scoresSet.add(19281);
+        scoresSet.add(21990);
+        scoresSet.add(26722);
+
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport);
 
@@ -126,6 +129,7 @@ public class Level implements Disposable {
         ninjaPlayer.render(batch);
 
         batch.end();
+        dispose();
     }
 
     /**
@@ -160,11 +164,11 @@ public class Level implements Disposable {
 
     @Override
     public void dispose() {
-/*        int i = 1;
+        int i = 1;
         for(Integer score : scoresSet){
-            com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData.putInteger("score"+i, score);
+            game.gameData.putInteger("score"+i, score);
             i++;
         }
-        com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData.flush();
-*/    }
+        game.gameData.flush();
+    }
 }
