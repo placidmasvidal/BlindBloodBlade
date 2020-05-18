@@ -31,10 +31,15 @@ public class Cam {
      * @param delta the time span between the current frame and the last frame in seconds.
      */
     public void update(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            camera.position.x -= delta * Constants.PLAYER_MOVE_SPEED;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
-        }
+        camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
+        //TODO remove
+//        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+//            camera.position.x -= delta * Constants.PLAYER_MOVE_SPEED;
+//        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+//            camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
+//        }
+
+
+
     }
 }

@@ -49,24 +49,10 @@ public class NinjaPlayer extends InputAdapter {
     //Vector3 with the touched position
     Vector3 touchPosition;
 
-    public NinjaPlayer(){ //Contructor no utilitzat
-        // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+    //Boolean control if player is alive
+    boolean isAlive;
 
-        // Initialize a new Vector2 for lastFramePosition
-        lastFramePosition = new Vector2(position);
-
-        // Initialize velocity (quiet)
-        velocity = new Vector2();
-
-        // Initialize jumpState to falling
-        jumpState = JumpState.FALLING;
-
-        // Initialize walkState to Standing
-        walkState = WalkState.BLOCKED;
-    }
-
-    //NinjaPlayer Constructor with viewport
+    //NinjaPlayer
     public NinjaPlayer(Viewport viewport){
         this.viewport = viewport;
         // Initialize NinjaPlayer position with his height
@@ -87,8 +73,18 @@ public class NinjaPlayer extends InputAdapter {
         // Initialize touchPosition (empty)
         touchPosition = new Vector3();
 
+        //Player is alive
+        isAlive = true;
+
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 
     //TODO provisional touch meitat pantalla esquerra per saltar, meitat dreta per atacar, modificar quan tinguem camera
     @Override
@@ -199,16 +195,18 @@ public class NinjaPlayer extends InputAdapter {
             endJump();
         }
 
-        // Moving left, right or standing quiet
+        // Moving right automatic
         // check if the left/right arrow keys are pressed
+        moveRight(delta);
+
         // TODO in Android AUTO RUN
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            moveLeft(delta);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-            moveRight(delta);
-        } else{
-            walkState = WalkState.BLOCKED;
-        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+//            moveLeft(delta);
+//        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
+//            moveRight(delta);
+//        } else{
+//            walkState = WalkState.BLOCKED;
+//        }
 
 
     }
