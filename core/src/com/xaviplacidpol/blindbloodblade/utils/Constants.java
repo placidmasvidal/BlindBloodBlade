@@ -15,7 +15,8 @@ public class Constants {
     // World
     public static final Color BACKGROUND_COLOR = Color.SKY;
     public static final float WORLD_SIZE = 480;
-    public static final float GRAVITY = 500;
+    public static final float GRAVITY = 700;
+    public static final float CHASE_CAM_MOVE_SPEED = WORLD_SIZE;
 
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
@@ -48,8 +49,9 @@ public class Constants {
 
     //SPIKES
     public static final String SPIKES_SPRITE = "spikes";
-    public static final Vector2 SPIKES_CENTER = new Vector2(7, 5);
 
+    //BRIDGES
+    public static final String BRIDGE_SPRITE = "bridge";
 
     //SPLASH SCREEN
     //Background sprite

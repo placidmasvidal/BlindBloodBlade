@@ -3,6 +3,7 @@ package com.xaviplacidpol.blindbloodblade.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -13,9 +14,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
+import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import java.awt.Event;
 
 public class NinjaPlayer extends InputAdapter {
+
+
     public final static String TAG = NinjaPlayer.class.getName();
 
     //Attributes
@@ -81,6 +86,7 @@ public class NinjaPlayer extends InputAdapter {
 
         // Initialize touchPosition (empty)
         touchPosition = new Vector3();
+
     }
 
 
@@ -93,10 +99,7 @@ public class NinjaPlayer extends InputAdapter {
      */
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        //Unproject the actual view of the Camera
-        viewport.getCamera().unproject(touchPosition.set(Gdx.input.getX(),Gdx.input.getY(), 0));
-
-        if(touchPosition.x < viewport.getCamera().viewportWidth / 2) { //Half right of the screen touched
+        if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){ //Half left of the screen touched
             // Add a switch statement. If the jump key is pressed and player is GROUNDED, then startJump()
             // If she's JUMPING, then continueJump()
             // If she's falling, then don't do anything
@@ -225,8 +228,8 @@ public class NinjaPlayer extends InputAdapter {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 3.5f;
-            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 3.5f;
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
 
             // See if either of ninjaPlayer's toes are on the ground

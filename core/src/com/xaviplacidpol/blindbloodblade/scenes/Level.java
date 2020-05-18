@@ -1,13 +1,16 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.entities.Bridges;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
+import com.xaviplacidpol.blindbloodblade.utils.Cam;
 
 public class Level {
     // Add a ninjaPlayer member variable
@@ -19,24 +22,14 @@ public class Level {
     // Add an Array of Spikes
     Array<Spikes> spikes;
 
-    Viewport viewport;
+    public Viewport viewport;
 
-    public Level(){
-        // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer();
+    // Add an Array of Bridges
+    Array<Bridges> bridges;
 
-        // Initialize the ground array
-        grounds = new Array<Ground>();
+    public Cam cam;
 
-        // Initialize the spikes array
-        spikes = new Array<Spikes>();
 
-        // Add addDebugPlatforms
-        addDebugGrounds();
-
-        //Add spikes
-        addSpikes();
-    }
     public Level(Viewport viewport){
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport);
@@ -47,6 +40,9 @@ public class Level {
         // Initialize the spikes array
         spikes = new Array<Spikes>();
 
+        // Initialize the bridges array
+        bridges = new Array<Bridges>();
+
         // Add addDebugPlatforms
         addDebugGrounds();
 
@@ -54,9 +50,16 @@ public class Level {
         addSpikes();
 
         Gdx.input.setInputProcessor(ninjaPlayer);
+
+        //Add bridges
+        addBridges();
+
+        //TODO
+        this.viewport = viewport;
+
+        //cam = new Cam();
+
     }
-
-
 
     /**
      * Update level and all components
@@ -80,10 +83,14 @@ public class Level {
         }
 
         // Render all spikes
-        for(Spikes spike: spikes){
+        for(Spikes spike : spikes){
             spike.render(batch);
         }
 
+        // Render all bridges
+        for(Bridges bridge : bridges){
+            bridge.render(batch);
+        }
 
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
@@ -98,16 +105,22 @@ public class Level {
      */
     private void addDebugGrounds(){
         // TODO:  Add here all grounds in the level
-        grounds.add(new Ground(0, 40, 200, 60));
-
-        grounds.add(new Ground(275, 40, 100, 60));
-
-        //grounds.add(new Ground(300, 150, 200, 60));
+        grounds.add(new Ground(0, 40, 400, 40));
+        grounds.add(new Ground(541, 40, 400, 40));
+        //grounds.add(new Ground(461, 40, 200, 60));
 
     }
 
     private void addSpikes() {
-        spikes.add(new Spikes(new Vector2(200, 0)));
+        spikes.add(new Spikes(new Vector2(401, 0)));
+        spikes.add(new Spikes(new Vector2(471, 0)));
     }
 
+    private void addBridges() {
+        bridges.add(new Bridges(new Vector2(999, 0)));
+    }
+
+    public NinjaPlayer getNinjaPlayer() {
+        return ninjaPlayer;
+    }
 }
