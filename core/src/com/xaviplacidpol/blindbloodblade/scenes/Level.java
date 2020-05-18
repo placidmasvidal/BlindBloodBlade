@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.xaviplacidpol.blindbloodblade.entities.Bridges;
+import com.xaviplacidpol.blindbloodblade.entities.Bridge;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
@@ -21,7 +21,7 @@ public class Level {
     Array<Spikes> spikes;
 
     // Add an Array of Spikes
-    Array<Bridges> bridges;
+    Array<Bridge> bridges;
 
     // TODO
     public Viewport viewport;
@@ -40,7 +40,7 @@ public class Level {
         addDebugGrounds();
 
         // Initialize the bridges array
-        bridges = new Array<Bridges>();
+        bridges = new Array<Bridge>();
 
         //Add spikes
         addSpikes();
@@ -60,7 +60,7 @@ public class Level {
      */
     public void update(float delta){
         // Update NinjaPlayer
-        ninjaPlayer.update(delta, grounds);
+        ninjaPlayer.update(delta, grounds, bridges);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Level {
         }
 
         // Render all bridges
-        for(Bridges bridge : bridges){
+        for(Bridge bridge : bridges){
             bridge.render(batch);
         }
 
@@ -110,7 +110,7 @@ public class Level {
     }
 
     private void addBridges() {
-        bridges.add(new Bridges(new Vector2(999, 0)));
+        bridges.add(new Bridge(999, 100, 50, 50));
     }
 
     public NinjaPlayer getNinjaPlayer() {

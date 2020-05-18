@@ -52,6 +52,7 @@ public class Constants {
 
     //BRIDGES
     public static final String BRIDGE_SPRITE = "bridge";
+    public static final int BRIDGE_EDGE = 8;
 
     //SPLASH SCREEN
     //Background sprite
