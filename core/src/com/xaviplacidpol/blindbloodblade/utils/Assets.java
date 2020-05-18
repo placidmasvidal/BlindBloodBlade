@@ -31,9 +31,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
 
-
+    public BridgeAssets bridgeAssets;
     public SplashScreenAssets splashScreenAssets;
+<<<<<<< HEAD
     public ScoreScreenAssets scoreScreenAssets;
+=======
+    public EnemyAssets enemyAssets;
+>>>>>>> origin/pol
 
     private AssetManager assetManager;
 
@@ -41,9 +45,9 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     /**
-     *
      * Initialize assetManager
      * Load and initialize assets
+     *
      * @param assetManager
      */
     public void init(AssetManager assetManager) {
@@ -60,8 +64,13 @@ public class Assets implements Disposable, AssetErrorListener {
         ninjaAssets = new NinjaAssets(atlas);
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
+        bridgeAssets = new BridgeAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
+<<<<<<< HEAD
         scoreScreenAssets = new ScoreScreenAssets(atlas);
+=======
+        enemyAssets = new EnemyAssets(atlas);
+>>>>>>> origin/pol
 
     }
 
@@ -85,7 +94,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion ninjaWalking;
 
         public final Animation ninjaWalkingAnimation;
-
 
 
         public NinjaAssets(TextureAtlas atlas) {
@@ -115,7 +123,7 @@ public class Assets implements Disposable, AssetErrorListener {
         // Build NinePatch member for the ground
         public final NinePatch groundNinePatch;
 
-        public GroundAssets(TextureAtlas atlas){
+        public GroundAssets(TextureAtlas atlas) {
             // Find the AtlasRegion holding the platform
             TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.GROUND_SPRITE);
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
@@ -127,7 +135,7 @@ public class Assets implements Disposable, AssetErrorListener {
     /**
      * Build spikes
      */
-    public class SpikesAssets{
+    public class SpikesAssets {
         // Add an AtlasRegion to hold the spikes sprite
         public final TextureAtlas.AtlasRegion spike;
 
@@ -146,7 +154,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 //        public Texture bgTexture;
 
-        public SplashScreenAssets(TextureAtlas atlas){
+        public SplashScreenAssets(TextureAtlas atlas) {
 
             FileHandle fontFile = Gdx.files.internal("fonts/bbbattack.fnt");
             bbbattackfont = new BitmapFont(fontFile, true);
@@ -158,7 +166,15 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         }
+    }
+    /**
+     * Build bridges
+     */
+    public class BridgeAssets {
+        // Add an AtlasRegion to hold the bridges sprite
+        public final TextureAtlas.AtlasRegion bridge;
 
+<<<<<<< HEAD
     }
 
     public class ScoreScreenAssets {
@@ -180,7 +196,31 @@ public class Assets implements Disposable, AssetErrorListener {
             bbbscoresfont.getData().setScale(Constants.SCORES_SCREEN_SCALE);
 
         }
-
+=======
+        public BridgeAssets(TextureAtlas atlas) {
+            // Find the bridges atlas region
+            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+        }
     }
 
+    /**
+     * Build enemies
+     */
+    public class EnemyAssets {
+        // Add an AtlasRegion to hold the spikes sprite
+        public final TextureAtlas.AtlasRegion samuraistatic;
+>>>>>>> origin/pol
+
+        public EnemyAssets(TextureAtlas atlas) {
+            // Find the samuraistatic atlas region
+            samuraistatic = atlas.findRegion(Constants.ENEMY_SPRITE);
+        }
+    }
+
+<<<<<<< HEAD
 }
+=======
+}
+
+
+>>>>>>> origin/pol
