@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -31,10 +31,7 @@ public class MenuScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private StretchViewport viewport;
 
-//    public static BitmapFont bbbattackfont;
-
     private Image background;
-//    private Image startImg;
     private Drawable drawable;
     private ImageButton startButton;
     private ImageButton scoreButton;
@@ -79,42 +76,35 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void setStageContent() {
-        setBackground();
-        setTitle();
-        setStartButton();
-        setScoreButton();
-    }
+        background.setPosition(0, 0);
+        background.setWidth(Constants.SCREEN_W);
+        background.setHeight(Constants.SCREEN_H);
+        background.setHeight(300);
 
-    private void setScoreButton() {
-        scoreButton.setPosition(128, startButton.getY()-startButton.getHeight()/2 - 10f);
-        scoreButton.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new ScoreScreen(game));
-            }
-        });
-    }
 
-    private void setStartButton() {
-        startButton.setPosition(128, 50);
+
+//        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
+        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
+
+        startButton.setPosition(196, 80);
+        startButton.setWidth(128);
+        startButton.setHeight(64);
         startButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen());
             }
         });
-    }
 
-    private void setTitle() {
-        //        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
-        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
-    }
-
-    private void setBackground() {
-        background.setPosition(0, 0);
-        background.setWidth(Constants.SCREEN_W);
-        background.setHeight(Constants.SCREEN_H);
-        background.setHeight(300);
+        scoreButton.setPosition(196, startButton.getY()-startButton.getHeight()/2 - 32f);
+        scoreButton.setWidth(128);
+        scoreButton.setHeight(64);
+        scoreButton.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new ScoreScreen(game));
+            }
+        });
     }
 
     private void addContentToStage() {
@@ -148,6 +138,7 @@ public class MenuScreen extends ScreenAdapter {
 
         update(delta);
 
+        update(delta);
 
 
 

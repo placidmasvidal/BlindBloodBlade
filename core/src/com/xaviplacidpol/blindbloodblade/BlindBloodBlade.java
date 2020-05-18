@@ -1,6 +1,8 @@
 package com.xaviplacidpol.blindbloodblade;
 
 import 	com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.xaviplacidpol.blindbloodblade.screens.BaseScreen;
 import com.xaviplacidpol.blindbloodblade.screens.GameScreen;
 import com.xaviplacidpol.blindbloodblade.screens.MenuScreen;
@@ -10,17 +12,15 @@ import com.xaviplacidpol.blindbloodblade.screens.MenuScreen;
  */
 public class BlindBloodBlade extends Game {
 
+	public static Preferences gameData;
+
 	private BaseScreen baseScreen;
-//	private MenuScreen menuScreen;
 
 	@Override
 	public void create() {
 
+		gameData = Gdx.app.getPreferences("bbbdata");
 		baseScreen = new BaseScreen(this);
-//		menuScreen = new MenuScreen(BaseScreen.game);
-//		this.setScreen(menuScreen);
-
-//		setScreen(new GameScreen());
 
 	}
 
