@@ -1,11 +1,14 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.entities.Bridges;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
@@ -13,7 +16,16 @@ import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 
-public class Level {
+import java.util.HashSet;
+import java.util.Set;
+
+
+public class Level implements Disposable {
+
+    private BlindBloodBlade game;
+
+    private Set<Integer> scoresSet;
+
     // Add a ninjaPlayer member variable
     NinjaPlayer ninjaPlayer;
 
@@ -32,7 +44,16 @@ public class Level {
     Array<Enemy> enemies;
 
 
-    public Level(Viewport viewport){
+    public Level(Viewport viewport, BlindBloodBlade game){
+
+        this.game = game;
+        scoresSet = new HashSet<>();
+        scoresSet.add(19286);
+        scoresSet.add(17388);
+        scoresSet.add(19281);
+        scoresSet.add(21990);
+        scoresSet.add(26722);
+
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport);
 
@@ -108,6 +129,7 @@ public class Level {
         ninjaPlayer.render(batch);
 
         batch.end();
+        dispose();
     }
 
     /**
@@ -138,5 +160,15 @@ public class Level {
 
     public NinjaPlayer getNinjaPlayer() {
         return ninjaPlayer;
+    }
+
+    @Override
+    public void dispose() {
+        int i = 1;
+        for(Integer score : scoresSet){
+            game.gameData.putInteger("score"+i, score);
+            i++;
+        }
+        game.gameData.flush();
     }
 }

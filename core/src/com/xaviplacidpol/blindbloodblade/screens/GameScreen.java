@@ -1,11 +1,12 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
@@ -15,6 +16,8 @@ import com.xaviplacidpol.blindbloodblade.utils.Constants;
 public class GameScreen extends ScreenAdapter {
 
     public static final String TAG = GameScreen.class.getName();
+
+    protected BlindBloodBlade game;
 
     // Add a level
     Level level;
@@ -28,6 +31,9 @@ public class GameScreen extends ScreenAdapter {
     // Add the Cam
     Cam cam;
 
+    public GameScreen(BlindBloodBlade game){
+        this.game = game;
+    }
 
     @Override
     public void show() {
@@ -42,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
         cam = new Cam();
 
         // Initialize Level
-        level = new Level(viewport);
+        level = new Level(viewport, game);
 
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
@@ -94,7 +100,7 @@ public class GameScreen extends ScreenAdapter {
      * Configure the cam
      */
     private void setCam() {
-        level = new Level(viewport);
+        level = new Level(viewport, game);
         cam.camera = level.viewport.getCamera();
         cam.target = level.getNinjaPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

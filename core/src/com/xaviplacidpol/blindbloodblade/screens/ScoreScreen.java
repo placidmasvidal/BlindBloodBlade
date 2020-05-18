@@ -42,6 +42,8 @@ public class ScoreScreen extends ScreenAdapter {
 
     private Label lblScores;
 
+//    private Set<Integer> scoresSet;
+
     private Set<Integer> scoresSet;
 
     public ScoreScreen(final BlindBloodBlade game) {
@@ -78,27 +80,14 @@ public class ScoreScreen extends ScreenAdapter {
         lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()/2+ lblTitle.getHeight()+ lblTitle.getHeight()/2);
         lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
 
-        scoresSet = new HashSet<>();
-        scoresSet.add(19283);
-        scoresSet.add(17382);
-        scoresSet.add(19281);
-        scoresSet.add(21910);
-        scoresSet.add(26738);
-
-        int i = 1;
-        for(Integer score : scoresSet){
-            game.gameData.putInteger("score"+i, score);
-            i++;
-        }
 
         textStyle = new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscoresfont, null);
-        int j = 1;
-        for(Integer score : scoresSet){
-            lblScores = new Label(Integer.toString(game.gameData.getInteger("score"+j)), textStyle);
-//            lblScores.setPosition(lblTitlePos.x, lblTitlePos.y-lblTitle.getHeight()*(j));
-            lblScores.setPosition(lblTitlePos.x+lblTitlePos.x/3, lblTitlePos.y-lblScores.getHeight()*j);
+
+        for (int i = 1; i<=5; i++){
+            lblScores = new Label(Integer.toString(game.gameData.getInteger("score"+i)), textStyle);
+            lblScores.setPosition(lblTitlePos.x+lblTitlePos.x/3, lblTitlePos.y-lblScores.getHeight()*i);
             stage.addActor(lblScores);
-            j++;
+
         }
 
         stage.addActor(lblTitle);
@@ -129,7 +118,7 @@ public class ScoreScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        super.dispose();
+//        super.dispose();
     }
 
 }
