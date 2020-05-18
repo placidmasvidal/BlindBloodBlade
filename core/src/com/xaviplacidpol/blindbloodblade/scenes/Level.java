@@ -1,10 +1,12 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.entities.Bridges;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
@@ -13,7 +15,15 @@ import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 
-public class Level {
+import java.util.HashSet;
+import java.util.Set;
+
+//import static com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData;
+
+public class Level implements Disposable {
+
+//    private Set<Integer> scoresSet;
+
     // Add a ninjaPlayer member variable
     NinjaPlayer ninjaPlayer;
 
@@ -33,6 +43,14 @@ public class Level {
 
 
     public Level(Viewport viewport){
+
+/*        scoresSet = new HashSet<>();
+        scoresSet.add(19282);
+        scoresSet.add(17384);
+        scoresSet.add(19280);
+        scoresSet.add(21919);
+        scoresSet.add(26738);
+*/
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport);
 
@@ -139,4 +157,14 @@ public class Level {
     public NinjaPlayer getNinjaPlayer() {
         return ninjaPlayer;
     }
+
+    @Override
+    public void dispose() {
+/*        int i = 1;
+        for(Integer score : scoresSet){
+            com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData.putInteger("score"+i, score);
+            i++;
+        }
+        com.xaviplacidpol.blindbloodblade.BlindBloodBlade.gameData.flush();
+*/    }
 }
