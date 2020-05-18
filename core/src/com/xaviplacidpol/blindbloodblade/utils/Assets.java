@@ -5,12 +5,14 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.xaviplacidpol.blindbloodblade.entities.Ground;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -33,11 +35,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public BridgeAssets bridgeAssets;
     public SplashScreenAssets splashScreenAssets;
-<<<<<<< HEAD
-    public ScoreScreenAssets scoreScreenAssets;
-=======
     public EnemyAssets enemyAssets;
->>>>>>> origin/pol
+    public ScoreScreenAssets scoreScreenAssets;
 
     private AssetManager assetManager;
 
@@ -66,12 +65,8 @@ public class Assets implements Disposable, AssetErrorListener {
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
-<<<<<<< HEAD
-        scoreScreenAssets = new ScoreScreenAssets(atlas);
-=======
         enemyAssets = new EnemyAssets(atlas);
->>>>>>> origin/pol
-
+        scoreScreenAssets = new ScoreScreenAssets(atlas);
     }
 
     @Override
@@ -174,7 +169,23 @@ public class Assets implements Disposable, AssetErrorListener {
         // Add an AtlasRegion to hold the bridges sprite
         public final TextureAtlas.AtlasRegion bridge;
 
-<<<<<<< HEAD
+        public BridgeAssets(TextureAtlas atlas) {
+            // Find the bridges atlas region
+            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+        }
+    }
+
+    /**
+     * Build enemies
+     */
+    public class EnemyAssets {
+        // Add an AtlasRegion to hold the spikes sprite
+        public final TextureAtlas.AtlasRegion samuraistatic;
+
+        public EnemyAssets(TextureAtlas atlas) {
+            // Find the samuraistatic atlas region
+            samuraistatic = atlas.findRegion(Constants.ENEMY_SPRITE);
+        }
     }
 
     public class ScoreScreenAssets {
@@ -196,31 +207,6 @@ public class Assets implements Disposable, AssetErrorListener {
             bbbscoresfont.getData().setScale(Constants.SCORES_SCREEN_SCALE);
 
         }
-=======
-        public BridgeAssets(TextureAtlas atlas) {
-            // Find the bridges atlas region
-            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
-        }
+
     }
-
-    /**
-     * Build enemies
-     */
-    public class EnemyAssets {
-        // Add an AtlasRegion to hold the spikes sprite
-        public final TextureAtlas.AtlasRegion samuraistatic;
->>>>>>> origin/pol
-
-        public EnemyAssets(TextureAtlas atlas) {
-            // Find the samuraistatic atlas region
-            samuraistatic = atlas.findRegion(Constants.ENEMY_SPRITE);
-        }
-    }
-
-<<<<<<< HEAD
 }
-=======
-}
-
-
->>>>>>> origin/pol

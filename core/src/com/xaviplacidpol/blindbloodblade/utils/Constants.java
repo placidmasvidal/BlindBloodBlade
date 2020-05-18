@@ -61,19 +61,16 @@ public class Constants {
     public static final String START_BUTTON = "btstart";
     public static final String SCORE_BUTTON = "btscore";
 
-<<<<<<< HEAD
-    //SCORE SCREEN
-    public static final String SCORE = "SCORE";
-    public static final float SCORE_SCREEN_SCALE = 1.0f;
-    public static final float SCORES_SCREEN_SCALE = 0.5f;
-    public static final String BACK_BUTTON = "backicon";
-
-=======
     // ENEMY
     public static final String ENEMY_SPRITE = "samuraistatic";
     public static final Vector2 ENEMY_POSITION = new Vector2(16, 24);
     public static final float ENEMY_MOVEMENT_SPEED = 0;
     public static final float ENEMY_COLLISION_RADIUS = 15;
->>>>>>> origin/pol
+
+    //SCORE SCREEN
+    public static final String SCORE = "SCORE";
+    public static final float SCORE_SCREEN_SCALE = 1.0f;
+    public static final float SCORES_SCREEN_SCALE = 0.5f;
+    public static final String BACK_BUTTON = "backicon";
 
 }
