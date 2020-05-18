@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.entities.Bridges;
+import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
@@ -27,7 +28,8 @@ public class Level {
     // Add an Array of Bridges
     Array<Bridges> bridges;
 
-    public Cam cam;
+    // Add an Array of Enemies
+    Array<Enemy> enemies;
 
 
     public Level(Viewport viewport){
@@ -43,21 +45,26 @@ public class Level {
         // Initialize the bridges array
         bridges = new Array<Bridges>();
 
+        //Initialize the enemyes array
+        enemies = new Array<Enemy>();
+
         // Add addDebugPlatforms
         addDebugGrounds();
 
         //Add spikes
         addSpikes();
 
+        //Set input touch screen for ninjaPlayer
         Gdx.input.setInputProcessor(ninjaPlayer);
 
         //Add bridges
         addBridges();
 
-        //TODO
-        this.viewport = viewport;
+        //Add enemies
+        addEnemies();
 
-        //cam = new Cam();
+        //TODO POL revisar
+        this.viewport = viewport;
 
     }
 
@@ -92,6 +99,11 @@ public class Level {
             bridge.render(batch);
         }
 
+        // Render all enemiew
+        for(Enemy enemy : enemies){
+            enemy.render(batch);
+        }
+
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
 
@@ -118,6 +130,10 @@ public class Level {
 
     private void addBridges() {
         bridges.add(new Bridges(new Vector2(999, 0)));
+    }
+
+    private void addEnemies(){
+        enemies.add(new Enemy(new Vector2(550, 60)));
     }
 
     public NinjaPlayer getNinjaPlayer() {

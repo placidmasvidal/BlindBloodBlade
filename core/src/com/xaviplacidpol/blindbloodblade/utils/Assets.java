@@ -35,6 +35,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public BridgeAssets bridgeAssets;
     public SplashScreenAssets splashScreenAssets;
+    public EnemyAssets enemyAssets;
+
     private AssetManager assetManager;
 
     private Assets() {
@@ -62,6 +64,7 @@ public class Assets implements Disposable, AssetErrorListener {
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
+        enemyAssets = new EnemyAssets(atlas);
 
     }
 
@@ -168,6 +171,19 @@ public class Assets implements Disposable, AssetErrorListener {
         public BridgeAssets(TextureAtlas atlas) {
             // Find the bridges atlas region
             bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+        }
+    }
+
+    /**
+     * Build enemies
+     */
+    public class EnemyAssets {
+        // Add an AtlasRegion to hold the spikes sprite
+        public final TextureAtlas.AtlasRegion samuraistatic;
+
+        public EnemyAssets(TextureAtlas atlas) {
+            // Find the samuraistatic atlas region
+            samuraistatic = atlas.findRegion(Constants.ENEMY_SPRITE);
         }
     }
 

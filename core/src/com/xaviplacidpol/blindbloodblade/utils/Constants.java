@@ -61,4 +61,10 @@ public class Constants {
     public static final String START_BUTTON = "btstart";
     public static final String SCORE_BUTTON = "btscore";
 
+    // ENEMY
+    public static final String ENEMY_SPRITE = "samuraistatic";
+    public static final Vector2 ENEMY_POSITION = new Vector2(16, 24);
+    public static final float ENEMY_MOVEMENT_SPEED = 0;
+    public static final float ENEMY_COLLISION_RADIUS = 15;
+
 }
