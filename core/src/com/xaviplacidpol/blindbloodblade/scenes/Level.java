@@ -43,10 +43,16 @@ public class Level implements Disposable {
     // Add an Array of Enemies
     Array<Enemy> enemies;
 
+    private SpriteBatch batch;
 
-    public Level(Viewport viewport, BlindBloodBlade game){
+    private Hud hud;
+
+    public Level(Viewport viewport, BlindBloodBlade game, SpriteBatch batch){
 
         this.game = game;
+
+        this.batch = batch;
+
         scoresSet = new HashSet<>();
         scoresSet.add(19286);
         scoresSet.add(17388);
@@ -87,6 +93,8 @@ public class Level implements Disposable {
         //TODO POL revisar
         this.viewport = viewport;
 
+        hud = new Hud(batch);
+
     }
 
     /**
@@ -96,13 +104,15 @@ public class Level implements Disposable {
     public void update(float delta){
         // Update NinjaPlayer
         ninjaPlayer.update(delta, grounds);
+        hud.update(delta);
     }
 
     /**
      * Renderize level and all components
-     * @param batch
      */
-    public void render(SpriteBatch batch){
+    public void render(){
+
+        hud.render();
 
         batch.begin();
         // Render all grounds in the grounds array

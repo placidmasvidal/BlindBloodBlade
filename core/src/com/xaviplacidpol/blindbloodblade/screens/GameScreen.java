@@ -47,11 +47,11 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the cam
         cam = new Cam();
 
-        // Initialize Level
-        level = new Level(viewport, game);
-
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
+
+        // Initialize Level
+        level = new Level(viewport, game, batch);
 
         // Configure the cam
         setCam();
@@ -92,7 +92,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         // Render the level
-        level.render(batch);
+        level.render();
 
     }
 
@@ -100,7 +100,7 @@ public class GameScreen extends ScreenAdapter {
      * Configure the cam
      */
     private void setCam() {
-        level = new Level(viewport, game);
+        level = new Level(viewport, game, batch);
         cam.camera = level.viewport.getCamera();
         cam.target = level.getNinjaPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

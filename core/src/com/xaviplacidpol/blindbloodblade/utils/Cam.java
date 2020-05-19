@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 
-public class Cam {
+public class Cam extends Camera {
     public Camera camera;
     public NinjaPlayer target;
 
@@ -24,6 +24,16 @@ public class Cam {
             public void update(boolean updateFrustum) {
             }
         };
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void update(boolean updateFrustum) {
+
     }
 
     /**

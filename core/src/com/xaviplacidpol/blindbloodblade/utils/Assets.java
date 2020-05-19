@@ -191,6 +191,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public BitmapFont bbbscorefont;
         public BitmapFont bbbscoresfont;
+        public BitmapFont bbbscorehud;
         public TextureAtlas.AtlasRegion backButtonRegion;
 
         public ScoreScreenAssets(TextureAtlas atlas){
@@ -204,6 +205,10 @@ public class Assets implements Disposable, AssetErrorListener {
             font = Gdx.files.internal(("fonts/bbbscorefontorangeyellowoutline.fnt"));
             bbbscoresfont = new BitmapFont(font, false);
             bbbscoresfont.getData().setScale(Constants.SCORES_SCREEN_SCALE);
+
+            bbbscorehud = new BitmapFont(font, false);
+            bbbscorehud.getData().setScale(0.4f);
+
 
         }
 
