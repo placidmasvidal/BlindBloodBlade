@@ -25,10 +25,12 @@ public class StatsHud implements Disposable {
     private Label lblScoreHeader;
     private Label lblTime;
     private static Label lblScore;
-    private Label lblDeadsHeader;
-    private Label lblDeads;
 
     private NinjaPlayer ninjaPlayer;
+
+    private Label lblKillsHeader;
+    private Label lblKills;
+    private Integer kills;
 
     public StatsHud(SpriteBatch sb, NinjaPlayer ninjaPlayer){
 
@@ -47,15 +49,15 @@ public class StatsHud implements Disposable {
 
         lblTimeHeader = new Label("TIME", new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
         lblTime = new Label(String.format("%.0f", timer), new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
-        lblDeadsHeader = new Label("DEADS", new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
+        lblKillsHeader = new Label("KILLS", new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
         lblScoreHeader = new Label("SCORE", new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
         lblScore = new Label(String.format("%05d", score), new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
-        lblDeads = new Label(String.format("%02d", deads), new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
+        lblKills = new Label(String.format("%02d", deads), new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscorehud, null));
 
         table.add(lblTimeHeader).expandX().padLeft(20);
         table.add(lblTime).expandX();
-        table.add(lblDeadsHeader).expandX();
-        table.add(lblDeads).expandX();
+        table.add(lblKillsHeader).expandX();
+        table.add(lblKills).expandX();
         table.add(lblScoreHeader).expandX();
         table.add(lblScore).expandX().padRight(20);
 
@@ -68,7 +70,10 @@ public class StatsHud implements Disposable {
     public void update(float delta){
         timer += delta;
             lblTime.setText(String.format("%.0f", timer));
-
+        kills = ninjaPlayer.getKills();
+        lblKills.setText(String.format("%02d", kills));
+        score = ninjaPlayer.getScore();
+        lblScore.setText(String.format("%06d", score));
     }
 
     public void render(){

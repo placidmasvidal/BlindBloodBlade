@@ -9,8 +9,19 @@ import com.xaviplacidpol.blindbloodblade.utils.Constants;
 public class Enemy {
     private Vector2 position;
 
+    boolean isAlive;
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
     public Enemy(Vector2 position){
         this.position = position;
+        isAlive = true;
     }
 
     public Vector2 getPosition(){

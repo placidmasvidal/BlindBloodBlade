@@ -63,11 +63,34 @@ public class NinjaPlayer extends InputAdapter {
     //Level where ninja is playing
     Level level;
 
+    private Integer score;
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getKills() {
+        return kills;
+    }
+
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    private Integer kills;
+
     public NinjaPlayer(Viewport viewport, Level level){
         this.viewport = viewport;
         this.level = level;
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+
+        kills = 0;
+        score = 0;
 
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
@@ -231,23 +254,33 @@ public class NinjaPlayer extends InputAdapter {
             }
         }
 
+        int i = 0;
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
 
+//            System.out.println("Enemies before kill:"+ level.getEnemies().size);
 //            System.out.println("Enemy position= " + enemy.getPosition().x);
 //            System.out.println("Player position = " + position.x);
 //            System.out.println("position player - position enemy " + ( enemy.getPosition().x - position.x));
-            boolean attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            boolean attackColliding = false;
+            if(((enemy.getPosition().x - position.x)  < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0)){
+                attackColliding = true;
+            }
             //System.out.println("Colliding = " + attackColliding);
             if( attackColliding && (attackState == AttackState.ATTACKING)){
 //                System.out.println("enemy mort");
+                enemy.setAlive(false);
+                level.getEnemies().removeIndex(i);
+                    kills++;
+                    score = score + 50;
                 //TODO enemy ha mort
                 //Add a bloodSplash where the enemy died
                 level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
             }else{
                 //TODO ninja mort NOMÉS si entra al radi de l'enemic i el ninja no ha atacat
             }
-
+            i++;
+//            System.out.println("Enemies after kill:"+ level.getEnemies().size);
         }
 
 
