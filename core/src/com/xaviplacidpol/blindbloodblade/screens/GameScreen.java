@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
+import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
@@ -24,6 +25,9 @@ public class GameScreen extends ScreenAdapter {
 
     // Add a SpriteBatch
     SpriteBatch batch;
+
+    //Add a Hud
+    StatsHud statsHud;
 
     // Add an ExtendViewport
     ExtendViewport viewport;
@@ -53,6 +57,8 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
+        statsHud = new StatsHud(batch);
+
         // Configure the cam
         setCam();
     }
@@ -79,6 +85,7 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         // Level update
         level.update(delta);
+        statsHud.update(delta);
         // Apply the cam
         cam.update(delta);
         // Apply the viewport
@@ -93,6 +100,7 @@ public class GameScreen extends ScreenAdapter {
 
         // Render the level
         level.render(batch);
+        statsHud.render();
 
     }
 
