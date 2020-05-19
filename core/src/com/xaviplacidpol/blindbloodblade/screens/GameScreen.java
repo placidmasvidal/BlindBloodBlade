@@ -57,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
-        statsHud = new StatsHud(batch);
+        statsHud = new StatsHud(batch, level.getNinjaPlayer());
 
         // Configure the cam
         setCam();
@@ -108,7 +108,6 @@ public class GameScreen extends ScreenAdapter {
      * Configure the cam
      */
     private void setCam() {
-        level = new Level(viewport, game);
         cam.camera = level.viewport.getCamera();
         cam.target = level.getNinjaPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

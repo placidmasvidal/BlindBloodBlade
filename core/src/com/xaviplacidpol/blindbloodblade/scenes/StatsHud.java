@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
@@ -27,7 +28,11 @@ public class StatsHud implements Disposable {
     private Label lblDeadsHeader;
     private Label lblDeads;
 
-    public StatsHud(SpriteBatch sb){
+    private NinjaPlayer ninjaPlayer;
+
+    public StatsHud(SpriteBatch sb, NinjaPlayer ninjaPlayer){
+
+        this.ninjaPlayer = ninjaPlayer;
 
         timer = 0.0f;
         deads = 0;

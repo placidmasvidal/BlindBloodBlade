@@ -63,35 +63,6 @@ public class NinjaPlayer extends InputAdapter {
     //Level where ninja is playing
     Level level;
 
-    //NinjaPlayer
-    public NinjaPlayer(Viewport viewport){
-        this.viewport = viewport;
-        // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
-
-        // Initialize a new Vector2 for lastFramePosition
-        lastFramePosition = new Vector2(position);
-
-        // Initialize velocity (quiet)
-        velocity = new Vector2();
-
-        // Initialize jumpState to falling
-        jumpState = JumpState.FALLING;
-
-        // Initialize walkState to Standing
-        walkState = WalkState.BLOCKED;
-
-        // Initialize attackState to Not Attacking
-        attackState = AttackState.NOT_ATTACKING;
-
-        // Initialize touchPosition (empty)
-        touchPosition = new Vector3();
-
-        //Player is alive
-        isAlive = true;
-
-    }
-
     public NinjaPlayer(Viewport viewport, Level level){
         this.viewport = viewport;
         this.level = level;
