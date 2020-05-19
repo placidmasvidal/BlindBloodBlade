@@ -6,13 +6,16 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
@@ -36,12 +39,17 @@ public class NinjaPlayer extends InputAdapter {
     //Jump and walking states (enums)
     JumpState jumpState;
     WalkState walkState;
+    //Attack state (enum)
+    AttackState attackState;
 
     //long number to control jumping time
     long jumpStartTime;
 
     //long number to control walking time
     long walkStartTime;
+    
+    //long number to control attacking time
+    long attackStartTime;
 
     //Viewport with the cam view
     Viewport viewport;
@@ -51,6 +59,9 @@ public class NinjaPlayer extends InputAdapter {
 
     //Boolean control if player is alive
     boolean isAlive;
+
+    //Level where ninja is playing
+    Level level;
 
     //NinjaPlayer
     public NinjaPlayer(Viewport viewport){
@@ -69,6 +80,38 @@ public class NinjaPlayer extends InputAdapter {
 
         // Initialize walkState to Standing
         walkState = WalkState.BLOCKED;
+
+        // Initialize attackState to Not Attacking
+        attackState = AttackState.NOT_ATTACKING;
+
+        // Initialize touchPosition (empty)
+        touchPosition = new Vector3();
+
+        //Player is alive
+        isAlive = true;
+
+    }
+
+    public NinjaPlayer(Viewport viewport, Level level){
+        this.viewport = viewport;
+        this.level = level;
+        // Initialize NinjaPlayer position with his height
+        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+
+        // Initialize a new Vector2 for lastFramePosition
+        lastFramePosition = new Vector2(position);
+
+        // Initialize velocity (quiet)
+        velocity = new Vector2();
+
+        // Initialize jumpState to falling
+        jumpState = JumpState.FALLING;
+
+        // Initialize walkState to Standing
+        walkState = WalkState.BLOCKED;
+
+        // Initialize attackState to Not Attacking
+        attackState = AttackState.NOT_ATTACKING;
 
         // Initialize touchPosition (empty)
         touchPosition = new Vector3();
@@ -109,14 +152,55 @@ public class NinjaPlayer extends InputAdapter {
                 case FALLING:
                     break;
             }
-        }else{
-            //TODO ATTACK when touched the right half of the screen
+        }else{ //ATTACK when touched the right half of the screen
+            switch (attackState){
+                case ATTACKING:
+                    
+                    break;
+                case NOT_ATTACKING:
+                    startAttack();
+                    break;
+            }
         }
 
         return true;
 
     }
 
+    /**
+     *  Modify state of ninja to attacking
+     *  Modify actual sprite to ninja attack 
+     */
+    private void startAttack() {
+        // Set ninja attackState to ATTACKING
+        attackState = AttackState.ATTACKING;
+
+        // Set the attackState start time using TimeUtils.nanoTime()
+        attackStartTime = TimeUtils.nanoTime();
+
+        // Call continueAttacking()
+        continueAttacking();
+    }
+
+    /**
+     * Checks time since the attack started, apply corresponding sprite to the ninja depending
+     * if it reached the max duration or not
+     */
+    private void continueAttacking() {
+
+        // First, check if we're ATTACKING
+        if(attackState == AttackState.ATTACKING){
+            // Find out how long we've been jumping
+            float attackDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - attackStartTime);
+
+            // Set corresponding attackState depending if it reached the max attack duration
+            if(attackDuration < Constants.MAX_ATTACK_DURATION){
+                attackState = AttackState.ATTACKING;
+            } else{
+                attackState = AttackState.NOT_ATTACKING;
+            }
+        }//else just return
+    }
 
 
     /**
@@ -139,6 +223,11 @@ public class NinjaPlayer extends InputAdapter {
         // Apply NinjaPlayer velocity
         // Vector2.mulAdd() is very convenient.
         position.mulAdd(velocity, delta);
+
+        //Check if ninja is attacking
+        continueAttacking();
+
+        continueJump();
 
         // If ninjaPlayer isn't JUMPING, make her now FALLING
         if(jumpState != JumpState.JUMPING){
@@ -169,6 +258,25 @@ public class NinjaPlayer extends InputAdapter {
                     //moveRight(delta);
                 }
             }
+        }
+
+        // Collide with enemies, kill them or die
+        for (Enemy enemy : level.getEnemies()) {
+
+//            System.out.println("Enemy position= " + enemy.getPosition().x);
+//            System.out.println("Player position = " + position.x);
+//            System.out.println("position player - position enemy " + ( enemy.getPosition().x - position.x));
+            boolean attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            //System.out.println("Colliding = " + attackColliding);
+            if( attackColliding && (attackState == AttackState.ATTACKING)){
+//                System.out.println("enemy mort");
+                //TODO enemy ha mort
+                //Add a bloodSplash where the enemy died
+                level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
+            }else{
+                //TODO ninja mort NOMÉS si entra al radi de l'enemic i el ninja no ha atacat
+            }
+
         }
 
 
@@ -339,8 +447,9 @@ public class NinjaPlayer extends InputAdapter {
         TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
 
         // Select the correct sprite based on jumpState, and walkState
-
-        if(jumpState != JumpState.GROUNDED){
+        if(attackState == AttackState.ATTACKING){
+            region = Assets.instance.ninjaAssets.ninjaAttacking;
+        } else if(jumpState != JumpState.GROUNDED){
             region = Assets.instance.ninjaAssets.ninjaJumping;
         } else if(walkState == WalkState.BLOCKED){
             region = Assets.instance.ninjaAssets.ninjaStatic;
@@ -391,5 +500,13 @@ public class NinjaPlayer extends InputAdapter {
     enum WalkState{
         BLOCKED,
         WALKING
+    }
+
+    /**
+     * Enum list, player is attacking or notattacking
+     */
+    enum AttackState{
+        ATTACKING,
+        NOT_ATTACKING
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
+import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
@@ -24,6 +25,9 @@ public class GameScreen extends ScreenAdapter {
 
     // Add a SpriteBatch
     SpriteBatch batch;
+
+    //Add a Hud
+    StatsHud statsHud;
 
     // Add an ExtendViewport
     ExtendViewport viewport;
@@ -47,11 +51,13 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the cam
         cam = new Cam();
 
+        // Initialize Level
+        level = new Level(viewport, game);
+
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
-        // Initialize Level
-        level = new Level(viewport, game, batch);
+        statsHud = new StatsHud(batch);
 
         // Configure the cam
         setCam();
@@ -79,6 +85,7 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
         // Level update
         level.update(delta);
+        statsHud.update(delta);
         // Apply the cam
         cam.update(delta);
         // Apply the viewport
@@ -92,7 +99,8 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
         // Render the level
-        level.render();
+        level.render(batch);
+        statsHud.render();
 
     }
 
@@ -100,7 +108,7 @@ public class GameScreen extends ScreenAdapter {
      * Configure the cam
      */
     private void setCam() {
-        level = new Level(viewport, game, batch);
+        level = new Level(viewport, game);
         cam.camera = level.viewport.getCamera();
         cam.target = level.getNinjaPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

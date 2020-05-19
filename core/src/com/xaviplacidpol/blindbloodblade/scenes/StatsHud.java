@@ -1,20 +1,17 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
-import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-public class Hud implements Disposable {
+public class StatsHud implements Disposable {
 
     public Stage stage;
     private Viewport viewport;
@@ -30,7 +27,7 @@ public class Hud implements Disposable {
     private Label lblDeadsHeader;
     private Label lblDeads;
 
-    public Hud(SpriteBatch sb){
+    public StatsHud(SpriteBatch sb){
 
         timer = 0.0f;
         deads = 0;
@@ -98,7 +95,7 @@ public class Hud implements Disposable {
     }
 
     public static void setScore(Integer score) {
-        Hud.score = score;
+        StatsHud.score = score;
     }
 
     public Integer getDeads() {
