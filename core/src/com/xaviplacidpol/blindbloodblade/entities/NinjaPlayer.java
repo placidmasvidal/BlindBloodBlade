@@ -83,12 +83,23 @@ public class NinjaPlayer extends InputAdapter {
 
     private Integer kills;
 
+    public float getTimeLive() {
+        return timeLive;
+    }
+
+    public void setTimeLive(float timeLive) {
+        this.timeLive = timeLive;
+    }
+
+    private float timeLive;
+
     public NinjaPlayer(Viewport viewport, Level level){
         this.viewport = viewport;
         this.level = level;
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
 
+        timeLive = 0;
         kills = 0;
         score = 0;
 
@@ -207,6 +218,13 @@ public class NinjaPlayer extends InputAdapter {
      * @param grounds Array with all the ground in the level
      */
     public void update(float delta, Array<Ground> grounds){
+
+        timeLive += delta;
+        if(timeLive > 1) {
+            score = score + 10;
+            timeLive = 0;
+        }
+
         // Update lastFramePosition
         lastFramePosition.set(position);
 
@@ -319,7 +337,6 @@ public class NinjaPlayer extends InputAdapter {
 //        } else{
 //            walkState = WalkState.BLOCKED;
 //        }
-
 
     }
 
