@@ -83,4 +83,6 @@ public class Constants {
     public static final float SCORES_SCREEN_SCALE = 0.5f;
     public static final String BACK_BUTTON = "backicon";
 
+    public static final String STAGE_BACKGROUND = "backgroundgamestage";
+
 }

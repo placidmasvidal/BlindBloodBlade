@@ -36,6 +36,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public EnemyAssets enemyAssets;
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
+    public BackgroundStageAssets backgroundStageAssets;
 
     private AssetManager assetManager;
 
@@ -67,6 +68,7 @@ public class Assets implements Disposable, AssetErrorListener {
         enemyAssets = new EnemyAssets(atlas);
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
+        backgroundStageAssets = new BackgroundStageAssets(atlas);
     }
 
     @Override
@@ -227,4 +229,15 @@ public class Assets implements Disposable, AssetErrorListener {
             bloodSplash = atlas.findRegion(Constants.BLOOD_SPLASH_SPRITE);
         }
     }
+
+    public class BackgroundStageAssets{
+
+        public final TextureAtlas.AtlasRegion backgroundgamestage;
+
+        public BackgroundStageAssets(TextureAtlas atlas){
+            backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
+        }
+
+    }
+
 }
