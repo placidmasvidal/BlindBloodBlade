@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -36,6 +35,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public SplashScreenAssets splashScreenAssets;
     public EnemyAssets enemyAssets;
     public ScoreScreenAssets scoreScreenAssets;
+    public BloodSplashAssets bloodSplashAssets;
 
     private AssetManager assetManager;
 
@@ -66,6 +66,7 @@ public class Assets implements Disposable, AssetErrorListener {
         splashScreenAssets = new SplashScreenAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
         scoreScreenAssets = new ScoreScreenAssets(atlas);
+        bloodSplashAssets = new BloodSplashAssets(atlas);
     }
 
     @Override
@@ -86,6 +87,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking;
+        public final TextureAtlas.AtlasRegion ninjaAttacking;
 
         public final Animation ninjaWalkingAnimation;
 
@@ -97,6 +99,8 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaJumping = atlas.findRegion(Constants.NINJA_JUMPING);
 
             ninjaWalking = atlas.findRegion(Constants.NINJA_WALKING);
+
+            ninjaAttacking = atlas.findRegion(Constants.NINJA_ATTACKING);
 
             //WALKING ANIMATION
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
@@ -207,5 +211,15 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
 
+    }
+
+    public class BloodSplashAssets{
+        // Add an AtlasRegion to hold the bloodSplash sprite
+        public final TextureAtlas.AtlasRegion bloodSplash;
+
+        public BloodSplashAssets(TextureAtlas atlas) {
+            // Find the blood splash atlas region
+            bloodSplash = atlas.findRegion(Constants.BLOOD_SPLASH_SPRITE);
+        }
     }
 }

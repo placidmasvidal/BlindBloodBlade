@@ -32,15 +32,19 @@ public class Constants {
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
     public static final float PLAYER_HEAD_HEIGHT = 23.0f;
     public static final float PLAYER_MOVE_SPEED = 200;
+    public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
     public static final float MAX_JUMP_DURATION = 0.15f;
     public static final float WALK_LOOP_DURATION = 0.25f;
 
+    public static final float MAX_ATTACK_DURATION = 0.50f;
+
     //ninja sprites
     public static final String NINJA_STATIC = "ninjastatic";
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjawalk";
+    public static final String NINJA_ATTACKING = "ninjabloody";
 
     //FLOOR
     // Ground sprite
@@ -67,6 +71,11 @@ public class Constants {
     public static final Vector2 ENEMY_POSITION = new Vector2(16, 24);
     public static final float ENEMY_MOVEMENT_SPEED = 0;
     public static final float ENEMY_COLLISION_RADIUS = 15;
+
+    // BLOOD SPLASH
+    public static final String BLOOD_SPLASH_SPRITE = "bloodsplash";
+    public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
+    public static final float BLOOD_SPLASH_DURATION = 0.50f;
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";

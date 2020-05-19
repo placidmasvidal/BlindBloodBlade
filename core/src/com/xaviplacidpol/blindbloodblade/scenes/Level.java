@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
+import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
 import com.xaviplacidpol.blindbloodblade.entities.Bridges;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
@@ -43,6 +45,8 @@ public class Level implements Disposable {
     // Add an Array of Enemies
     Array<Enemy> enemies;
 
+    private Array<BloodSplash> bloodSplashes;
+
 
     public Level(Viewport viewport, BlindBloodBlade game){
 
@@ -55,7 +59,7 @@ public class Level implements Disposable {
         scoresSet.add(26722);
 
         // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer(viewport);
+        ninjaPlayer = new NinjaPlayer(viewport, this);
 
         // Initialize the ground array
         grounds = new Array<Ground>();
@@ -68,6 +72,8 @@ public class Level implements Disposable {
 
         //Initialize the enemyes array
         enemies = new Array<Enemy>();
+
+        bloodSplashes = new Array<BloodSplash>();
 
         // Add addDebugPlatforms
         addDebugGrounds();
@@ -84,7 +90,7 @@ public class Level implements Disposable {
         //Add enemies
         addEnemies();
 
-        //TODO POL revisar
+        //TODO POL revisar viewport + cam en resize
         this.viewport = viewport;
 
     }
@@ -125,6 +131,11 @@ public class Level implements Disposable {
             enemy.render(batch);
         }
 
+        // Render bloodSplashes
+        for(BloodSplash bloodSplash : bloodSplashes){
+            bloodSplash.render(batch);
+        }
+
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
 
@@ -160,6 +171,19 @@ public class Level implements Disposable {
 
     public NinjaPlayer getNinjaPlayer() {
         return ninjaPlayer;
+    }
+
+    public Array<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    /**
+     * Generate a blood Splash
+     * @param position
+     */
+    public void spawnBloodSplash(Vector2 position){
+        // TODO TESTING FASE NOT WORKING Add a new bloodsplash at the specified position
+        bloodSplashes.add(new BloodSplash(position));
     }
 
     @Override

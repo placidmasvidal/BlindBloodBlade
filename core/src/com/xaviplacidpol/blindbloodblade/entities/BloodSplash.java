@@ -2,36 +2,30 @@ package com.xaviplacidpol.blindbloodblade.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-public class Enemy {
-    private Vector2 position;
+public class BloodSplash {
 
-    public Enemy(Vector2 position){
+    private final Vector2 position;
+
+    public BloodSplash(Vector2 position){
+        // Save spawn position
         this.position = position;
+
     }
 
-    public Vector2 getPosition(){
-        return this.position;
-    }
+    public void render(SpriteBatch batch){
+        // render function
+        final TextureRegion region = Assets.instance.bloodSplashAssets.bloodSplash;
 
-    //TODO Actualitzar quan el samurai tingui que atacar
-    public void update(float delta) {
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-    public void render(SpriteBatch batch) {
-        final TextureRegion region = Assets.instance.enemyAssets.samuraistatic;
-        //Utils.drawTextureRegion(batch, region, position, Constants.ENEMY_CENTER);
         batch.draw(
                 region.getTexture(),
-                position.x - Constants.ENEMY_POSITION.x,
-                position.y - Constants.ENEMY_POSITION.y,
+                position.x,
+                position.y,
                 0,
                 0,
                 region.getRegionWidth(),
@@ -47,6 +41,4 @@ public class Enemy {
                 false
         );
     }
-
-
 }
