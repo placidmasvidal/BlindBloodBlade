@@ -84,4 +84,28 @@ public class Hud implements Disposable {
     public void dispose() {
         stage.dispose();
     }
+
+    public float getTimer() {
+        return timer;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
+    public static Integer getScore() {
+        return score;
+    }
+
+    public static void setScore(Integer score) {
+        Hud.score = score;
+    }
+
+    public Integer getDeads() {
+        return deads;
+    }
+
+    public void setDeads(Integer deads) {
+        this.deads = deads;
+    }
 }
