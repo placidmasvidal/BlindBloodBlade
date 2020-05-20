@@ -102,6 +102,13 @@ ninjabloody
   orig: 104, 128
   offset: 0, 0
   index: -1
+ninjadead
+  rotate: false
+  xy: 1626, 1594
+  size: 94, 128
+  orig: 94, 128
+  offset: 0, 0
+  index: -1
 ninjajump
   rotate: false
   xy: 1070, 792
@@ -118,28 +125,28 @@ ninjastatic
   index: -1
 ninjawalk
   rotate: false
-  xy: 964, 662
-  size: 60, 128
-  orig: 60, 128
+  xy: 1626, 1464
+  size: 56, 128
+  orig: 56, 128
   offset: 0, 0
   index: -1
 samuraiatack
   rotate: false
-  xy: 1626, 1594
+  xy: 270, 70
   size: 90, 128
   orig: 90, 128
   offset: 0, 0
   index: -1
 samuraijump
   rotate: false
-  xy: 806, 300
+  xy: 964, 662
   size: 70, 128
   orig: 70, 128
   offset: 0, 0
   index: -1
 samuraistatic
   rotate: false
-  xy: 270, 70
+  xy: 806, 300
   size: 88, 128
   orig: 88, 128
   offset: 0, 0
