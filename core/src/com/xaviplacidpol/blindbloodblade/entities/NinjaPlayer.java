@@ -323,8 +323,6 @@ public class NinjaPlayer extends InputAdapter {
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
 
-                    // TODO moure automatic
-                    //moveRight(delta);
                 }
             }
         }
@@ -404,7 +402,7 @@ public class NinjaPlayer extends InputAdapter {
         // check if the left/right arrow keys are pressed
         moveRight(delta);
 
-        // TODO in Android AUTO RUN
+        // TODO in Android AUTO RUN Es pot borrar aquest
 //        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 //            moveLeft(delta);
 //        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
@@ -487,7 +485,7 @@ public class NinjaPlayer extends InputAdapter {
      * @param delta
      */
     private void moveRight(float delta){
-        // If we are GROUNDED and not BLOCKED, save the walkStartTime
+        // If we are GROUNDED and not WALKING, save the walkStartTime
         if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
             walkStartTime = TimeUtils.nanoTime();
         }

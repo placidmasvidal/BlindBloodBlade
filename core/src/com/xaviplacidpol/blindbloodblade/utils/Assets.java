@@ -135,7 +135,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final NinePatch groundNinePatch;
 
         public GroundAssets(TextureAtlas atlas) {
-            // Find the AtlasRegion holding the platform
+            // Find the AtlasRegion holding the ground
             TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.GROUND_SPRITE);
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
             int edge = Constants.GROUND_EDGE;
@@ -192,10 +192,10 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     /**
-     * Build enemies
+     * Build enemies assets
      */
     public class EnemyAssets {
-        // Add an AtlasRegion to hold the spikes sprite
+        // Add an AtlasRegion to hold the enemy sprite
         public final TextureAtlas.AtlasRegion samuraistatic;
 
         public EnemyAssets(TextureAtlas atlas) {
@@ -231,6 +231,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Build assets for blood splashes
+     */
     public class BloodSplashAssets{
         // Add an AtlasRegion to hold the bloodSplash sprite
         public final TextureAtlas.AtlasRegion bloodSplash;
