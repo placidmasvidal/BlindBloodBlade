@@ -130,6 +130,13 @@ ninjawalk
   orig: 56, 128
   offset: 0, 0
   index: -1
+ninjawalk2
+  rotate: false
+  xy: 1722, 1594
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
 samuraiatack
   rotate: false
   xy: 270, 70
