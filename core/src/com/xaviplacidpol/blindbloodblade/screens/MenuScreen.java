@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
 public class MenuScreen extends ScreenAdapter {
@@ -51,8 +52,9 @@ public class MenuScreen extends ScreenAdapter {
 
         addContentToStage();
 
-        Assets.instance.soundAssets.backgroundMusic.play();
-
+//        Assets.instance.soundAssets.backgroundMusic.play();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).play();
     }
 
 
@@ -95,8 +97,9 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
-                Assets.instance.soundAssets.backgroundMusic.stop();
-                Assets.instance.soundAssets.swordSlashSound.play();
+                SoundAssetsManager.bbbsounds.get("swordslash").play();
+//                Assets.instance.soundAssets.backgroundMusic.stop();
+//                Assets.instance.soundAssets.swordSlashSound.play();
             }
         });
 

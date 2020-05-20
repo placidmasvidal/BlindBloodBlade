@@ -19,6 +19,8 @@ import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
+
 import java.awt.Event;
 
 public class NinjaPlayer extends InputAdapter {
@@ -183,6 +185,9 @@ public class NinjaPlayer extends InputAdapter {
         // Set the attackState start time using TimeUtils.nanoTime()
         attackStartTime = TimeUtils.nanoTime();
 
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+
         // Call continueAttacking()
         continueAttacking();
     }
@@ -293,6 +298,7 @@ public class NinjaPlayer extends InputAdapter {
                     score = score + 50;
                 //TODO enemy ha mort
                 //Add a bloodSplash where the enemy died
+                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
                 level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
             }else{
                 //TODO ninja mort NOMÉS si entra al radi de l'enemic i el ninja no ha atacat
@@ -419,6 +425,8 @@ public class NinjaPlayer extends InputAdapter {
         // Set the jump start time
         // Using TimeUtils.nanoTime()
         jumpStartTime = TimeUtils.nanoTime();
+
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
 
         // Call continueJump()
         continueJump();

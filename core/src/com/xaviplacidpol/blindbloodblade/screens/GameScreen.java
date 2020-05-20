@@ -12,6 +12,7 @@ import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -37,7 +38,9 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(BlindBloodBlade game){
         this.game = game;
-        Assets.instance.soundAssets.sakuraAmbienceStage.play();
+//        SoundAssetsManager.bbbmusics.get("fastlevel").play();
+        SoundAssetsManager.bbbmusics.get("sakura").play();
+//        Assets.instance.soundAssets.sakuraAmbienceStage.play();
 //        Assets.instance.soundAssets.superFastLevel.play();
 //        Assets.instance.soundAssets.thrillerStage.play();
     }

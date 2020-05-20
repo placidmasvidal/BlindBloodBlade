@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -42,7 +43,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
-    public SoundAssets soundAssets;
+//    public SoundAssets soundAssets;
 
     private AssetManager assetManager;
 
@@ -75,7 +76,7 @@ public class Assets implements Disposable, AssetErrorListener {
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
-        soundAssets = new SoundAssets();
+  //      soundAssets = new SoundAssets();
     }
 
     @Override
@@ -247,12 +248,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
-    public class SoundAssets{
+/*    public class SoundAssets{
 
         public final Sound bloodSplashSound;
         public final Sound swordSlashSound;
-
-//        public static final Map<String, Sound> sounds;
 
         public final Music backgroundMusic;
         public final Music sakuraAmbienceStage;
@@ -261,8 +260,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public SoundAssets(){
-
-  //          sounds = new HashMap<>();
 
             bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
             swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
@@ -281,5 +278,5 @@ public class Assets implements Disposable, AssetErrorListener {
         }
 
     }
-
+*/
 }
