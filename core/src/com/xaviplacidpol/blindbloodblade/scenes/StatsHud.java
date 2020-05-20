@@ -25,6 +25,8 @@ public class StatsHud implements Disposable {
     private Label lblScoreHeader;
     private Label lblTime;
     private static Label lblScore;
+    private Label lblDeadsHeader;
+    private Label lblDeads;
 
     private NinjaPlayer ninjaPlayer;
 

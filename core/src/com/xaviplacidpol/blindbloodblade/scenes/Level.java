@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
@@ -17,6 +18,7 @@ import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
+import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +51,14 @@ public class Level implements Disposable {
     // Add an Array of Enemies
     Array<Enemy> enemies;
 
+    //Add blood splash to the enemy position when this enemy is killed
     private Array<BloodSplash> bloodSplashes;
+
+    //Array with the random fixed blood splashes to the screen
+    private Array<BloodSplash> bloodSplashesScreen;
+
+    //Boolean to control if reached end of level
+    public boolean levelEnd;
 
 
     public Level(Viewport viewport, BlindBloodBlade game){
@@ -78,6 +87,7 @@ public class Level implements Disposable {
         enemies = new Array<Enemy>();
 
         bloodSplashes = new Array<BloodSplash>();
+        bloodSplashesScreen = new Array<BloodSplash>();
 
         // Add addDebugPlatforms
         addDebugGrounds();
@@ -94,6 +104,9 @@ public class Level implements Disposable {
         //Add enemies
         addEnemies();
 
+        //Initialize level end to false
+        levelEnd = false;
+
         //TODO POL revisar viewport + cam en resize
         this.viewport = viewport;
 
@@ -106,6 +119,27 @@ public class Level implements Disposable {
     public void update(float delta){
         // Update NinjaPlayer
         ninjaPlayer.update(delta, grounds);
+
+        endlessGame();
+    }
+
+    /**
+     * Restart player position for endless game when player reached end point
+     * Clean all blood splashes in enemies position
+     * Relive all enemies
+     *
+     */
+    private void endlessGame() {
+        // Restart player position for endless game if player reached end point, otherwise just return
+        if(ninjaPlayer.getPosition().x > Constants.ENDLESS_POSITION){
+            levelEnd = true;
+            //Clean old blood splashes in the enemies position
+            bloodSplashes.clear();
+            //Relive all enemies
+            for(Enemy enemy : enemies){
+                enemy.setAlive(true);
+            }
+        }
     }
 
     /**
@@ -114,7 +148,7 @@ public class Level implements Disposable {
      */
     public void render(SpriteBatch batch){
 
-        batch.begin();
+//        batch.begin();
         // Render all grounds in the grounds array
         for(Ground ground : grounds){
             ground.render(batch);
@@ -143,8 +177,10 @@ public class Level implements Disposable {
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
 
-        batch.end();
-        dispose();
+//        batch.end();
+        if(!ninjaPlayer.isAlive()) {
+            dispose();
+        }
     }
 
     /**
@@ -181,13 +217,34 @@ public class Level implements Disposable {
         return enemies;
     }
 
+    public Array<Spikes> getSpikes() {
+        return spikes;
+    }
+
+    public BlindBloodBlade getGame() {
+        return game;
+    }
+
+    public Array<BloodSplash> getBloodSplashesScreen() {
+        return bloodSplashesScreen;
+    }
+
     /**
-     * Generate a blood Splash
+     * Generate a blood Splash to the enemy position where died
      * @param position
      */
     public void spawnBloodSplash(Vector2 position){
-        // TODO TESTING FASE NOT WORKING Add a new bloodsplash at the specified position
         bloodSplashes.add(new BloodSplash(position));
+    }
+
+    /**
+     * Generate a random blood splash for the BloodSplashOverlay
+     */
+    public void addBloodSplash(){
+        bloodSplashesScreen.add(new BloodSplash(new Vector2(
+                MathUtils.random(viewport.getWorldWidth()),
+                MathUtils.random(viewport.getWorldHeight())
+        )));
     }
 
     @Override

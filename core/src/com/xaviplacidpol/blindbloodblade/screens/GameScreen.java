@@ -5,8 +5,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
+import com.xaviplacidpol.blindbloodblade.overlays.BloodSplashOverlay;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
@@ -35,6 +37,9 @@ public class GameScreen extends ScreenAdapter {
 
     // Add the Cam
     Cam cam;
+
+    // Blood Splash Overlay
+    BloodSplashOverlay bloodSplashOverlay;
 
     public GameScreen(BlindBloodBlade game){
         this.game = game;
@@ -66,6 +71,12 @@ public class GameScreen extends ScreenAdapter {
 
         statsHud = new StatsHud(batch, level.getNinjaPlayer());
 
+        // Initialize the BloodSplashOverlay witch will print the fixed blood splashes
+//        bloodSplashOverlay = new BloodSplashOverlay();
+        bloodSplashOverlay = new BloodSplashOverlay(level);
+        bloodSplashOverlay.init();
+
+
         // Configure the cam
         setCam();
     }
@@ -77,6 +88,9 @@ public class GameScreen extends ScreenAdapter {
      */
     @Override
     public void resize(int width, int height) {
+        // Update the bloodSplashOverlay viewport
+        bloodSplashOverlay.viewport.update(width, height, true);
+
         //  Update the viewport
         viewport.update(width, height, true);
     }
@@ -104,11 +118,41 @@ public class GameScreen extends ScreenAdapter {
 
         // Set the SpriteBatch's projection matrix
         batch.setProjectionMatrix(viewport.getCamera().combined);
-
+        batch.begin();
         // Render the level
         level.render(batch);
+
+        // IMPORTANT!! Render the blood splash overlay after level rendering, and before statsHud
+        bloodSplashOverlay.render(batch);
+
+        batch.end();
         statsHud.render();
 
+
+
+        //Apply endless game
+        restartLevel();
+
+
+    }
+
+    /**
+     * Apply endless Game
+     * Checks if level ended, if true, then return the ninja to the start point, and set
+     * levelEnd to false again, otherwise return with no result
+     */
+    private void restartLevel() {
+        if(level.levelEnd){
+            //Repositioning ninja player to the start point
+            level.getNinjaPlayer().setPosition(new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40));
+//            cam.camera = level.viewport.getCamera();
+//            cam.target = level.getNinjaPlayer();
+
+            //Repositioning camera
+            resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            //Level restarted, then set levelEnd to false
+            level.levelEnd = false;
+        }
     }
 
     /**
