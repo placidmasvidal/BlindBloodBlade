@@ -338,7 +338,7 @@ public class NinjaPlayer extends InputAdapter {
         }
 
 
-	int i = 0;
+//	int i = 0;
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
@@ -346,29 +346,33 @@ public class NinjaPlayer extends InputAdapter {
             enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS) && (enemy.getPosition().x - position.x > 0);
             //System.out.println("Colliding = " + attackColliding);
 
-
-            if( attackColliding && (attackState == AttackState.ATTACKING)){
+            if(enemy.isAlive()) {
+                if (attackColliding && (attackState == AttackState.ATTACKING)) {
 //                System.out.println("enemy mort");
-                enemy.setAlive(false);
-                level.getEnemies().removeIndex(i);
+                    enemy.setAlive(false);
+//                level.getEnemies().removeIndex(i);
                     kills++;
                     score = score + 50;
 
-                //Add a bloodSplash where the enemy died
-                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
-                level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
+                    //Add a bloodSplash where the enemy died
+                    SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
+                    level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
-                //Add a bloodSplash to the bloodSplashOverlay
-                level.addBloodSplash();
+                    //Add a bloodSplash to the bloodSplashOverlay
+                    for (int i = 0; i < 10; i++) {
+                        //Add a bloodSplash to the bloodSplashOverlay
+                        level.addBloodSplash();
+                    }
 
-                enemy.setAlive(false);
-            }else{ //Ninja dies if contact with the enemy
-                if(enemyAttackColliding && (attackState == AttackState.NOT_ATTACKING) && enemy.isAlive()){
-                    isAlive = false;
-                    //TODO endgame // Que fem quan el ninja mort
+                    enemy.setAlive(false);
+                } else { //Ninja dies if contact with the enemy
+                    if (enemyAttackColliding && (attackState == AttackState.NOT_ATTACKING) && enemy.isAlive()) {
+                        isAlive = false;
+                        //TODO endgame // Que fem quan el ninja mort
+                    }
                 }
             }
-            i++;
+//            i++;
 //            System.out.println("Enemies after kill:"+ level.getEnemies().size);
         }
 
