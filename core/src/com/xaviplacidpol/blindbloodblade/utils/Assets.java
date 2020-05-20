@@ -5,14 +5,12 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.xaviplacidpol.blindbloodblade.entities.Ground;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -33,6 +31,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
     public BridgeAssets bridgeAssets;
+    public BackgroundAssets backgroundAssets;
+    public GroundWithSpikesAssets groundSpikesAssets;
     public SplashScreenAssets splashScreenAssets;
     private AssetManager assetManager;
 
@@ -60,6 +60,8 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
+        backgroundAssets = new BackgroundAssets(atlas);
+        groundSpikesAssets = new GroundWithSpikesAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
 
     }
@@ -135,6 +137,22 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    /**
+     * Build spikes
+     */
+    public class BackgroundAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch backNinePatch;
+
+        public BackgroundAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BACKGROUND_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BACKGROUND_EDGE;
+            backNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
 
     /**
      *Build bridges with a NinePatch
@@ -148,6 +166,22 @@ public class Assets implements Disposable, AssetErrorListener {
             TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BRIDGE_SPRITE);
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
             int edge = Constants.BRIDGE_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     *Build groundSpikes with a NinePatch
+     */
+    public class GroundWithSpikesAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public GroundWithSpikesAssets (TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BLOCK_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BLOCK_EDGE;
             groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
         }
     }

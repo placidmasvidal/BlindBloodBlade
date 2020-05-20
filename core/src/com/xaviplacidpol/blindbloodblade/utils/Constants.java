@@ -54,6 +54,14 @@ public class Constants {
     public static final String BRIDGE_SPRITE = "bridge";
     public static final int BRIDGE_EDGE = 8;
 
+    //GROUND WITH SPIKES
+    public static final String BLOCK_SPRITE = "block";
+    public static final int BLOCK_EDGE = 8;
+
+    //BACKGROUND
+    public static final String BACKGROUND_SPRITE = "backgroundgamestage";
+    public static final int BACKGROUND_EDGE = 8;
+
     //SPLASH SCREEN
     //Background sprite
     public static final String SPLASH_SPRITE = "background";

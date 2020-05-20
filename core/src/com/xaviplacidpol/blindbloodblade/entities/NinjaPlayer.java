@@ -14,8 +14,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-public class NinjaPlayer extends InputAdapter {
+import java.awt.Container;
 
+public class NinjaPlayer extends InputAdapter {
     public final static String TAG = NinjaPlayer.class.getName();
 
     //Attributes
@@ -65,7 +66,7 @@ public class NinjaPlayer extends InputAdapter {
     public NinjaPlayer(Viewport viewport){
         this.viewport = viewport;
         // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+        position = new Vector2(Constants.SCREEN_W/2, Constants.PLAYER_EYE_HEIGHT + 40);
 
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
@@ -110,21 +111,18 @@ public class NinjaPlayer extends InputAdapter {
         }else{
             //TODO ATTACK when touched the right half of the screen
         }
-
         return true;
-
     }
 
     /**
      * Update our ninja every frame
-     *
      * It will apply gravity, update all movement, speed, and act if the player do anything with the ninja like jump
      * and attack
      * Check if player is grounded
      * @param delta
      * @param grounds Array with all the ground in the level
      */
-    public void update(float delta, Array<Ground> grounds, Array<Bridge> bridges){
+    public void update(float delta, Array<Ground> grounds, Array<Bridge> bridges) {
         // Update lastFramePosition
         lastFramePosition.set(position);
 
@@ -139,7 +137,6 @@ public class NinjaPlayer extends InputAdapter {
         // If ninjaPlayer isn't JUMPING, make her now FALLING
         if(jumpState != JumpState.JUMPING){
             jumpState = JumpState.FALLING;
-
             // Check if the ninja has landed on the ground
             // Position keeps track of player eye position, not her feet.
             // If she has indeed landed, change her jumpState to GROUNDED, set her vertical velocity to 0,
@@ -176,22 +173,37 @@ public class NinjaPlayer extends InputAdapter {
 
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
-
-                    // TODO moure automatic
-                    //moveRight(delta);
                 }
             }
+//            //For each block, call landedOnBlock()
+//            for (Block block : blocks){
+//                if (landedOnBlock(block)) {
+//                    //  If true, set jumpState to GROUNDED
+//                    jumpState = JumpState.GROUNDED;
+//
+//                    // Set zero vertical velocity
+//                    velocity.y = 0;
+//
+//                    // Make sure Ninja's feet aren't sticking into the ground
+//                    position.y = block.top + Constants.PLAYER_EYE_HEIGHT;
+//                } else if (collisionOnBlock(block)) {
+//                    // If true, set walkState to BLOCKED
+//                    walkState = WalkState.BLOCKED;
+//                    // Set zero horizontal velocity
+//                    velocity.x = 0;
+//                    // Make sure Ninja's feet aren't sticking into the block
+//                    position.x = block.getWidth();
+//                }
+//            }
         }
 
-
-
         // Jumping
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.justTouched()) {
 
             // Add a switch statement. If the jump key is pressed and player is GROUNDED, then startJump()
             // If she's JUMPING, then continueJump()
             // If she's falling, then don't do anything
-            switch (jumpState){
+            switch (jumpState) {
                 case GROUNDED:
                     startJump();
                     break;
@@ -201,8 +213,7 @@ public class NinjaPlayer extends InputAdapter {
                 case FALLING:
                     break;
             }
-
-        }else {
+        } else {
             // If the jump key wasn't pressed, endJump()
             endJump();
         }
@@ -210,15 +221,13 @@ public class NinjaPlayer extends InputAdapter {
         // Moving left, right or standing quiet
         // check if the left/right arrow keys are pressed
         // TODO in Android AUTO RUN
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight(delta);
         } else{
             walkState = WalkState.BLOCKED;
         }
-
-
     }
 
     /**
@@ -233,12 +242,10 @@ public class NinjaPlayer extends InputAdapter {
         boolean straddle = false;
 
         // First check if Players's feet were above the platform top last frame and below the platform top this frame
-        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
-                position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top && position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
             float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
-
 
             // See if either of ninjaPlayer's toes are on the ground
             leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
@@ -246,16 +253,14 @@ public class NinjaPlayer extends InputAdapter {
 
             // See if NinjaPlayer is straddling the platform
             straddle = (ground.left > leftFoot && ground.right < rightFoot);
-
         }
         // Return whether or not NinjaPlayer had landed on the ground
         return leftFootIn || rightFootIn || straddle;
-
     }
 
     /**
      * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge,
-     * for example he maybe is falling to the spikes
+     * for example he maybe is falling to the bridge
      * @param bridge
      * @return
      */
@@ -268,9 +273,8 @@ public class NinjaPlayer extends InputAdapter {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= bridge.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < bridge.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.0f;
+            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
-
 
             // See if either of ninjaPlayer's toes are on the ground
             leftFootIn = (bridge.left < leftFoot && bridge.right > leftFoot);
@@ -278,6 +282,36 @@ public class NinjaPlayer extends InputAdapter {
 
             // See if NinjaPlayer is straddling the platform
             straddle = (bridge.left > leftFoot && bridge.right < rightFoot);
+
+        }
+        // Return whether or not NinjaPlayer had landed on the ground
+        return leftFootIn || rightFootIn || straddle;
+    }
+
+    /**
+     * Checks if ninjaPlayer is landed on block or have his foots out the block,
+     * for example he maybe is falling to the block
+     * @param block
+     * @return
+     */
+    boolean landedOnBlock(Block block){
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        // First check if Players's feet were above the platform top last frame and below the platform top this frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= block.top &&
+                position.y - Constants.PLAYER_EYE_HEIGHT < block.top){
+            // If so, find the position of NinjaPlayer left and right toes
+            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
+
+            // See if either of ninjaPlayer's toes are on the ground
+            leftFootIn = (block.left < leftFoot && block.right > leftFoot);
+            rightFootIn = (block.left < rightFoot && block.right > rightFoot);
+
+            // See if NinjaPlayer is straddling the platform
+            straddle = (block.left > leftFoot && block.right < rightFoot);
 
         }
         // Return whether or not NinjaPlayer had landed on the ground
@@ -313,10 +347,7 @@ public class NinjaPlayer extends InputAdapter {
         walkState = WalkState.WALKING;
 
         position.x -= delta * Constants.PLAYER_MOVE_SPEED;
-
     }
-
-
 
     /**
      * startJump()
@@ -375,7 +406,6 @@ public class NinjaPlayer extends InputAdapter {
      * @param batch
      */
     public void render(SpriteBatch batch){
-
         // Render ninja standing static
         TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
 
@@ -413,7 +443,6 @@ public class NinjaPlayer extends InputAdapter {
                 false,
                 false
         );
-
     }
 
     /**

@@ -3,7 +3,6 @@ package com.xaviplacidpol.blindbloodblade.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Vector3;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 
 public class Cam {
@@ -14,6 +13,7 @@ public class Cam {
         this.camera = camera;
         this.target = target;
     }
+
     public Cam() {
         camera = new Camera() {
             @Override
