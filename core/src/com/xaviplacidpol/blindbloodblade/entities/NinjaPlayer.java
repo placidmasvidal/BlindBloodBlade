@@ -19,6 +19,8 @@ import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
+
 import java.awt.Event;
 
 public class NinjaPlayer extends InputAdapter {
@@ -63,6 +65,36 @@ public class NinjaPlayer extends InputAdapter {
     //Level where ninja is playing
     Level level;
 
+    private Integer score;
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getKills() {
+        return kills;
+    }
+
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    private Integer kills;
+
+    public float getTimeLive() {
+        return timeLive;
+    }
+
+    public void setTimeLive(float timeLive) {
+        this.timeLive = timeLive;
+    }
+
+    private float timeLive;
+
     //Booleans to control player Versus enemies battles
     boolean attackColliding;
     boolean enemyAttackColliding;
@@ -94,6 +126,10 @@ public class NinjaPlayer extends InputAdapter {
         //Player is alive
         isAlive = true;
 
+        timeLive = 0;
+        kills = 0;
+        score = 0;
+
     }
 
     public NinjaPlayer(Viewport viewport, Level level){
@@ -122,6 +158,10 @@ public class NinjaPlayer extends InputAdapter {
 
         //Player is alive
         isAlive = true;
+
+        timeLive = 0;
+        kills = 0;
+        score = 0;
 
     }
 
@@ -197,6 +237,9 @@ public class NinjaPlayer extends InputAdapter {
         // Set the attackState start time using TimeUtils.nanoTime()
         attackStartTime = TimeUtils.nanoTime();
 
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+
         // Call continueAttacking()
         continueAttacking();
     }
@@ -232,6 +275,13 @@ public class NinjaPlayer extends InputAdapter {
      * @param grounds Array with all the ground in the level
      */
     public void update(float delta, Array<Ground> grounds){
+
+        timeLive += delta;
+        if(timeLive > 1) {
+            score = score + 10;
+            timeLive = 0;
+        }
+
         // Update lastFramePosition
         lastFramePosition.set(position);
 
@@ -282,10 +332,13 @@ public class NinjaPlayer extends InputAdapter {
         //Collide with spikes
         for(Spikes spikes : level.getSpikes()){
             if(landedOnSpikes(spikes)){ //If collided to spikes, then dies, otherwise return
+                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
                 isAlive = false;
             }
         }
 
+
+	int i = 0;
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
@@ -296,8 +349,13 @@ public class NinjaPlayer extends InputAdapter {
 
             if( attackColliding && (attackState == AttackState.ATTACKING)){
 //                System.out.println("enemy mort");
+                enemy.setAlive(false);
+                level.getEnemies().removeIndex(i);
+                    kills++;
+                    score = score + 50;
 
                 //Add a bloodSplash where the enemy died
+                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
                 level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
                 //Add a bloodSplash to the bloodSplashOverlay
@@ -310,7 +368,8 @@ public class NinjaPlayer extends InputAdapter {
                     //TODO endgame // Que fem quan el ninja mort
                 }
             }
-
+            i++;
+//            System.out.println("Enemies after kill:"+ level.getEnemies().size);
         }
 
 
@@ -469,6 +528,8 @@ public class NinjaPlayer extends InputAdapter {
         // Set the jump start time
         // Using TimeUtils.nanoTime()
         jumpStartTime = TimeUtils.nanoTime();
+
+        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
 
         // Call continueJump()
         continueJump();

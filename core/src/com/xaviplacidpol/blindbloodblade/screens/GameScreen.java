@@ -2,6 +2,7 @@ package com.xaviplacidpol.blindbloodblade.screens;
 
 import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +14,7 @@ import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -41,6 +43,12 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(BlindBloodBlade game){
         this.game = game;
+//        SoundAssetsManager.bbbmusics.get("fastlevel").play();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
+//        Assets.instance.soundAssets.sakuraAmbienceStage.play();
+//        Assets.instance.soundAssets.superFastLevel.play();
+//        Assets.instance.soundAssets.thrillerStage.play();
     }
 
     @Override
@@ -61,7 +69,7 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
-        statsHud = new StatsHud(batch);
+        statsHud = new StatsHud(batch, level.getNinjaPlayer());
 
         // Initialize the BloodSplashOverlay witch will print the fixed blood splashes
 //        bloodSplashOverlay = new BloodSplashOverlay();
@@ -151,7 +159,6 @@ public class GameScreen extends ScreenAdapter {
      * Configure the cam
      */
     private void setCam() {
-        //level = new Level(viewport, game);
         cam.camera = level.viewport.getCamera();
         cam.target = level.getNinjaPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

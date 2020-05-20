@@ -20,7 +20,11 @@ import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -61,12 +65,12 @@ public class Level implements Disposable {
 
         this.game = game;
         scoresSet = new HashSet<>();
-        scoresSet.add(19286);
+ /*       scoresSet.add(19286);
         scoresSet.add(17388);
         scoresSet.add(19281);
         scoresSet.add(21990);
         scoresSet.add(26722);
-
+*/
         // Initialize NinjaPlayer
         ninjaPlayer = new NinjaPlayer(viewport, this);
 
@@ -174,7 +178,9 @@ public class Level implements Disposable {
         ninjaPlayer.render(batch);
 
 //        batch.end();
-        dispose();
+        if(!ninjaPlayer.isAlive()) {
+            dispose();
+        }
     }
 
     /**
@@ -243,11 +249,30 @@ public class Level implements Disposable {
 
     @Override
     public void dispose() {
+
         int i = 1;
+        scoresSet.add(ninjaPlayer.getScore());
+
+        List<Integer> scores = new ArrayList<>();
+
         for(Integer score : scoresSet){
+            scores.add(score);
+        }
+
+        java.util.Collections.sort(scores, Collections.reverseOrder());
+
+        for(Integer score : scores){
             game.gameData.putInteger("score"+i, score);
             i++;
         }
+
+/*        for(Integer score : scoresSet){
+            game.gameData.putInteger("score"+i, score);
+            i++;
+        }
+        scoresSet.remove(0);
+*/
+//        game.gameData.putInteger("score5", ninjaPlayer.getScore());
         game.gameData.flush();
     }
 }

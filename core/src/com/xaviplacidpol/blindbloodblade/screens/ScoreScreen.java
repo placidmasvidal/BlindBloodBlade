@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.awt.Menu;
 import java.util.HashSet;
@@ -47,6 +48,8 @@ public class ScoreScreen extends ScreenAdapter {
     private Set<Integer> scoresSet;
 
     public ScoreScreen(final BlindBloodBlade game) {
+
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
 
         this.game = game;
 
@@ -89,6 +92,8 @@ public class ScoreScreen extends ScreenAdapter {
             stage.addActor(lblScores);
 
         }
+
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
 
         stage.addActor(lblTitle);
 
