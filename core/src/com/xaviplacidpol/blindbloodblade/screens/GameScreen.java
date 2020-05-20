@@ -39,7 +39,8 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(BlindBloodBlade game){
         this.game = game;
 //        SoundAssetsManager.bbbmusics.get("fastlevel").play();
-        SoundAssetsManager.bbbmusics.get("sakura").play();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
 //        Assets.instance.soundAssets.sakuraAmbienceStage.play();
 //        Assets.instance.soundAssets.superFastLevel.play();
 //        Assets.instance.soundAssets.thrillerStage.play();

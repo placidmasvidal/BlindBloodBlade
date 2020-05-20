@@ -46,12 +46,14 @@ public class SoundAssetsManager implements Disposable {
 
         superFastLevel = Gdx.audio.newMusic(Gdx.files.internal("sounds/nessuperfastlevel.ogg"));
         superFastLevel.setLooping(true);
+        superFastLevel.setVolume(0.2f);
 
         thrillerStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/thrillerstage.ogg"));
         thrillerStage.setLooping(true);
 
         sakuraAmbienceStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/sakuraambiencestage.ogg"));
         sakuraAmbienceStage.setLooping(true);
+        sakuraAmbienceStage.setVolume(0.3f);
 
         scorescreenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/quietambiance.ogg"));
         scorescreenMusic.setLooping(true);
