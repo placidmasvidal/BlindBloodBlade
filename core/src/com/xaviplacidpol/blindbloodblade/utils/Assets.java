@@ -88,6 +88,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking;
         public final TextureAtlas.AtlasRegion ninjaAttacking;
+        public final TextureAtlas.AtlasRegion ninjaDead;
 
         public final Animation ninjaWalkingAnimation;
 
@@ -101,6 +102,8 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalking = atlas.findRegion(Constants.NINJA_WALKING);
 
             ninjaAttacking = atlas.findRegion(Constants.NINJA_ATTACKING);
+
+            ninjaDead = atlas.findRegion(Constants.NINJA_DEAD);
 
             //WALKING ANIMATION
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();

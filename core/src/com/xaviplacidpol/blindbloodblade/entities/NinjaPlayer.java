@@ -63,6 +63,10 @@ public class NinjaPlayer extends InputAdapter {
     //Level where ninja is playing
     Level level;
 
+    //Booleans to control player Versus enemies battles
+    boolean attackColliding;
+    boolean enemyAttackColliding;
+
     //NinjaPlayer
     public NinjaPlayer(Viewport viewport){
         this.viewport = viewport;
@@ -121,6 +125,22 @@ public class NinjaPlayer extends InputAdapter {
 
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
     public boolean isAlive() {
         return isAlive;
     }
@@ -129,7 +149,6 @@ public class NinjaPlayer extends InputAdapter {
         isAlive = alive;
     }
 
-    //TODO provisional touch meitat pantalla esquerra per saltar, meitat dreta per atacar, modificar quan tinguem camera
     @Override
     /**
      * Get touchPosition, verify what side of the screen was touched,
@@ -260,21 +279,36 @@ public class NinjaPlayer extends InputAdapter {
             }
         }
 
+        //Collide with spikes
+        for(Spikes spikes : level.getSpikes()){
+            if(landedOnSpikes(spikes)){ //If collided to spikes, then dies, otherwise return
+                isAlive = false;
+            }
+        }
+
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
-
-//            System.out.println("Enemy position= " + enemy.getPosition().x);
-//            System.out.println("Player position = " + position.x);
-//            System.out.println("position player - position enemy " + ( enemy.getPosition().x - position.x));
-            boolean attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            //Save attackColliding
+            attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS) && (enemy.getPosition().x - position.x > 0);
             //System.out.println("Colliding = " + attackColliding);
+
+
             if( attackColliding && (attackState == AttackState.ATTACKING)){
 //                System.out.println("enemy mort");
-                //TODO enemy ha mort
+
                 //Add a bloodSplash where the enemy died
                 level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
-            }else{
-                //TODO ninja mort NOMÉS si entra al radi de l'enemic i el ninja no ha atacat
+
+                //Add a bloodSplash to the bloodSplashOverlay
+                level.addBloodSplash();
+
+                enemy.setAlive(false);
+            }else{ //Ninja dies if contact with the enemy
+                if(enemyAttackColliding && (attackState == AttackState.NOT_ATTACKING) && enemy.isAlive()){
+                    isAlive = false;
+                    //TODO endgame // Que fem quan el ninja mort
+                }
             }
 
         }
@@ -351,6 +385,39 @@ public class NinjaPlayer extends InputAdapter {
 
     }
 
+    /**
+     * Checks if ninjaPlayer had fall out to a spike
+     * @param spikes
+     * @return
+     */
+    boolean landedOnSpikes(Spikes spikes){
+//        boolean leftFootIn = false;
+//        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        // First check if Players's feet were above the spikes top last frame and below the spikes top this frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y + 1 &&
+                position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
+            // If so, find the position of NinjaPlayer left and right toes
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
+
+
+//            // See if either of ninjaPlayer's toes are on the ground
+//            leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
+//            rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
+
+            // See if NinjaPlayer is straddling the spikes
+            straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
+            //System.out.println(" NinjaPlayer linia 401 left foot: " + leftFoot);
+
+
+        }
+        //return leftFootIn || rightFootIn || straddle;
+        // Return if NinjaPlayer had landed or not on the spike
+        return straddle;
+    }
+
     //TODO
     /**
      * Move constantly to right if player don't collide with any obstacle
@@ -365,8 +432,12 @@ public class NinjaPlayer extends InputAdapter {
         //Set walkState to WALKING
         walkState = WalkState.WALKING;
 
-        // Move player right by delta * movement speed
-        position.x += delta * Constants.PLAYER_MOVE_SPEED;
+        // Move player right by delta * movement speed if is alive
+        if(isAlive){
+            position.x += delta * Constants.PLAYER_MOVE_SPEED;
+        }else{
+            position.x += 0;
+        }
     }
 
     /**
@@ -446,21 +517,25 @@ public class NinjaPlayer extends InputAdapter {
         // Render ninja standing static
         TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
 
-        // Select the correct sprite based on jumpState, and walkState
-        if(attackState == AttackState.ATTACKING){
-            region = Assets.instance.ninjaAssets.ninjaAttacking;
-        } else if(jumpState != JumpState.GROUNDED){
-            region = Assets.instance.ninjaAssets.ninjaJumping;
-        } else if(walkState == WalkState.BLOCKED){
-            region = Assets.instance.ninjaAssets.ninjaStatic;
-        } else if(walkState == WalkState.WALKING){
+        if(isAlive){
+            // Select the correct sprite based on jumpState, and walkState
+            if(attackState == AttackState.ATTACKING){
+                region = Assets.instance.ninjaAssets.ninjaAttacking;
+            } else if(jumpState != JumpState.GROUNDED){
+                region = Assets.instance.ninjaAssets.ninjaJumping;
+            } else if(walkState == WalkState.BLOCKED){
+                region = Assets.instance.ninjaAssets.ninjaStatic;
+            } else if(walkState == WalkState.WALKING){
 
-            // Calculate how long we've been walking in seconds
-            float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
+                // Calculate how long we've been walking in seconds
+                float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
-            // Select the correct frame from the walking  animation
-            region = (TextureRegion) Assets.instance.ninjaAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
+                // Select the correct frame from the walking  animation
+                region = (TextureRegion) Assets.instance.ninjaAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
 
+            }
+        }else{
+            region = Assets.instance.ninjaAssets.ninjaDead;
         }
 
         batch.draw(

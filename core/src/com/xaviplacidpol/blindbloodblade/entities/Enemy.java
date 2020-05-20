@@ -9,12 +9,23 @@ import com.xaviplacidpol.blindbloodblade.utils.Constants;
 public class Enemy {
     private Vector2 position;
 
+    private boolean isAlive;
+
     public Enemy(Vector2 position){
         this.position = position;
+        this.isAlive = true;
     }
 
     public Vector2 getPosition(){
         return this.position;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     //TODO Actualitzar quan el samurai tingui que atacar
