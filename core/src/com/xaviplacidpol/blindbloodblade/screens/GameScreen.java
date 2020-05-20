@@ -37,6 +37,9 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(BlindBloodBlade game){
         this.game = game;
+        Assets.instance.soundAssets.sakuraAmbienceStage.play();
+//        Assets.instance.soundAssets.superFastLevel.play();
+//        Assets.instance.soundAssets.thrillerStage.play();
     }
 
     @Override

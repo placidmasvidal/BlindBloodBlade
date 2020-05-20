@@ -2,6 +2,7 @@ package com.xaviplacidpol.blindbloodblade.screens;
 
 import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -50,6 +51,7 @@ public class MenuScreen extends ScreenAdapter {
 
         addContentToStage();
 
+        Assets.instance.soundAssets.backgroundMusic.play();
 
     }
 
@@ -93,6 +95,8 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
+                Assets.instance.soundAssets.backgroundMusic.stop();
+                Assets.instance.soundAssets.swordSlashSound.play();
             }
         });
 

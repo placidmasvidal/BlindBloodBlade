@@ -4,6 +4,7 @@ import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -246,9 +250,34 @@ public class Assets implements Disposable, AssetErrorListener {
     public class SoundAssets{
 
         public final Sound bloodSplashSound;
+        public final Sound swordSlashSound;
+
+//        public static final Map<String, Sound> sounds;
+
+        public final Music backgroundMusic;
+        public final Music sakuraAmbienceStage;
+        public final Music superFastLevel;
+        public final Music thrillerStage;
+
 
         public SoundAssets(){
+
+  //          sounds = new HashMap<>();
+
             bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
+            swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
+
+            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.ogg"));
+            backgroundMusic.setLooping(true);
+
+            superFastLevel = Gdx.audio.newMusic(Gdx.files.internal("sounds/nessuperfastlevel.ogg"));
+            superFastLevel.setLooping(true);
+
+            thrillerStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/thrillerstage.ogg"));
+            thrillerStage.setLooping(true);
+
+            sakuraAmbienceStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/sakuraambiencestage.ogg"));
+            sakuraAmbienceStage.setLooping(true);
         }
 
     }
