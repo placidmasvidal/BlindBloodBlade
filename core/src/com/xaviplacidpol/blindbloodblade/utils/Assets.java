@@ -4,6 +4,7 @@ import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -37,6 +38,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
+    public SoundAssets soundAssets;
 
     private AssetManager assetManager;
 
@@ -69,6 +71,7 @@ public class Assets implements Disposable, AssetErrorListener {
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
+        soundAssets = new SoundAssets();
     }
 
     @Override
@@ -236,6 +239,16 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public BackgroundStageAssets(TextureAtlas atlas){
             backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
+        }
+
+    }
+
+    public class SoundAssets{
+
+        public final Sound bloodSplashSound;
+
+        public SoundAssets(){
+            bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
         }
 
     }
