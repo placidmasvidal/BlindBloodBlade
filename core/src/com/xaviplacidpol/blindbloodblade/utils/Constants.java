@@ -34,19 +34,20 @@ public class Constants {
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
     public static final float PLAYER_HEAD_HEIGHT = 23.0f;
-    public static final float PLAYER_MOVE_SPEED = 400;              ///modified
+    public static final float PLAYER_MOVE_SPEED = 350;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
     public static final float MAX_JUMP_DURATION = 0.15f;
-    public static final float WALK_LOOP_DURATION = 0.25f;
+    public static final float WALK_LOOP_DURATION = 0.35f;   //modified
 
     public static final float MAX_ATTACK_DURATION = 0.50f;
 
     //ninja sprites
-    public static final String NINJA_STATIC = "ninjastatic";
+    public static final String NINJA_STATIC = "ninjawalk3";     //modified
     public static final String NINJA_JUMPING = "ninjajump";
-    public static final String NINJA_WALKING = "ninjawalk";
+    public static final String NINJA_WALKING = "ninjawalk";     //modified
+    public static final String NINJA_WALKING2 = "ninjawalk2";   //modified
     public static final String NINJA_ATTACKING = "ninjabloody";
     public static final String NINJA_DEAD = "ninjadead";
 
