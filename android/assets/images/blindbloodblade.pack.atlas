@@ -151,44 +151,51 @@ ninjajump
   orig: 56, 128
   offset: 0, 0
   index: -1
-ninjastatic
+ninjajump.old
   rotate: false
   xy: 1094, 267
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
-ninjawalk
+ninjastatic
   rotate: false
   xy: 1880, 1270
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk
+  rotate: false
+  xy: 1892, 1530
   size: 58, 128
   orig: 58, 128
   offset: 0, 0
   index: -1
 ninjawalk2
   rotate: false
-  xy: 1892, 1530
+  xy: 1898, 1400
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk2.old
   rotate: false
-  xy: 1940, 1270
+  xy: 1286, 786
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk3
   rotate: false
-  xy: 1898, 1400
+  xy: 1938, 1270
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk.old
   rotate: false
-  xy: 1898, 1400
+  xy: 1938, 1270
   size: 56, 128
   orig: 56, 128
   offset: 0, 0

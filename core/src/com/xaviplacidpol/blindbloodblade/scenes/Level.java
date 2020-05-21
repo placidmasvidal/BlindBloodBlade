@@ -325,29 +325,6 @@ public class Level implements Disposable {
     @Override
     public void dispose() {
 
- /*       int i = 1;
-        scoresSet.add(score);
 
-        List<Integer> scores = new ArrayList<>();
-
-        for(Integer score : scoresSet){
-            scores.add(score);
-        }
-
-        java.util.Collections.sort(scores, Collections.reverseOrder());
-
-        for(Integer score : scores){
-            game.gameData.putInteger("score"+i, score);
-            i++;
-        }
-*/
-/*        for(Integer score : scoresSet){
-            game.gameData.putInteger("score"+i, score);
-            i++;
-        }
-        scoresSet.remove(0);
-*/
-//        game.gameData.putInteger("score5", ninjaPlayer.getScore());
-  //      game.gameData.flush();
     }
 }
