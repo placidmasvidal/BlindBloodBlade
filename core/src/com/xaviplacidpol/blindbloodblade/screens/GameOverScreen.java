@@ -15,6 +15,12 @@ import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class GameOverScreen extends ScreenAdapter {
 
     private BlindBloodBlade game;
@@ -30,13 +36,20 @@ public class GameOverScreen extends ScreenAdapter {
     private Label lblTitle;
     private Vector2 lblTitlePos;
 
-    public GameOverScreen(final BlindBloodBlade game) {
+    private Integer score;
+    private Set<Integer> scoresSet;
 
+    public GameOverScreen(final BlindBloodBlade game, Integer score) {
+
+        this.score = score;
 
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
         SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
 
         this.game = game;
+
+        scoresSet = new HashSet<>();
+
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
@@ -75,10 +88,33 @@ public class GameOverScreen extends ScreenAdapter {
 
         stage.draw();
 
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new MenuScreen(game));
+            dispose();
+        }
+
     }
 
     @Override
     public void dispose() {
+
+        int i = 1;
+        scoresSet.add(score);
+
+        List<Integer> scores = new ArrayList<>();
+
+        for(Integer score : scoresSet){
+            scores.add(score);
+        }
+
+        java.util.Collections.sort(scores, Collections.reverseOrder());
+
+        for(Integer score : scores){
+            game.gameData.putInteger("score"+i, score);
+            i++;
+        }
+
+        game.gameData.flush();
 
     }
 

@@ -19,7 +19,7 @@ public class Constants {
     public static final float CHASE_CAM_MOVE_SPEED = WORLD_SIZE;
 
     //Restart game position for endless gaming
-    public static final float ENDLESS_POSITION = 1000;
+    public static final float ENDLESS_POSITION = 5000;
 
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
