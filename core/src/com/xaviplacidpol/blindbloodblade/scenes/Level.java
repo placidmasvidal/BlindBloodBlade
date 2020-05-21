@@ -309,10 +309,17 @@ public class Level implements Disposable {
     /**
      * Generate a random blood splash for the BloodSplashOverlay
      */
-    public void addBloodSplash(){
+/*    public void addBloodSplash(){
         bloodSplashesScreen.add(new BloodSplash(new Vector2(
                 MathUtils.random(viewport.getWorldWidth()),
                 MathUtils.random(viewport.getWorldHeight())
+        )));
+    }   */
+
+    public void addBloodSplash(){
+        bloodSplashesScreen.add(new BloodSplash(new Vector2(
+                MathUtils.random(viewport.getWorldWidth()) - 30,
+                MathUtils.random(viewport.getWorldHeight()) - 20
         )));
     }
 
