@@ -38,6 +38,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public SpikesAssets spikesAssets;
 
     public BridgeAssets bridgeAssets;
+    public BackgroundAssets backgroundAssets;
+    public GroundWithSpikesAssets groundSpikesAssets;
     public SplashScreenAssets splashScreenAssets;
     public EnemyAssets enemyAssets;
     public ScoreScreenAssets scoreScreenAssets;
@@ -71,6 +73,8 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
+        backgroundAssets = new BackgroundAssets(atlas);
+        groundSpikesAssets = new GroundWithSpikesAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
         scoreScreenAssets = new ScoreScreenAssets(atlas);
@@ -178,6 +182,39 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
     }
+
+    /**
+     * Build spikes
+     */
+    public class BackgroundAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch backNinePatch;
+
+        public BackgroundAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BACKGROUND_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BACKGROUND_EDGE;
+            backNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     *Build groundSpikes with a NinePatch
+     */
+    public class GroundWithSpikesAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public GroundWithSpikesAssets (TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BLOCK_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BLOCK_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
     /**
      * Build bridges
      */
