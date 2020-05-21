@@ -239,9 +239,6 @@ public class Level implements Disposable {
         spikes.add(new Spikes(new Vector2(1851, 0)));
         spikes.add(new Spikes(new Vector2(1921, 0)));
         spikes.add(new Spikes(new Vector2(1991, 0)));
-        spikes.add(new Spikes(new Vector2(2720, 40)));
-        spikes.add(new Spikes(new Vector2(2790, 40)));
-        spikes.add(new Spikes(new Vector2(2821, 40)));
         spikes.add(new Spikes(new Vector2(2891, 0)));
         spikes.add(new Spikes(new Vector2(2961, 0)));
         spikes.add(new Spikes(new Vector2(3031, 0)));
