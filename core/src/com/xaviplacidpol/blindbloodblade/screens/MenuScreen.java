@@ -1,7 +1,8 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
 public class MenuScreen extends ScreenAdapter {
@@ -31,10 +33,7 @@ public class MenuScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private StretchViewport viewport;
 
-//    public static BitmapFont bbbattackfont;
-
     private Image background;
-    //    private Image startImg;
     private Drawable drawable;
     private ImageButton startButton;
     private ImageButton scoreButton;
@@ -53,7 +52,9 @@ public class MenuScreen extends ScreenAdapter {
 
         addContentToStage();
 
-
+//        Assets.instance.soundAssets.backgroundMusic.play();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).play();
     }
 
 
@@ -89,15 +90,22 @@ public class MenuScreen extends ScreenAdapter {
 //        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
         textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
 
-        startButton.setPosition(128, 50);
+        startButton.setPosition(196, 80);
+        startButton.setWidth(128);
+        startButton.setHeight(64);
         startButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen());
+                game.setScreen(new GameScreen(game));
+                SoundAssetsManager.bbbsounds.get("swordslash").play();
+//                Assets.instance.soundAssets.backgroundMusic.stop();
+//                Assets.instance.soundAssets.swordSlashSound.play();
             }
         });
 
-        scoreButton.setPosition(128, startButton.getY()-startButton.getHeight()/2 - 15f);
+        scoreButton.setPosition(196, startButton.getY()-startButton.getHeight()/2 - 32f);
+        scoreButton.setWidth(128);
+        scoreButton.setHeight(64);
         scoreButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -137,6 +145,7 @@ public class MenuScreen extends ScreenAdapter {
 
         update(delta);
 
+        update(delta);
 
 
 
