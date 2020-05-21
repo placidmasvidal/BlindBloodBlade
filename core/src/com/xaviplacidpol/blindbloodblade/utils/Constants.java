@@ -34,7 +34,7 @@ public class Constants {
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
     public static final float PLAYER_HEAD_HEIGHT = 23.0f;
-    public static final float PLAYER_MOVE_SPEED = 200;
+    public static final float PLAYER_MOVE_SPEED = 400;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
@@ -89,7 +89,7 @@ public class Constants {
     public static final String BLOOD_SPLASH_SPRITE = "bloodsplash";
     public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
     public static final float BLOOD_SPLASH_DURATION = 0.50f;
-    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.8f;
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 1.0f;        ///modified
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";
