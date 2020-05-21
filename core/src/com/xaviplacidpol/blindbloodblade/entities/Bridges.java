@@ -6,35 +6,32 @@ import com.badlogic.gdx.math.Vector2;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 
 public class Bridges {
-    // Add a Vector 2 to hold the Bridges's position
-    final public Vector2 position;
+    float top;
+    float bottom;
+    float left;
+    float right;
 
-    public Bridges(Vector2 position){
-        // Set position
-        this.position = position;
+    /**
+     * Constructor with the position and the size of the ground
+     *
+     */
+    public Bridges(float left, float top, float width, float height) {
+        this.top = top;
+        this.bottom = top - height;
+        this.left = left;
+        this.right = left + width;
     }
 
-    public void render(SpriteBatch batch){
-        // render function
-        final TextureRegion region = Assets.instance.bridgeAssets.bridge;
+    /**
+     * renderize the bridge
+     * @param batch
+     */
+    public void render(SpriteBatch batch) {
 
-        batch.draw(
-                region.getTexture(),
-                position.x,
-                position.y,
-                0,
-                0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                0.3f,
-                0.3f,
-                0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false
-        );
+        float width = right - left;
+        float height = top - bottom;
+
+        // Draw the ground using the NinePatch
+        Assets.instance.bridgeAssets.groundNinePatch.draw(batch, left - 1, bottom - 1, width + 2, height + 2);
     }
 }

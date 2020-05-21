@@ -216,15 +216,18 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     /**
-     * Build bridges
+     *Build bridges with a NinePatch
      */
     public class BridgeAssets {
-        // Add an AtlasRegion to hold the bridges sprite
-        public final TextureAtlas.AtlasRegion bridge;
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
 
         public BridgeAssets(TextureAtlas atlas) {
-            // Find the bridges atlas region
-            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BRIDGE_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BRIDGE_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
         }
     }
 

@@ -118,7 +118,7 @@ public class Level implements Disposable {
      */
     public void update(float delta){
         // Update NinjaPlayer
-        ninjaPlayer.update(delta, grounds);
+        ninjaPlayer.update(delta, grounds, bridges);    //CRITIC
 
         endlessGame();
     }
@@ -202,7 +202,7 @@ public class Level implements Disposable {
     }
 
     private void addBridges() {
-        bridges.add(new Bridges(new Vector2(999, 0)));
+        bridges.add(new Bridges(0,0,999,0)); //CRITIC passar los valores que corresponden!
     }
 
     private void addEnemies(){
