@@ -364,7 +364,7 @@ public class NinjaPlayer extends InputAdapter {
                     level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
                     //Add a bloodSplash to the bloodSplashOverlay
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
                         level.addBloodSplash();
                     }
