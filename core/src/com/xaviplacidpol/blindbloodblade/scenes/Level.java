@@ -1,27 +1,22 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
-import com.xaviplacidpol.blindbloodblade.entities.Bridges;
+import com.xaviplacidpol.blindbloodblade.entities.Bridge;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
-import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +41,7 @@ public class Level implements Disposable {
     public Viewport viewport;
 
     // Add an Array of Bridges
-    Array<Bridges> bridges;
+    Array<Bridge> bridges;
 
     // Add an Array of Enemies
     Array<Enemy> enemies;
@@ -81,7 +76,7 @@ public class Level implements Disposable {
         spikes = new Array<Spikes>();
 
         // Initialize the bridges array
-        bridges = new Array<Bridges>();
+        bridges = new Array<Bridge>();
 
         //Initialize the enemyes array
         enemies = new Array<Enemy>();
@@ -160,7 +155,7 @@ public class Level implements Disposable {
         }
 
         // Render all bridges
-        for(Bridges bridge : bridges){
+        for(Bridge bridge : bridges){
             bridge.render(batch);
         }
 
@@ -202,7 +197,7 @@ public class Level implements Disposable {
     }
 
     private void addBridges() {
-        bridges.add(new Bridges(0,0,999,0)); //CRITIC passar los valores que corresponden!
+        bridges.add(new Bridge(0,0,999,0)); //CRITIC passar los valores que corresponden!
     }
 
     private void addEnemies(){

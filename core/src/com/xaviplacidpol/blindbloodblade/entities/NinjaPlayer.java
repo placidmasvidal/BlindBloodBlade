@@ -1,27 +1,19 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
-import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
-import java.awt.Container;
-import java.awt.Event;
 
 public class NinjaPlayer extends InputAdapter {
 
@@ -274,7 +266,7 @@ public class NinjaPlayer extends InputAdapter {
      * @param delta
      * @param grounds Array with all the ground in the level
      */
-    public void update(float delta, Array<Ground> grounds, Array<Bridges> bridges){
+    public void update(float delta, Array<Ground> grounds, Array<Bridge> bridges){
 
         timeLive += delta;
         if(timeLive > 1) {
@@ -338,7 +330,7 @@ public class NinjaPlayer extends InputAdapter {
         }
 
             //For each bridge, call landedOnBridge()
-            for (Bridges bridge : bridges){
+            for (Bridge bridge : bridges){
                 if (landedOnBridge(bridge)) {
                     //  If true, set jumpState to GROUNDED
                     jumpState = JumpState.GROUNDED;
@@ -467,7 +459,7 @@ public class NinjaPlayer extends InputAdapter {
      * @param bridge
      * @return
      */
-    boolean landedOnBridge(Bridges bridge){
+    boolean landedOnBridge(Bridge bridge){
         boolean leftFootIn = false;
         boolean rightFootIn = false;
         boolean straddle = false;

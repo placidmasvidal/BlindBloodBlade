@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 
-public class Bridges {
+public class Bridge {
     float top;
     float bottom;
     float left;
@@ -15,7 +15,7 @@ public class Bridges {
      * Constructor with the position and the size of the ground
      *
      */
-    public Bridges(float left, float top, float width, float height) {
+    public Bridge(float left, float top, float width, float height) {
         this.top = top;
         this.bottom = top - height;
         this.left = left;
