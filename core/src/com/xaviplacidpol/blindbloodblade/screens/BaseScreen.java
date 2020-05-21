@@ -1,10 +1,11 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 
-public class BaseScreen implements Screen {
+public class BaseScreen extends ScreenAdapter {
 
 
     protected final BlindBloodBlade game;
@@ -18,6 +19,7 @@ public class BaseScreen implements Screen {
 
         game.setScreen(new MenuScreen(this.game));
     }
+
 
     @Override
     public void show() {

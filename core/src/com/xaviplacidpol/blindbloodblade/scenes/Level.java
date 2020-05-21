@@ -2,17 +2,34 @@ package com.xaviplacidpol.blindbloodblade.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.xaviplacidpol.blindbloodblade.entities.Background;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
+import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
 import com.xaviplacidpol.blindbloodblade.entities.Bridge;
+import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
-import com.xaviplacidpol.blindbloodblade.entities.Block;
+import com.xaviplacidpol.blindbloodblade.entities.Background;
+import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-public class Level {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+
+public class Level implements Disposable {
+
+    private BlindBloodBlade game;
+
+    private Set<Integer> scoresSet;
+
     // Add a ninjaPlayer member variable
     NinjaPlayer ninjaPlayer;
 
@@ -22,21 +39,39 @@ public class Level {
     // Add an Array of Spikes
     Array<Spikes> spikes;
 
-    // Add an Array of Spikes
+    public Viewport viewport;
+
+    // Add an Array of Bridges
     Array<Bridge> bridges;
 
-    // Add an Array of blocks
-//    Array<Block> blocks;
+    // Add an Array of Enemies
+    Array<Enemy> enemies;
+
+    //Add blood splash to the enemy position when this enemy is killed
+    private Array<BloodSplash> bloodSplashes;
 
     // Add an Array of backgrounds
     Array<Background> backgrounds;
 
-    // TODO
-    public Viewport viewport;
+    //Array with the random fixed blood splashes to the screen
+    private Array<BloodSplash> bloodSplashesScreen;
 
-    public Level(Viewport viewport){
+    //Boolean to control if reached end of level
+    public boolean levelEnd;
+
+
+    public Level(Viewport viewport, BlindBloodBlade game){
+
+        this.game = game;
+        scoresSet = new HashSet<>();
+ /*       scoresSet.add(19286);
+        scoresSet.add(17388);
+        scoresSet.add(19281);
+        scoresSet.add(21990);
+        scoresSet.add(26722);
+*/
         // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer(viewport);
+        ninjaPlayer = new NinjaPlayer(viewport, this);
 
         // Initialize the bridges array
         bridges = new Array<Bridge>();
@@ -47,8 +82,14 @@ public class Level {
         // Initialize the spikes array
         spikes = new Array<Spikes>();
 
-        // Initialize the blocks array
-//        blocks = new Array<Block>();
+        // Initialize the bridges array
+        bridges = new Array<Bridge>();
+
+        //Initialize the enemyes array
+        enemies = new Array<Enemy>();
+
+        bloodSplashes = new Array<BloodSplash>();
+        bloodSplashesScreen = new Array<BloodSplash>();
 
         // Initialize the backgrounds array
         backgrounds = new Array<Background>();
@@ -65,13 +106,21 @@ public class Level {
         //Add backgrounds
         addBackgrounds();
 
+        //Set input touch screen for ninjaPlayer
         Gdx.input.setInputProcessor(ninjaPlayer);
 
-        //Add blocks
-//        addBlocks();
+        //Add bridges
+        addBridges();
 
-        //TODO
+        //Add enemies
+        addEnemies();
+
+        //Initialize level end to false
+        levelEnd = false;
+
+        //TODO POL revisar viewport + cam en resize
         this.viewport = viewport;
+
     }
 
     /**
@@ -80,7 +129,28 @@ public class Level {
      */
     public void update(float delta){
         // Update NinjaPlayer
-        ninjaPlayer.update(delta, grounds, bridges);
+        ninjaPlayer.update(delta, grounds, bridges);    //CRITIC
+
+        endlessGame();
+    }
+
+    /**
+     * Restart player position for endless game when player reached end point
+     * Clean all blood splashes in enemies position
+     * Relive all enemies
+     *
+     */
+    private void endlessGame() {
+        // Restart player position for endless game if player reached end point, otherwise just return
+        if(ninjaPlayer.getPosition().x > Constants.ENDLESS_POSITION){
+            levelEnd = true;
+            //Clean old blood splashes in the enemies position
+            bloodSplashes.clear();
+            //Relive all enemies
+            for(Enemy enemy : enemies){
+                enemy.setAlive(true);
+            }
+        }
     }
 
     /**
@@ -89,7 +159,7 @@ public class Level {
      */
     public void render(SpriteBatch batch){
 
-        batch.begin();
+   //     batch.begin();
 
         //Render all backgrounds
         for (Background b : backgrounds) {
@@ -111,15 +181,23 @@ public class Level {
             bridge.render(batch);
         }
 
-        // Render all bridges
-//        for(Block block : blocks){
-//            block.render(batch);
-//        }
+        // Render all enemiew
+        for(Enemy enemy : enemies){
+            enemy.render(batch);
+        }
+
+        // Render bloodSplashes
+        for(BloodSplash bloodSplash : bloodSplashes){
+            bloodSplash.render(batch);
+        }
 
         // Render NinjaPlayer
         ninjaPlayer.render(batch);
 
-        batch.end();
+//        batch.end();
+        if(!ninjaPlayer.isAlive()) {
+            dispose();
+        }
     }
 
     /**
@@ -182,11 +260,9 @@ public class Level {
         bridges.add(new Bridge(2570, 300, 850, 380));
     }
 
-//    private void addBlocks() {
-//        blocks.add(new Block(2500, 66, 80,50));
-//        blocks.add(new Block(2750, 66, 80,50));
-//        blocks.add(new Block(3000, 66, 80,50));
-//    }
+    private void addEnemies(){
+        enemies.add(new Enemy(new Vector2(550, 60)));
+    }
 
     private void addBackgrounds() {
         backgrounds.add(new Background(0, 503, 640, 500));
@@ -194,5 +270,68 @@ public class Level {
 
     public NinjaPlayer getNinjaPlayer() {
         return ninjaPlayer;
+    }
+
+    public Array<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public Array<Spikes> getSpikes() {
+        return spikes;
+    }
+
+    public BlindBloodBlade getGame() {
+        return game;
+    }
+
+    public Array<BloodSplash> getBloodSplashesScreen() {
+        return bloodSplashesScreen;
+    }
+
+    /**
+     * Generate a blood Splash to the enemy position where died
+     * @param position
+     */
+    public void spawnBloodSplash(Vector2 position){
+        bloodSplashes.add(new BloodSplash(position));
+    }
+
+    /**
+     * Generate a random blood splash for the BloodSplashOverlay
+     */
+    public void addBloodSplash(){
+        bloodSplashesScreen.add(new BloodSplash(new Vector2(
+                MathUtils.random(viewport.getWorldWidth()),
+                MathUtils.random(viewport.getWorldHeight())
+        )));
+    }
+
+    @Override
+    public void dispose() {
+
+        int i = 1;
+        scoresSet.add(ninjaPlayer.getScore());
+
+        List<Integer> scores = new ArrayList<>();
+
+        for(Integer score : scoresSet){
+            scores.add(score);
+        }
+
+        java.util.Collections.sort(scores, Collections.reverseOrder());
+
+        for(Integer score : scores){
+            game.gameData.putInteger("score"+i, score);
+            i++;
+        }
+
+/*        for(Integer score : scoresSet){
+            game.gameData.putInteger("score"+i, score);
+            i++;
+        }
+        scoresSet.remove(0);
+*/
+//        game.gameData.putInteger("score5", ninjaPlayer.getScore());
+        game.gameData.flush();
     }
 }
