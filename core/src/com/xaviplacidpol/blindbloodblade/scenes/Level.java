@@ -267,7 +267,7 @@ public class Level implements Disposable {
         enemies.add(new Enemy(new Vector2(550, 60)));
         enemies.add(new Enemy(new Vector2(1150, 120)));
         enemies.add(new Enemy(new Vector2(2000, 120)));
-        enemies.add(new Enemy(new Vector2(2300, 225)));
+//        enemies.add(new Enemy(new Vector2(2300, 225)));
         enemies.add(new Enemy(new Vector2(4500, 60)));
         enemies.add(new Enemy(new Vector2(4600, 60)));
         enemies.add(new Enemy(new Vector2(4700, 60)));
