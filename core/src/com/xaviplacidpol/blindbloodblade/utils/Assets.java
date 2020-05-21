@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -46,6 +47,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
 //    public SoundAssets soundAssets;
+    public GameOverScreenAssets gameOverScreenAssets;
 
     private AssetManager assetManager;
 
@@ -81,6 +83,7 @@ public class Assets implements Disposable, AssetErrorListener {
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
   //      soundAssets = new SoundAssets();
+        gameOverScreenAssets = new GameOverScreenAssets(atlas);
     }
 
     @Override
@@ -322,4 +325,20 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 */
+
+    public class GameOverScreenAssets {
+
+        public BitmapFont bbbgameoverfont;
+
+        public GameOverScreenAssets(TextureAtlas atlas){
+
+            FileHandle font = Gdx.files.internal(("fonts/bbbgameoverresized.fnt"));
+            bbbgameoverfont = new BitmapFont(font, false);
+            bbbgameoverfont.getData().setScale(Constants.GAMEOVER_SCREEN_SCALE);
+
+
+        }
+
+    }
+
 }

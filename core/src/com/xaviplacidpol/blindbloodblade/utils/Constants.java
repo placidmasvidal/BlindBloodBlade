@@ -99,4 +99,8 @@ public class Constants {
 
     public static final String STAGE_BACKGROUND = "backgroundgamestage";
 
+    //GAME OVER SCREEN
+    public static final String GAME_OVER = "GAME OVER";
+    public static final float GAMEOVER_SCREEN_SCALE = 1.0f;
+
 }

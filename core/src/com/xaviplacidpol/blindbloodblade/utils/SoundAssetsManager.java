@@ -23,6 +23,7 @@ public class SoundAssetsManager implements Disposable {
     public static final String S_ATTACK = "attack";
     public static final String S_ATTACKING = "attacking";
     public static final String S_SPIKE_DEAD = "spiketrap";
+    public static final String S_GAME_OVER = "gameover";
 
     public static Sound bloodSplashSound;
     public static Sound swordSlashSound;
@@ -30,6 +31,7 @@ public class SoundAssetsManager implements Disposable {
     public static Sound attackSound;
     public static Sound attackingSound;
     public static Sound spikeTrapSound;
+    public static Sound gameOverSound;
 
     public static Music sakuraAmbienceStage;
     public static Music superFastLevel;
@@ -75,6 +77,7 @@ public class SoundAssetsManager implements Disposable {
         attackSound = Gdx.audio.newSound(Gdx.files.internal("sounds/drawingswordfromscabbard.ogg"));
         attackingSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordcuttingair.ogg"));
         spikeTrapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/spiketrap.ogg"));
+        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/gameover.ogg"));
 
         Hashtable<String, Sound> sounds = new Hashtable<>();
         sounds.put(S_SWORD_SLASH, swordSlashSound);
@@ -83,6 +86,7 @@ public class SoundAssetsManager implements Disposable {
         sounds.put(S_ATTACK, attackSound);
         sounds.put(S_ATTACKING, attackingSound);
         sounds.put(S_SPIKE_DEAD, spikeTrapSound);
+        sounds.put(S_GAME_OVER, gameOverSound);
         bbbsounds = Collections.unmodifiableMap(sounds);
     }
 
