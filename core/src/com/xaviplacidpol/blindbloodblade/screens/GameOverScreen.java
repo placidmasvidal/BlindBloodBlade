@@ -43,7 +43,7 @@ public class GameOverScreen extends ScreenAdapter {
 
         this.score = score;
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
         SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
 
         this.game = game;
