@@ -89,7 +89,7 @@ public class Constants {
     public static final String BLOOD_SPLASH_SPRITE = "bloodsplash";
     public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
     public static final float BLOOD_SPLASH_DURATION = 0.50f;
-    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.2f;
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.8f;
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";
