@@ -19,7 +19,7 @@ public class Constants {
     public static final float CHASE_CAM_MOVE_SPEED = WORLD_SIZE;
 
     //Restart game position for endless gaming
-    public static final float ENDLESS_POSITION = 1000;
+    public static final float ENDLESS_POSITION = 5000;
 
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
@@ -34,19 +34,20 @@ public class Constants {
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
     public static final float PLAYER_HEAD_HEIGHT = 23.0f;
-    public static final float PLAYER_MOVE_SPEED = 200;
+    public static final float PLAYER_MOVE_SPEED = 300;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
     public static final float MAX_JUMP_DURATION = 0.15f;
-    public static final float WALK_LOOP_DURATION = 0.25f;
+    public static final float WALK_LOOP_DURATION = 0.35f;   //modified
 
     public static final float MAX_ATTACK_DURATION = 0.50f;
 
     //ninja sprites
-    public static final String NINJA_STATIC = "ninjastatic";
+    public static final String NINJA_STATIC = "ninjawalk3";     //modified
     public static final String NINJA_JUMPING = "ninjajump";
-    public static final String NINJA_WALKING = "ninjawalk";
+    public static final String NINJA_WALKING = "ninjawalk";     //modified
+    public static final String NINJA_WALKING2 = "ninjawalk2";   //modified
     public static final String NINJA_ATTACKING = "ninjabloody";
     public static final String NINJA_DEAD = "ninjadead";
 
@@ -61,6 +62,15 @@ public class Constants {
 
     //BRIDGES
     public static final String BRIDGE_SPRITE = "bridge";
+    public static final int BRIDGE_EDGE = 8;
+
+    //GROUND WITH SPIKES
+    public static final String BLOCK_SPRITE = "block";
+    public static final int BLOCK_EDGE = 8;
+
+    //BACKGROUND
+    public static final String BACKGROUND_SPRITE = "backgroundgamestage";
+    public static final int BACKGROUND_EDGE = 8;
 
     //SPLASH SCREEN
     //Background sprite
@@ -80,7 +90,7 @@ public class Constants {
     public static final String BLOOD_SPLASH_SPRITE = "bloodsplash";
     public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
     public static final float BLOOD_SPLASH_DURATION = 0.50f;
-    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.2f;
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 1.0f;        ///modified
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";
@@ -89,5 +99,9 @@ public class Constants {
     public static final String BACK_BUTTON = "backicon";
 
     public static final String STAGE_BACKGROUND = "backgroundgamestage";
+
+    //GAME OVER SCREEN
+    public static final String GAME_OVER = "GAME OVER";
+    public static final float GAMEOVER_SCREEN_SCALE = 1.0f;
 
 }

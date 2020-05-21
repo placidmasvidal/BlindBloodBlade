@@ -1,27 +1,19 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
-import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
-
-import java.awt.Event;
 
 public class NinjaPlayer extends InputAdapter {
 
@@ -137,7 +129,7 @@ public class NinjaPlayer extends InputAdapter {
         this.level = level;
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
-
+//        position = new Vector2(Constants.SCREEN_W/2, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
 
@@ -274,7 +266,7 @@ public class NinjaPlayer extends InputAdapter {
      * @param delta
      * @param grounds Array with all the ground in the level
      */
-    public void update(float delta, Array<Ground> grounds){
+    public void update(float delta, Array<Ground> grounds, Array<Bridge> bridges){
 
         timeLive += delta;
         if(timeLive > 1) {
@@ -323,6 +315,8 @@ public class NinjaPlayer extends InputAdapter {
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
 
+                    // TODO moure automatic
+                    //moveRight(delta);
                 }
             }
         }
@@ -335,6 +329,19 @@ public class NinjaPlayer extends InputAdapter {
             }
         }
 
+            //For each bridge, call landedOnBridge()
+            for (Bridge bridge : bridges){
+                if (landedOnBridge(bridge)) {
+                    //  If true, set jumpState to GROUNDED
+                    jumpState = JumpState.GROUNDED;
+
+                    // Set zero vertical velocity
+                    velocity.y = 0;
+
+                    // Make sure Ninja's feet aren't sticking into the ground
+                    position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
+                }
+            }
 
 //	int i = 0;
         // Collide with enemies, kill them or die
@@ -402,7 +409,7 @@ public class NinjaPlayer extends InputAdapter {
         // check if the left/right arrow keys are pressed
         moveRight(delta);
 
-        // TODO in Android AUTO RUN Es pot borrar aquest
+        // TODO in Android AUTO RUN
 //        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 //            moveLeft(delta);
 //        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
@@ -429,7 +436,7 @@ public class NinjaPlayer extends InputAdapter {
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
             // If so, find the position of NinjaPlayer left and right toes
-            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
+            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
 
@@ -445,6 +452,37 @@ public class NinjaPlayer extends InputAdapter {
         return leftFootIn || rightFootIn || straddle;
 
     }
+
+    /**
+     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge,
+     * for example he maybe is falling to the bridge
+     * @param bridge
+     * @return
+     */
+    boolean landedOnBridge(Bridge bridge){
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        // First check if Players's feet were above the platform top last frame and below the platform top this frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= bridge.top &&
+                position.y - Constants.PLAYER_EYE_HEIGHT < bridge.top){
+            // If so, find the position of NinjaPlayer left and right toes
+            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
+
+            // See if either of ninjaPlayer's toes are on the ground
+            leftFootIn = (bridge.left < leftFoot && bridge.right > leftFoot);
+            rightFootIn = (bridge.left < rightFoot && bridge.right > rightFoot);
+
+            // See if NinjaPlayer is straddling the platform
+            straddle = (bridge.left > leftFoot && bridge.right < rightFoot);
+
+        }
+        // Return whether or not NinjaPlayer had landed on the ground
+        return leftFootIn || rightFootIn || straddle;
+    }
+
 
     /**
      * Checks if ninjaPlayer had fall out to a spike
@@ -485,7 +523,7 @@ public class NinjaPlayer extends InputAdapter {
      * @param delta
      */
     private void moveRight(float delta){
-        // If we are GROUNDED and not WALKING, save the walkStartTime
+        // If we are GROUNDED and not BLOCKED, save the walkStartTime
         if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
             walkStartTime = TimeUtils.nanoTime();
         }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -38,12 +39,15 @@ public class Assets implements Disposable, AssetErrorListener {
     public SpikesAssets spikesAssets;
 
     public BridgeAssets bridgeAssets;
+    public BackgroundAssets backgroundAssets;
+    public GroundWithSpikesAssets groundSpikesAssets;
     public SplashScreenAssets splashScreenAssets;
     public EnemyAssets enemyAssets;
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
 //    public SoundAssets soundAssets;
+    public GameOverScreenAssets gameOverScreenAssets;
 
     private AssetManager assetManager;
 
@@ -71,12 +75,15 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
+        backgroundAssets = new BackgroundAssets(atlas);
+        groundSpikesAssets = new GroundWithSpikesAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
   //      soundAssets = new SoundAssets();
+        gameOverScreenAssets = new GameOverScreenAssets(atlas);
     }
 
     @Override
@@ -97,6 +104,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking;
+        public final TextureAtlas.AtlasRegion ninjaWalking2;
         public final TextureAtlas.AtlasRegion ninjaAttacking;
         public final TextureAtlas.AtlasRegion ninjaDead;
 
@@ -111,6 +119,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
             ninjaWalking = atlas.findRegion(Constants.NINJA_WALKING);
 
+            ninjaWalking2 = atlas.findRegion(Constants.NINJA_WALKING2);
+
             ninjaAttacking = atlas.findRegion(Constants.NINJA_ATTACKING);
 
             ninjaDead = atlas.findRegion(Constants.NINJA_DEAD);
@@ -119,7 +129,7 @@ public class Assets implements Disposable, AssetErrorListener {
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
@@ -135,7 +145,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final NinePatch groundNinePatch;
 
         public GroundAssets(TextureAtlas atlas) {
-            // Find the AtlasRegion holding the ground
+            // Find the AtlasRegion holding the platform
             TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.GROUND_SPRITE);
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
             int edge = Constants.GROUND_EDGE;
@@ -178,24 +188,60 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
     }
-    /**
-     * Build bridges
-     */
-    public class BridgeAssets {
-        // Add an AtlasRegion to hold the bridges sprite
-        public final TextureAtlas.AtlasRegion bridge;
 
-        public BridgeAssets(TextureAtlas atlas) {
-            // Find the bridges atlas region
-            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+    /**
+     * Build spikes
+     */
+    public class BackgroundAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch backNinePatch;
+
+        public BackgroundAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BACKGROUND_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BACKGROUND_EDGE;
+            backNinePatch = new NinePatch(region, edge, edge, edge, edge);
         }
     }
 
     /**
-     * Build enemies assets
+     *Build groundSpikes with a NinePatch
+     */
+    public class GroundWithSpikesAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public GroundWithSpikesAssets (TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BLOCK_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BLOCK_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     *Build bridges with a NinePatch
+     */
+    public class BridgeAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public BridgeAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BRIDGE_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BRIDGE_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     * Build enemies
      */
     public class EnemyAssets {
-        // Add an AtlasRegion to hold the enemy sprite
+        // Add an AtlasRegion to hold the spikes sprite
         public final TextureAtlas.AtlasRegion samuraistatic;
 
         public EnemyAssets(TextureAtlas atlas) {
@@ -231,9 +277,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
-    /**
-     * Build assets for blood splashes
-     */
     public class BloodSplashAssets{
         // Add an AtlasRegion to hold the bloodSplash sprite
         public final TextureAtlas.AtlasRegion bloodSplash;
@@ -285,4 +328,20 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 */
+
+    public class GameOverScreenAssets {
+
+        public BitmapFont bbbgameoverfont;
+
+        public GameOverScreenAssets(TextureAtlas atlas){
+
+            FileHandle font = Gdx.files.internal(("fonts/bbbgameoverresized.fnt"));
+            bbbgameoverfont = new BitmapFont(font, false);
+            bbbgameoverfont.getData().setScale(Constants.GAMEOVER_SCREEN_SCALE);
+
+
+        }
+
+    }
+
 }
