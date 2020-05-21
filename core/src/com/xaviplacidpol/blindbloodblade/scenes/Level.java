@@ -15,6 +15,7 @@ import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.entities.Background;
+import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Level implements Disposable {
 
     private BlindBloodBlade game;
 
-    private Set<Integer> scoresSet;
+//    private Set<Integer> scoresSet;
 
     // Add a ninjaPlayer member variable
     NinjaPlayer ninjaPlayer;
@@ -59,11 +60,12 @@ public class Level implements Disposable {
     //Boolean to control if reached end of level
     public boolean levelEnd;
 
+//    private Integer score;
 
     public Level(Viewport viewport, BlindBloodBlade game){
 
         this.game = game;
-        scoresSet = new HashSet<>();
+//        scoresSet = new HashSet<>();
  /*       scoresSet.add(19286);
         scoresSet.add(17388);
         scoresSet.add(19281);
@@ -196,7 +198,8 @@ public class Level implements Disposable {
 
 //        batch.end();
         if(!ninjaPlayer.isAlive()) {
-            dispose();
+//            dispose();
+            game.setScreen(new GameOverScreen(game, ninjaPlayer.getScore()));
         }
     }
 
@@ -262,6 +265,13 @@ public class Level implements Disposable {
 
     private void addEnemies(){
         enemies.add(new Enemy(new Vector2(550, 60)));
+        enemies.add(new Enemy(new Vector2(1150, 120)));
+        enemies.add(new Enemy(new Vector2(2000, 120)));
+        enemies.add(new Enemy(new Vector2(2300, 225)));
+        enemies.add(new Enemy(new Vector2(4500, 60)));
+        enemies.add(new Enemy(new Vector2(4600, 60)));
+        enemies.add(new Enemy(new Vector2(4700, 60)));
+        enemies.add(new Enemy(new Vector2(4800, 60)));
     }
 
     private void addBackgrounds() {
@@ -306,11 +316,17 @@ public class Level implements Disposable {
         )));
     }
 
+//    public void gameOver(Integer score){
+  //      this.score = score;
+  //      dispose();
+//        game.setScreen(new GameOverScreen(game));
+//    }
+
     @Override
     public void dispose() {
 
-        int i = 1;
-        scoresSet.add(ninjaPlayer.getScore());
+ /*       int i = 1;
+        scoresSet.add(score);
 
         List<Integer> scores = new ArrayList<>();
 
@@ -324,7 +340,7 @@ public class Level implements Disposable {
             game.gameData.putInteger("score"+i, score);
             i++;
         }
-
+*/
 /*        for(Integer score : scoresSet){
             game.gameData.putInteger("score"+i, score);
             i++;
@@ -332,6 +348,6 @@ public class Level implements Disposable {
         scoresSet.remove(0);
 */
 //        game.gameData.putInteger("score5", ninjaPlayer.getScore());
-        game.gameData.flush();
+  //      game.gameData.flush();
     }
 }

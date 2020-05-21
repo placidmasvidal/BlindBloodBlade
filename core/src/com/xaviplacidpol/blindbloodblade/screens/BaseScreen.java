@@ -18,6 +18,7 @@ public class BaseScreen extends ScreenAdapter {
         Assets.instance.init(am);
 
         game.setScreen(new MenuScreen(this.game));
+//        game.setScreen(new GameOverScreen(this.game));
     }
 
 
