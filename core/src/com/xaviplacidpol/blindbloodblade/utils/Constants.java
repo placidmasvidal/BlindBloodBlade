@@ -47,6 +47,7 @@ public class Constants {
     public static final String NINJA_STATIC = "ninjawalk3";     //modified
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjawalk";     //modified
+    public static final String NINJA_WALKING0 = "ninjawalk0";     //modified
     public static final String NINJA_WALKING2 = "ninjawalk2";   //modified
     public static final String NINJA_ATTACKING = "ninjabloody";
     public static final String NINJA_DEAD = "ninjadead";

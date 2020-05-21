@@ -103,6 +103,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
+        public final TextureAtlas.AtlasRegion ninjaWalking0;
         public final TextureAtlas.AtlasRegion ninjaWalking;
         public final TextureAtlas.AtlasRegion ninjaWalking2;
         public final TextureAtlas.AtlasRegion ninjaAttacking;
@@ -117,6 +118,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
             ninjaJumping = atlas.findRegion(Constants.NINJA_JUMPING);
 
+            ninjaWalking0 = atlas.findRegion(Constants.NINJA_WALKING0);
+
             ninjaWalking = atlas.findRegion(Constants.NINJA_WALKING);
 
             ninjaWalking2 = atlas.findRegion(Constants.NINJA_WALKING2);
@@ -127,10 +130,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
             //WALKING ANIMATION
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }

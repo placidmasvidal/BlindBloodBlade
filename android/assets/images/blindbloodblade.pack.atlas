@@ -172,30 +172,37 @@ ninjawalk
   orig: 58, 128
   offset: 0, 0
   index: -1
-ninjawalk2
+ninjawalk0
   rotate: false
   xy: 1898, 1400
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
+ninjawalk2
+  rotate: false
+  xy: 1938, 1270
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
 ninjawalk2.old
   rotate: false
-  xy: 1286, 786
+  xy: 1286, 656
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk3
   rotate: false
-  xy: 1938, 1270
+  xy: 1286, 786
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
   index: -1
 ninjawalk.old
   rotate: false
-  xy: 1938, 1270
+  xy: 1286, 786
   size: 56, 128
   orig: 56, 128
   offset: 0, 0
