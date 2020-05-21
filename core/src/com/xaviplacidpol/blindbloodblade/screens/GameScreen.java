@@ -4,6 +4,7 @@ import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -41,6 +42,16 @@ public class GameScreen extends ScreenAdapter {
     // Blood Splash Overlay
     BloodSplashOverlay bloodSplashOverlay;
 
+    //BACKGROUND
+    //Background texture
+    Texture bg;
+    //Size of the background source image
+    private int sourceX;
+    private int sourceY;
+    //Set world length for repeating background pattern
+    private int worldLength;
+
+
     public GameScreen(BlindBloodBlade game){
         this.game = game;
 //        SoundAssetsManager.bbbmusics.get("fastlevel").play();
@@ -49,6 +60,13 @@ public class GameScreen extends ScreenAdapter {
 //        Assets.instance.soundAssets.sakuraAmbienceStage.play();
 //        Assets.instance.soundAssets.superFastLevel.play();
 //        Assets.instance.soundAssets.thrillerStage.play();
+
+        //BACKGROUND
+        //Size of the background source image
+        sourceX = 960;
+        sourceY = 640;
+        //Set world length for repeating background pattern
+        worldLength = 1000000;
     }
 
     @Override
@@ -76,6 +94,10 @@ public class GameScreen extends ScreenAdapter {
         bloodSplashOverlay = new BloodSplashOverlay(level);
         bloodSplashOverlay.init();
 
+        //BACKGROUND
+        //Build Texture with the background image
+        bg = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
+        bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         // Configure the cam
         setCam();
@@ -119,6 +141,11 @@ public class GameScreen extends ScreenAdapter {
         // Set the SpriteBatch's projection matrix
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
+        //BACKGROUND
+        //Draw background with repeating pattern
+        batch.draw(bg, 0, 0, sourceX, sourceY, worldLength, sourceY);
+
         // Render the level
         level.render(batch);
 
