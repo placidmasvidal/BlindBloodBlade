@@ -38,6 +38,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public SpikesAssets spikesAssets;
 
     public BridgeAssets bridgeAssets;
+    public BackgroundAssets backgroundAssets;
+    public GroundWithSpikesAssets groundSpikesAssets;
     public SplashScreenAssets splashScreenAssets;
     public EnemyAssets enemyAssets;
     public ScoreScreenAssets scoreScreenAssets;
@@ -71,6 +73,8 @@ public class Assets implements Disposable, AssetErrorListener {
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
+        backgroundAssets = new BackgroundAssets(atlas);
+        groundSpikesAssets = new GroundWithSpikesAssets(atlas);
         splashScreenAssets = new SplashScreenAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
         scoreScreenAssets = new ScoreScreenAssets(atlas);
@@ -135,7 +139,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final NinePatch groundNinePatch;
 
         public GroundAssets(TextureAtlas atlas) {
-            // Find the AtlasRegion holding the ground
+            // Find the AtlasRegion holding the platform
             TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.GROUND_SPRITE);
             // Turn that AtlasRegion into a NinePatch using the edge constant you defined
             int edge = Constants.GROUND_EDGE;
@@ -178,24 +182,60 @@ public class Assets implements Disposable, AssetErrorListener {
 
         }
     }
-    /**
-     * Build bridges
-     */
-    public class BridgeAssets {
-        // Add an AtlasRegion to hold the bridges sprite
-        public final TextureAtlas.AtlasRegion bridge;
 
-        public BridgeAssets(TextureAtlas atlas) {
-            // Find the bridges atlas region
-            bridge = atlas.findRegion(Constants.BRIDGE_SPRITE);
+    /**
+     * Build spikes
+     */
+    public class BackgroundAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch backNinePatch;
+
+        public BackgroundAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BACKGROUND_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BACKGROUND_EDGE;
+            backNinePatch = new NinePatch(region, edge, edge, edge, edge);
         }
     }
 
     /**
-     * Build enemies assets
+     *Build groundSpikes with a NinePatch
+     */
+    public class GroundWithSpikesAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public GroundWithSpikesAssets (TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BLOCK_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BLOCK_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     *Build bridges with a NinePatch
+     */
+    public class BridgeAssets {
+        // Build NinePatch member for the ground
+        public final NinePatch groundNinePatch;
+
+        public BridgeAssets(TextureAtlas atlas) {
+            // Find the AtlasRegion holding the platform
+            TextureAtlas.AtlasRegion region = atlas.findRegion(Constants.BRIDGE_SPRITE);
+            // Turn that AtlasRegion into a NinePatch using the edge constant you defined
+            int edge = Constants.BRIDGE_EDGE;
+            groundNinePatch = new NinePatch(region, edge, edge, edge, edge);
+        }
+    }
+
+    /**
+     * Build enemies
      */
     public class EnemyAssets {
-        // Add an AtlasRegion to hold the enemy sprite
+        // Add an AtlasRegion to hold the spikes sprite
         public final TextureAtlas.AtlasRegion samuraistatic;
 
         public EnemyAssets(TextureAtlas atlas) {
@@ -231,9 +271,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
-    /**
-     * Build assets for blood splashes
-     */
     public class BloodSplashAssets{
         // Add an AtlasRegion to hold the bloodSplash sprite
         public final TextureAtlas.AtlasRegion bloodSplash;

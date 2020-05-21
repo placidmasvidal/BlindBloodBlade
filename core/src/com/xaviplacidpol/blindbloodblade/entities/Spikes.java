@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
 public class Spikes {
     // Add a Vector 2 to hold the spike's position
@@ -19,26 +18,24 @@ public class Spikes {
     public void render(SpriteBatch batch){
         // render function
         final TextureRegion region = Assets.instance.spikesAssets.spike;
-        //Draw spikes
-        Utils.drawTextureRegionScaled(batch, region, position.x, position.y, 0.3f);
 
-        //        batch.draw(
-//                region.getTexture(),
-//                position.x,
-//                position.y,
-//                0,
-//                0,
-//                region.getRegionWidth(),
-//                region.getRegionHeight(),
-//                0.3f,
-//                0.3f,
-//                0,
-//                region.getRegionX(),
-//                region.getRegionY(),
-//                region.getRegionWidth(),
-//                region.getRegionHeight(),
-//                false,
-//                false
-//        );
+        batch.draw(
+                region.getTexture(),
+                position.x,
+                position.y,
+                0,
+                0,
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                0.3f,
+                0.3f,
+                0,
+                region.getRegionX(),
+                region.getRegionY(),
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                false,
+                false
+        );
     }
 }

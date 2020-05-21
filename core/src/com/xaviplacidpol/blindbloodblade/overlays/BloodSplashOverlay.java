@@ -16,7 +16,10 @@ public class BloodSplashOverlay {
 
     Array<BloodSplash> bloodSplashes;
 
+    public BloodSplashOverlay(){
+        this.viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
 
+    }
     public BloodSplashOverlay(Level level){
         this.viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         this.level = level;
@@ -28,10 +31,7 @@ public class BloodSplashOverlay {
 
     }
 
-    /**
-     * Render all bloodSplashes over enemies and in BloodSplashesOverlay
-     * @param batch
-     */
+
     public void render(SpriteBatch batch){
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
