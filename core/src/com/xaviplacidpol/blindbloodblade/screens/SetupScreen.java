@@ -115,7 +115,7 @@ public class SetupScreen extends ScreenAdapter {
         offButton.setPosition(232, 216);
         offButton.setWidth(64);
         offButton.setHeight(32);
-        offButton.setVisible(true);
+        offButton.setVisible(false);
         offButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -129,7 +129,7 @@ public class SetupScreen extends ScreenAdapter {
         offButton2.setPosition(232, 130);
         offButton2.setWidth(64);
         offButton2.setHeight(32);
-        offButton2.setVisible(true);
+        offButton2.setVisible(false);
         offButton2.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

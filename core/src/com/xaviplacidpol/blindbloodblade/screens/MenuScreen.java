@@ -107,7 +107,10 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
-                SoundAssetsManager.bbbsounds.get("swordslash").play();
+
+                if(SetupValues.sound) {
+                    SoundAssetsManager.bbbsounds.get("swordslash").play();
+                }
 //                Assets.instance.soundAssets.backgroundMusic.stop();
 //                Assets.instance.soundAssets.swordSlashSound.play();
             }
