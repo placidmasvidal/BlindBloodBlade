@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -288,11 +289,17 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class BackgroundStageAssets{
+//
+//        public final TextureAtlas.AtlasRegion backgroundgamestage;
+//
+//        public BackgroundStageAssets(TextureAtlas atlas){
+//            backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
+//        }
 
-        public final TextureAtlas.AtlasRegion backgroundgamestage;
+        public final Texture backgroundgamestage;
 
         public BackgroundStageAssets(TextureAtlas atlas){
-            backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
+            backgroundgamestage = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
         }
 
     }

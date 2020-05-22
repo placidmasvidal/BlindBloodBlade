@@ -44,9 +44,10 @@ public class GameScreen extends ScreenAdapter {
     //BACKGROUND
     //Background texture
     Texture backgroundTexture;
+
     //Size of the background source image
-    private int sourceX;
-    private int sourceY;
+    private int sourceWidth;
+    private int sourceHeight;
     //Set world length for repeating background pattern
     private int worldLength;
 
@@ -61,9 +62,9 @@ public class GameScreen extends ScreenAdapter {
 //        Assets.instance.soundAssets.thrillerStage.play();
 
         //BACKGROUND
-        //Size of the background source image
-        sourceX = 960;
-        sourceY = 640;
+        //Real size of the background source image
+        sourceWidth = 960;
+        sourceHeight = 640;
         //Set world length for repeating background pattern
         worldLength = Constants.BACKGROUND_WORLD_SIZE;
     }
@@ -95,7 +96,8 @@ public class GameScreen extends ScreenAdapter {
 
         //BACKGROUND
         //Build Texture with the background image
-        backgroundTexture = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
+        backgroundTexture = Assets.instance.backgroundStageAssets.backgroundgamestage;
+        //Apply repeating pattern to background
         backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         // Configure the cam
@@ -143,7 +145,7 @@ public class GameScreen extends ScreenAdapter {
 
         //BACKGROUND
         //Draw background with repeating pattern
-        batch.draw(backgroundTexture, 0, 0, sourceX, sourceY, worldLength, sourceY);
+        batch.draw(backgroundTexture, 0, 0, sourceWidth, sourceHeight, worldLength, sourceHeight);
 
         // Render the level
         level.render(batch);
