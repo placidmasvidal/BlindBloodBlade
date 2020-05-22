@@ -65,6 +65,12 @@ public class GameScreen extends ScreenAdapter {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
         }
 
+	//BACKGROUND
+        //Real size of the background source image
+        sourceWidth = 960;
+        sourceHeight = 640;
+        //Set world length for repeating background pattern
+        worldLength = Constants.BACKGROUND_WORLD_SIZE;
 
     }
 
