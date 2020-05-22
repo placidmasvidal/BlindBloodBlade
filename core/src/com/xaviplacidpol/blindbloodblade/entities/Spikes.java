@@ -5,9 +5,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
+import javax.rmi.CORBA.Util;
+
+/**
+ * Lethal spikes object where the player will die
+ */
 public class Spikes {
-    // Add a Vector 2 to hold the spike's position
+    //Vector 2 to hold the spike's position
     final public Vector2 position;
 
     public  Spikes(Vector2 position){
@@ -15,27 +21,15 @@ public class Spikes {
         this.position = position;
     }
 
+    /**
+     * Render the spikes
+     * @param batch
+     */
     public void render(SpriteBatch batch){
-        // render function
-        final TextureRegion region = Assets.instance.spikesAssets.spike;
 
-        batch.draw(
-                region.getTexture(),
-                position.x,
-                position.y,
-                0,
-                0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                0.3f,
-                0.3f,
-                0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false
-        );
+        final TextureRegion region = Assets.instance.spikesAssets.spike;
+        //Draw spikes
+        Utils.drawTextureRegionScaled(batch, region, position.x, position.y, 0.3f);
+
     }
 }

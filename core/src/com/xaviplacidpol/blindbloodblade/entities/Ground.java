@@ -3,6 +3,9 @@ package com.xaviplacidpol.blindbloodblade.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 
+/**
+ * Ground object where the player is landing
+ */
 public class Ground {
     float top;
     float bottom;
@@ -21,7 +24,7 @@ public class Ground {
     }
 
     /**
-     * renderize the ground
+     * renderize the ground using NinePatch
      * @param batch
      */
     public void render(SpriteBatch batch) {

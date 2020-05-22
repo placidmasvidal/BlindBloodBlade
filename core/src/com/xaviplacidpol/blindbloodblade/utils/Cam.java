@@ -38,14 +38,6 @@ public class Cam {
             //If ninja is dead, don't move the cam
             camera.position.x += 0;
         }
-        //TODO remove
-//        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//            camera.position.x -= delta * Constants.PLAYER_MOVE_SPEED;
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//            camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
-//        }
-
-
 
     }
 }
