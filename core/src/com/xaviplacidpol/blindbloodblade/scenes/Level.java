@@ -90,6 +90,7 @@ public class Level implements Disposable {
         //Initialize the enemyes array
         enemies = new Array<Enemy>();
 
+        //Initialize both arrays of BloodSplashes
         bloodSplashes = new Array<BloodSplash>();
         bloodSplashesScreen = new Array<BloodSplash>();
 
@@ -105,9 +106,6 @@ public class Level implements Disposable {
         //Add spikes
         addSpikes();
 
-        //Add backgrounds
-        addBackgrounds();
-
         //Set input touch screen for ninjaPlayer
         Gdx.input.setInputProcessor(ninjaPlayer);
 
@@ -120,7 +118,6 @@ public class Level implements Disposable {
         //Initialize level end to false
         levelEnd = false;
 
-        //TODO POL revisar viewport + cam en resize
         this.viewport = viewport;
 
     }
@@ -209,7 +206,6 @@ public class Level implements Disposable {
      *
      */
     private void addDebugGrounds(){
-        // TODO:  Add here all grounds in the level
         grounds.add(new Ground(0, 40, 400, 40));
         grounds.add(new Ground(541, 40, 400, 40));
         grounds.add(new Ground(2090, 40, 400, 40));
@@ -267,16 +263,13 @@ public class Level implements Disposable {
         enemies.add(new Enemy(new Vector2(550, 60)));
         enemies.add(new Enemy(new Vector2(1150, 120)));
         enemies.add(new Enemy(new Vector2(2000, 120)));
-//        enemies.add(new Enemy(new Vector2(2300, 225)));
+        enemies.add(new Enemy(new Vector2(2300, 225)));
         enemies.add(new Enemy(new Vector2(4500, 60)));
         enemies.add(new Enemy(new Vector2(4600, 60)));
         enemies.add(new Enemy(new Vector2(4700, 60)));
         enemies.add(new Enemy(new Vector2(4800, 60)));
     }
 
-    private void addBackgrounds() {
-        backgrounds.add(new Background(0, 503, 640, 500));
-    }
 
     public NinjaPlayer getNinjaPlayer() {
         return ninjaPlayer;
@@ -309,13 +302,6 @@ public class Level implements Disposable {
     /**
      * Generate a random blood splash for the BloodSplashOverlay
      */
-/*    public void addBloodSplash(){
-        bloodSplashesScreen.add(new BloodSplash(new Vector2(
-                MathUtils.random(viewport.getWorldWidth()),
-                MathUtils.random(viewport.getWorldHeight())
-        )));
-    }   */
-
     public void addBloodSplash(){
         bloodSplashesScreen.add(new BloodSplash(new Vector2(
                 MathUtils.random(viewport.getWorldWidth()) - 30,
@@ -323,11 +309,6 @@ public class Level implements Disposable {
         )));
     }
 
-//    public void gameOver(Integer score){
-  //      this.score = score;
-  //      dispose();
-//        game.setScreen(new GameOverScreen(game));
-//    }
 
     @Override
     public void dispose() {

@@ -33,7 +33,7 @@ public class Constants {
     public static final Vector2 PLAYER_EYE_POSITION = new Vector2(16, 24);
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
-    public static final float PLAYER_HEAD_HEIGHT = 23.0f;
+    public static final float PLAYER_HEAD_HEIGHT = 53.0f;	    ///modified
     public static final float PLAYER_MOVE_SPEED = 350;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
@@ -71,7 +71,9 @@ public class Constants {
 
     //BACKGROUND
     public static final String BACKGROUND_SPRITE = "backgroundgamestage";
+    public static final String BACKGROUND_FILE = "images/unpacked/backgroundgamestage.png";
     public static final int BACKGROUND_EDGE = 8;
+    public static final int BACKGROUND_WORLD_SIZE = 10000;
 
     //SPLASH SCREEN
     //Background sprite
