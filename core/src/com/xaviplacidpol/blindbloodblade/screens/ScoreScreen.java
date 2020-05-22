@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.awt.Menu;
@@ -93,7 +94,11 @@ public class ScoreScreen extends ScreenAdapter {
 
         }
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
+        if(SetupValues.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
+        }
 
         stage.addActor(lblTitle);
 

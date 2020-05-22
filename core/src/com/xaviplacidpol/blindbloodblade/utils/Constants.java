@@ -19,7 +19,7 @@ public class Constants {
     public static final float CHASE_CAM_MOVE_SPEED = WORLD_SIZE;
 
     //Restart game position for endless gaming
-    public static final float ENDLESS_POSITION = 5000;
+    public static final float ENDLESS_POSITION = 13500;
 
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
@@ -33,8 +33,8 @@ public class Constants {
     public static final Vector2 PLAYER_EYE_POSITION = new Vector2(16, 24);
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
-    public static final float PLAYER_HEAD_HEIGHT = 53.0f;
-    public static final float PLAYER_MOVE_SPEED = 300;              ///modified
+    public static final float PLAYER_HEAD_HEIGHT = 53.0f;	    ///modified
+    public static final float PLAYER_MOVE_SPEED = 350;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
@@ -47,6 +47,7 @@ public class Constants {
     public static final String NINJA_STATIC = "ninjawalk3";     //modified
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjawalk";     //modified
+    public static final String NINJA_WALKING0 = "ninjawalk0";     //modified
     public static final String NINJA_WALKING2 = "ninjawalk2";   //modified
     public static final String NINJA_ATTACKING = "ninjabloody";
     public static final String NINJA_DEAD = "ninjadead";
@@ -81,6 +82,7 @@ public class Constants {
     public static final float MAIN_TITLE_SCALE = 1.4f;
     public static final String START_BUTTON = "btstart";
     public static final String SCORE_BUTTON = "btscore";
+    public static final String SETUP_BUTTON = "settingsicon2";
 
     // ENEMY
     public static final String ENEMY_SPRITE = "samuraistatic";
@@ -93,7 +95,7 @@ public class Constants {
     public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
     public static final float BLOOD_SPLASH_DURATION = 0.50f;
     public static final float BLOOD_SPLASH_OVERLAY_SCALE = 1.0f;        ///modified
-    public static final int BLOOD_SPLASHES_PER_KILL = 10;
+    public static final int BLOOD_SPLASHES_PER_KILL = 10;   ///modified
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";
@@ -107,4 +109,10 @@ public class Constants {
     public static final String GAME_OVER = "GAME OVER";
     public static final float GAMEOVER_SCREEN_SCALE = 1.0f;
 
+    public static final String MUSIC_BUTTON = "musicbutton";
+    public static final String SOUND_BUTTON = "soundbutton";
+    public static final String CONTROLS_BUTTON = "controlsbutton";
+    public static final String CONTROLS = "controls";
+    public static final String ON_BUTTON = "onbutton";
+    public static final String OFF_BUTTON = "offbutton";
 }

@@ -2,6 +2,7 @@ package com.xaviplacidpol.blindbloodblade.screens;
 
 import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,7 @@ import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
@@ -54,19 +56,22 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(BlindBloodBlade game){
         this.game = game;
-//        SoundAssetsManager.bbbmusics.get("fastlevel").play();
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
-//        Assets.instance.soundAssets.sakuraAmbienceStage.play();
-//        Assets.instance.soundAssets.superFastLevel.play();
-//        Assets.instance.soundAssets.thrillerStage.play();
 
-        //BACKGROUND
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+
+        if(SetupValues.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+        }
+
+	//BACKGROUND
         //Real size of the background source image
         sourceWidth = 960;
         sourceHeight = 640;
         //Set world length for repeating background pattern
         worldLength = Constants.BACKGROUND_WORLD_SIZE;
+
     }
 
     @Override

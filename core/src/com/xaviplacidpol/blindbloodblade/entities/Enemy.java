@@ -37,6 +37,9 @@ public class Enemy {
         isAlive = alive;
     }
 
+    //TODO Actualitzar quan el samurai tingui que atacar
+    public void update(float delta) {
+    }
 
     public void setPosition(Vector2 position) {
         this.position = position;

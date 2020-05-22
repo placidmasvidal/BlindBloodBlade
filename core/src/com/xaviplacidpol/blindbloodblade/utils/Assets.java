@@ -49,6 +49,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public BackgroundStageAssets backgroundStageAssets;
 //    public SoundAssets soundAssets;
     public GameOverScreenAssets gameOverScreenAssets;
+    public SetupScreenAssets setupScreenAssets;
 
     private AssetManager assetManager;
 
@@ -85,6 +86,7 @@ public class Assets implements Disposable, AssetErrorListener {
         backgroundStageAssets = new BackgroundStageAssets(atlas);
   //      soundAssets = new SoundAssets();
         gameOverScreenAssets = new GameOverScreenAssets(atlas);
+        setupScreenAssets = new SetupScreenAssets(atlas);
     }
 
     @Override
@@ -104,6 +106,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
+        public final TextureAtlas.AtlasRegion ninjaWalking0;
         public final TextureAtlas.AtlasRegion ninjaWalking;
         public final TextureAtlas.AtlasRegion ninjaWalking2;
         public final TextureAtlas.AtlasRegion ninjaAttacking;
@@ -118,6 +121,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
             ninjaJumping = atlas.findRegion(Constants.NINJA_JUMPING);
 
+            ninjaWalking0 = atlas.findRegion(Constants.NINJA_WALKING0);
+
             ninjaWalking = atlas.findRegion(Constants.NINJA_WALKING);
 
             ninjaWalking2 = atlas.findRegion(Constants.NINJA_WALKING2);
@@ -128,10 +133,12 @@ public class Assets implements Disposable, AssetErrorListener {
 
             //WALKING ANIMATION
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -173,6 +180,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion backgroundRegion;
         public TextureAtlas.AtlasRegion startButtonRegion;
         public TextureAtlas.AtlasRegion scoreButtonRegion;
+        public TextureAtlas.AtlasRegion setupButtonRegion;
 
 //        public Texture bgTexture;
 
@@ -185,6 +193,7 @@ public class Assets implements Disposable, AssetErrorListener {
             backgroundRegion = atlas.findRegion(Constants.SPLASH_SPRITE);
             startButtonRegion = atlas.findRegion((Constants.START_BUTTON));
             scoreButtonRegion = atlas.findRegion((Constants.SCORE_BUTTON));
+            setupButtonRegion = atlas.findRegion((Constants.SETUP_BUTTON));
 
 
         }
@@ -289,12 +298,6 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class BackgroundStageAssets{
-//
-//        public final TextureAtlas.AtlasRegion backgroundgamestage;
-//
-//        public BackgroundStageAssets(TextureAtlas atlas){
-//            backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
-//        }
 
         public final Texture backgroundgamestage;
 
@@ -346,6 +349,28 @@ public class Assets implements Disposable, AssetErrorListener {
             bbbgameoverfont = new BitmapFont(font, false);
             bbbgameoverfont.getData().setScale(Constants.GAMEOVER_SCREEN_SCALE);
 
+
+        }
+
+    }
+
+    public class SetupScreenAssets {
+
+        public TextureAtlas.AtlasRegion musicButtonRegion;
+        public TextureAtlas.AtlasRegion soundButtonRegion;
+        public TextureAtlas.AtlasRegion controlsButtonRegion;
+        public TextureAtlas.AtlasRegion onButtonRegion;
+        public TextureAtlas.AtlasRegion offButtonRegion;
+        public TextureAtlas.AtlasRegion controlsRegion;
+
+        public SetupScreenAssets(TextureAtlas atlas){
+
+            musicButtonRegion = atlas.findRegion(Constants.MUSIC_BUTTON);
+            soundButtonRegion = atlas.findRegion(Constants.SOUND_BUTTON);
+            controlsButtonRegion = atlas.findRegion(Constants.CONTROLS_BUTTON);
+            controlsRegion = atlas.findRegion(Constants.CONTROLS);
+            onButtonRegion = atlas.findRegion(Constants.ON_BUTTON);
+            offButtonRegion = atlas.findRegion(Constants.OFF_BUTTON);
 
         }
 

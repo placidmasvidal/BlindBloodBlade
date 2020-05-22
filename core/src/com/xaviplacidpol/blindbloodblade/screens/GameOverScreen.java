@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.util.ArrayList;
@@ -44,7 +45,10 @@ public class GameOverScreen extends ScreenAdapter {
         this.score = score;
 
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
+
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
+        }
 
         this.game = game;
 

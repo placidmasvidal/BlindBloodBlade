@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
@@ -189,8 +191,16 @@ public class NinjaPlayer extends InputAdapter {
         // Set the attackState start time using TimeUtils.nanoTime()
         attackStartTime = TimeUtils.nanoTime();
 
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+        }/* else {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).stop();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).stop();
+        }*/
+
+
+
 
         // Call continueAttacking()
         continueAttacking();
@@ -282,7 +292,10 @@ public class NinjaPlayer extends InputAdapter {
         //Collide with spikes
         for(Spikes spikes : level.getSpikes()){
             if(landedOnSpikes(spikes)){ //If collided to spikes, then dies, otherwise return
-                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
+                if(SetupValues.sound) {
+                    SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
+                }
+
                 isAlive = false;
             }
         }
@@ -325,9 +338,13 @@ public class NinjaPlayer extends InputAdapter {
                     score = score + 50;
 
                     //Add a bloodSplash where the enemy died
-                    SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
+                    if(SetupValues.sound) {
+                        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
+                    }
+
                     level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
+//TODO
                     //Add a bloodSplash to the bloodSplashOverlay
                     for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
@@ -497,7 +514,10 @@ public class NinjaPlayer extends InputAdapter {
         // Using TimeUtils.nanoTime()
         jumpStartTime = TimeUtils.nanoTime();
 
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+        }
+
 
         // Call continueJump()
         continueJump();
