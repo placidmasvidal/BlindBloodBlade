@@ -126,7 +126,7 @@ public class Assets implements Disposable, AssetErrorListener {
             Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
