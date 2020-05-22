@@ -347,8 +347,15 @@ public class NinjaPlayer extends InputAdapter {
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
-            attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
-            enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS)
+                    && (enemy.getPosition().x - position.x > 0)
+                    && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
+                    && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+            enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS)
+                    && (enemy.getPosition().x - position.x > 0) //Control if player passed the X position of the enemy
+                    && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
+            && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+
             //System.out.println("Colliding = " + attackColliding);
 
             if(enemy.isAlive()) {
@@ -490,29 +497,20 @@ public class NinjaPlayer extends InputAdapter {
      * @return
      */
     boolean landedOnSpikes(Spikes spikes){
-//        boolean leftFootIn = false;
-//        boolean rightFootIn = false;
+
         boolean straddle = false;
 
-        // First check if Players's feet were above the spikes top last frame and below the spikes top this frame
-        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y + 1 &&
-                position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
+        // First check if Players is above the spikes top last frame and below the spikes bottom frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y
+                && position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
             // If so, find the position of NinjaPlayer left and right toes
             float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
-
-//            // See if either of ninjaPlayer's toes are on the ground
-//            leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
-//            rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
-
             // See if NinjaPlayer is straddling the spikes
             straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
-            //System.out.println(" NinjaPlayer linia 401 left foot: " + leftFoot);
-
 
         }
-        //return leftFootIn || rightFootIn || straddle;
         // Return if NinjaPlayer had landed or not on the spike
         return straddle;
     }

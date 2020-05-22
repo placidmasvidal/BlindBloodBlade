@@ -2,7 +2,6 @@ package com.xaviplacidpol.blindbloodblade.screens;
 
 import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -44,7 +43,7 @@ public class GameScreen extends ScreenAdapter {
 
     //BACKGROUND
     //Background texture
-    Texture bg;
+    Texture backgroundTexture;
     //Size of the background source image
     private int sourceX;
     private int sourceY;
@@ -66,7 +65,7 @@ public class GameScreen extends ScreenAdapter {
         sourceX = 960;
         sourceY = 640;
         //Set world length for repeating background pattern
-        worldLength = 1000000;
+        worldLength = Constants.BACKGROUND_WORLD_SIZE;
     }
 
     @Override
@@ -96,8 +95,8 @@ public class GameScreen extends ScreenAdapter {
 
         //BACKGROUND
         //Build Texture with the background image
-        bg = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
-        bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        backgroundTexture = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
+        backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         // Configure the cam
         setCam();
@@ -144,7 +143,7 @@ public class GameScreen extends ScreenAdapter {
 
         //BACKGROUND
         //Draw background with repeating pattern
-        batch.draw(bg, 0, 0, sourceX, sourceY, worldLength, sourceY);
+        batch.draw(backgroundTexture, 0, 0, sourceX, sourceY, worldLength, sourceY);
 
         // Render the level
         level.render(batch);

@@ -275,7 +275,7 @@ public class Level implements Disposable {
     }
 
     private void addBackgrounds() {
-        backgrounds.add(new Background(0, 503, 640, 500));
+        //backgrounds.add(new Background(0, 503, 640, 500));
     }
 
     public NinjaPlayer getNinjaPlayer() {
