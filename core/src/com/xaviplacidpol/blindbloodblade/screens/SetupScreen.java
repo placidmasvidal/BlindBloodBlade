@@ -89,7 +89,6 @@ public class SetupScreen extends ScreenAdapter {
 
         addContentToStage();
 
-
         if(SetupValues.music) SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
         else SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
     }
