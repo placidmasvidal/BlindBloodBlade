@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -14,48 +13,45 @@ import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
+import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
+/**
+ * Main Player
+ */
 public class NinjaPlayer extends InputAdapter {
 
-
-    public final static String TAG = NinjaPlayer.class.getName();
-
-    //Attributes
+    //ATTRIBUTES
     //Vector 2 with x and y position
-    Vector2 position;
+    private Vector2 position;
 
     //Vector 2 with x and y velocity
-    Vector2 velocity;
+    private Vector2 velocity;
 
     // Vector2 to hold ninja's position last frame (useful to verify if is GROUNDED or not)
-    Vector2 lastFramePosition;
+    private Vector2 lastFramePosition;
 
-    //Jump and walking states (enums)
-    JumpState jumpState;
-    WalkState walkState;
-    //Attack state (enum)
-    AttackState attackState;
+    //Different states of the ninja (enums)
+    private JumpState jumpState;
+    private WalkState walkState;
+    private AttackState attackState;
 
     //long number to control jumping time
-    long jumpStartTime;
+    private long jumpStartTime;
 
     //long number to control walking time
-    long walkStartTime;
+    private long walkStartTime;
     
     //long number to control attacking time
-    long attackStartTime;
+    private long attackStartTime;
 
     //Viewport with the cam view
-    Viewport viewport;
-
-    //Vector3 with the touched position
-    Vector3 touchPosition;
+    private Viewport viewport;
 
     //Boolean control if player is alive
-    boolean isAlive;
+    private boolean isAlive;
 
     //Level where ninja is playing
-    Level level;
+    private Level level;
 
     private Integer score;
 
@@ -91,45 +87,12 @@ public class NinjaPlayer extends InputAdapter {
     boolean attackColliding;
     boolean enemyAttackColliding;
 
-    //NinjaPlayer
-    public NinjaPlayer(Viewport viewport){
-        this.viewport = viewport;
-        // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
-
-        // Initialize a new Vector2 for lastFramePosition
-        lastFramePosition = new Vector2(position);
-
-        // Initialize velocity (quiet)
-        velocity = new Vector2();
-
-        // Initialize jumpState to falling
-        jumpState = JumpState.FALLING;
-
-        // Initialize walkState to Standing
-        walkState = WalkState.BLOCKED;
-
-        // Initialize attackState to Not Attacking
-        attackState = AttackState.NOT_ATTACKING;
-
-        // Initialize touchPosition (empty)
-        touchPosition = new Vector3();
-
-        //Player is alive
-        isAlive = true;
-
-        timeLive = 0;
-        kills = 0;
-        score = 0;
-
-    }
-
+    //NinjaPlayer Constructor
     public NinjaPlayer(Viewport viewport, Level level){
         this.viewport = viewport;
         this.level = level;
         // Initialize NinjaPlayer position with his height
         position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
-//        position = new Vector2(Constants.SCREEN_W/2, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
 
@@ -144,9 +107,6 @@ public class NinjaPlayer extends InputAdapter {
 
         // Initialize attackState to Not Attacking
         attackState = AttackState.NOT_ATTACKING;
-
-        // Initialize touchPosition (empty)
-        touchPosition = new Vector3();
 
         //Player is alive
         isAlive = true;
@@ -431,8 +391,8 @@ public class NinjaPlayer extends InputAdapter {
     /**
      * Checks if ninjaPlayer is landed on ground or have his foots out the ground,
      * for example he maybe is falling to the spikes
-     * @param ground
-     * @return
+     * @param ground piece of ground where to check if player is landing
+     * @return true if player is landed on the ground, false otherwise
      */
     boolean landedOnGround(Ground ground){
         boolean leftFootIn = false;
@@ -461,9 +421,8 @@ public class NinjaPlayer extends InputAdapter {
     }
 
     /**
-     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge,
-     * for example he maybe is falling to the bridge
-     * @param bridge
+     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
+     * @param bridge where to check if player is landing
      * @return
      */
     boolean landedOnBridge(Bridge bridge){
@@ -493,8 +452,9 @@ public class NinjaPlayer extends InputAdapter {
 
     /**
      * Checks if ninjaPlayer had fall out to a spike
-     * @param spikes
-     * @return
+     * @param spikes where to check if player are crossing them
+     * @return true if ninjaPlayer had fall to the spike,
+     *          false otherwise
      */
     boolean landedOnSpikes(Spikes spikes){
 
@@ -515,7 +475,6 @@ public class NinjaPlayer extends InputAdapter {
         return straddle;
     }
 
-    //TODO
     /**
      * Move constantly to right if player don't collide with any obstacle
      * @param delta
@@ -538,24 +497,8 @@ public class NinjaPlayer extends InputAdapter {
     }
 
     /**
-     * TODO Delete this method when automatic runner implemented
-     * @param delta
-     */
-    private void moveLeft(float delta){
-        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
-            walkStartTime = TimeUtils.nanoTime();
-        }
-        walkState = WalkState.WALKING;
-
-        position.x -= delta * Constants.PLAYER_MOVE_SPEED;
-
-    }
-
-
-
-    /**
      * startJump()
-     * set jumpstate to JUMPING
+     * set jumpState to JUMPING
      * Set the jump start time
      * Call continueJump
      */
@@ -637,24 +580,7 @@ public class NinjaPlayer extends InputAdapter {
             region = Assets.instance.ninjaAssets.ninjaDead;
         }
 
-        batch.draw(
-                region.getTexture(),
-                position.x - Constants.PLAYER_EYE_POSITION.x,
-                position.y - Constants.PLAYER_EYE_POSITION.y,
-                0,
-                0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                1,
-                1,
-                0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false
-        );
+        Utils.drawTextureRegion(batch, region, position.x - Constants.PLAYER_EYE_POSITION.x, position.y - Constants.PLAYER_EYE_POSITION.y );
 
     }
 

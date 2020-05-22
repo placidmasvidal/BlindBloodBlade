@@ -299,7 +299,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Texture backgroundgamestage;
 
         public BackgroundStageAssets(TextureAtlas atlas){
-            backgroundgamestage = new Texture(Gdx.files.internal("images/unpacked/backgroundgamestage.png"));
+            backgroundgamestage = new Texture(Gdx.files.internal(Constants.BACKGROUND_FILE));
         }
 
     }
