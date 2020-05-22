@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
@@ -37,6 +38,7 @@ public class MenuScreen extends ScreenAdapter {
     private Drawable drawable;
     private ImageButton startButton;
     private ImageButton scoreButton;
+    private ImageButton setupButton;
     private Label.LabelStyle textStyle;
     private Label textLbl;
 
@@ -54,7 +56,13 @@ public class MenuScreen extends ScreenAdapter {
 
 //        Assets.instance.soundAssets.backgroundMusic.play();
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).play();
+
+        if(SetupValues.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        }
+
     }
 
 
@@ -74,6 +82,8 @@ public class MenuScreen extends ScreenAdapter {
         startButton = new ImageButton(drawable);
         drawable = new TextureRegionDrawable(Assets.instance.splashScreenAssets.scoreButtonRegion);
         scoreButton = new ImageButton(drawable);
+        drawable = new TextureRegionDrawable(Assets.instance.splashScreenAssets.setupButtonRegion);
+        setupButton = new ImageButton(drawable);
 
         textStyle = new Label.LabelStyle(Assets.instance.splashScreenAssets.bbbattackfont, null);
         textLbl = new Label(Constants.MAIN_TITLE, textStyle);
@@ -97,7 +107,10 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
-                SoundAssetsManager.bbbsounds.get("swordslash").play();
+
+                if(SetupValues.sound) {
+                    SoundAssetsManager.bbbsounds.get("swordslash").play();
+                }
 //                Assets.instance.soundAssets.backgroundMusic.stop();
 //                Assets.instance.soundAssets.swordSlashSound.play();
             }
@@ -112,6 +125,26 @@ public class MenuScreen extends ScreenAdapter {
                 game.setScreen(new ScoreScreen(game));
             }
         });
+
+        setupButton.setPosition(420, 20);
+        setupButton.setWidth(64);
+        setupButton.setHeight(64);
+        setupButton.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                SetupScreen newSetupScreen = new SetupScreen(game);
+                game.setScreen(newSetupScreen);
+                if(!SetupValues.music){
+                    newSetupScreen.getOnButton().setVisible(false);
+                    newSetupScreen.getOffButton().setVisible(true);
+                }
+                if(!SetupValues.sound){
+                    newSetupScreen.getOnButton2().setVisible(false);
+                    newSetupScreen.getOffButton2().setVisible(true);
+                }
+            }
+        });
+
     }
 
     private void addContentToStage() {
@@ -126,6 +159,8 @@ public class MenuScreen extends ScreenAdapter {
 
 
         stage.addActor(scoreButton);
+
+        stage.addActor(setupButton);
     }
 
     @Override

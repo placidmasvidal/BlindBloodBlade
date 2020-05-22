@@ -4,6 +4,7 @@ import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -14,6 +15,7 @@ import com.xaviplacidpol.blindbloodblade.scenes.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
@@ -41,14 +43,35 @@ public class GameScreen extends ScreenAdapter {
     // Blood Splash Overlay
     BloodSplashOverlay bloodSplashOverlay;
 
+    //BACKGROUND
+    //Background texture
+    Texture backgroundTexture;
+
+    //Size of the background source image
+    private int sourceWidth;
+    private int sourceHeight;
+    //Set world length for repeating background pattern
+    private int worldLength;
+
+
     public GameScreen(BlindBloodBlade game){
         this.game = game;
-//        SoundAssetsManager.bbbmusics.get("fastlevel").play();
+
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
-//        Assets.instance.soundAssets.sakuraAmbienceStage.play();
-//        Assets.instance.soundAssets.superFastLevel.play();
-//        Assets.instance.soundAssets.thrillerStage.play();
+
+        if(SetupValues.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+        }
+
+	//BACKGROUND
+        //Real size of the background source image
+        sourceWidth = 960;
+        sourceHeight = 640;
+        //Set world length for repeating background pattern
+        worldLength = Constants.BACKGROUND_WORLD_SIZE;
+
     }
 
     @Override
@@ -76,6 +99,11 @@ public class GameScreen extends ScreenAdapter {
         bloodSplashOverlay = new BloodSplashOverlay(level);
         bloodSplashOverlay.init();
 
+        //BACKGROUND
+        //Build Texture with the background image
+        backgroundTexture = Assets.instance.backgroundStageAssets.backgroundgamestage;
+        //Apply repeating pattern to background
+        backgroundTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         // Configure the cam
         setCam();
@@ -119,6 +147,11 @@ public class GameScreen extends ScreenAdapter {
         // Set the SpriteBatch's projection matrix
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
+        //BACKGROUND
+        //Draw background with repeating pattern
+        batch.draw(backgroundTexture, 0, 0, sourceWidth, sourceHeight, worldLength, sourceHeight);
+
         // Render the level
         level.render(batch);
 
@@ -144,7 +177,7 @@ public class GameScreen extends ScreenAdapter {
     private void restartLevel() {
         if(level.levelEnd){
             //Repositioning ninja player to the start point
-            level.getNinjaPlayer().setPosition(new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40));
+            level.getNinjaPlayer().setPosition(new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40));
 //            cam.camera = level.viewport.getCamera();
 //            cam.target = level.getNinjaPlayer();
 

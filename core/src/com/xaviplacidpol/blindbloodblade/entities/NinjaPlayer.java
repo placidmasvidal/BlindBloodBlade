@@ -13,49 +13,47 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
+import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
+import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
+/**
+ * Main Player
+ */
 public class NinjaPlayer extends InputAdapter {
 
-
-    public final static String TAG = NinjaPlayer.class.getName();
-
-    //Attributes
+    //ATTRIBUTES
     //Vector 2 with x and y position
-    Vector2 position;
+    private Vector2 position;
 
     //Vector 2 with x and y velocity
-    Vector2 velocity;
+    private Vector2 velocity;
 
     // Vector2 to hold ninja's position last frame (useful to verify if is GROUNDED or not)
-    Vector2 lastFramePosition;
+    private Vector2 lastFramePosition;
 
-    //Jump and walking states (enums)
-    JumpState jumpState;
-    WalkState walkState;
-    //Attack state (enum)
-    AttackState attackState;
+    //Different states of the ninja (enums)
+    private JumpState jumpState;
+    private WalkState walkState;
+    private AttackState attackState;
 
     //long number to control jumping time
-    long jumpStartTime;
+    private long jumpStartTime;
 
     //long number to control walking time
-    long walkStartTime;
+    private long walkStartTime;
     
     //long number to control attacking time
-    long attackStartTime;
+    private long attackStartTime;
 
     //Viewport with the cam view
-    Viewport viewport;
-
-    //Vector3 with the touched position
-    Vector3 touchPosition;
+    private Viewport viewport;
 
     //Boolean control if player is alive
-    boolean isAlive;
+    private boolean isAlive;
 
     //Level where ninja is playing
-    Level level;
+    private Level level;
 
     private Integer score;
 
@@ -91,45 +89,12 @@ public class NinjaPlayer extends InputAdapter {
     boolean attackColliding;
     boolean enemyAttackColliding;
 
-    //NinjaPlayer
-    public NinjaPlayer(Viewport viewport){
-        this.viewport = viewport;
-        // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
-
-        // Initialize a new Vector2 for lastFramePosition
-        lastFramePosition = new Vector2(position);
-
-        // Initialize velocity (quiet)
-        velocity = new Vector2();
-
-        // Initialize jumpState to falling
-        jumpState = JumpState.FALLING;
-
-        // Initialize walkState to Standing
-        walkState = WalkState.BLOCKED;
-
-        // Initialize attackState to Not Attacking
-        attackState = AttackState.NOT_ATTACKING;
-
-        // Initialize touchPosition (empty)
-        touchPosition = new Vector3();
-
-        //Player is alive
-        isAlive = true;
-
-        timeLive = 0;
-        kills = 0;
-        score = 0;
-
-    }
-
+    //NinjaPlayer Constructor
     public NinjaPlayer(Viewport viewport, Level level){
         this.viewport = viewport;
         this.level = level;
         // Initialize NinjaPlayer position with his height
-        position = new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40);
-//        position = new Vector2(Constants.SCREEN_W/2, Constants.PLAYER_EYE_HEIGHT + 40);
+        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
 
@@ -144,9 +109,6 @@ public class NinjaPlayer extends InputAdapter {
 
         // Initialize attackState to Not Attacking
         attackState = AttackState.NOT_ATTACKING;
-
-        // Initialize touchPosition (empty)
-        touchPosition = new Vector3();
 
         //Player is alive
         isAlive = true;
@@ -229,8 +191,16 @@ public class NinjaPlayer extends InputAdapter {
         // Set the attackState start time using TimeUtils.nanoTime()
         attackStartTime = TimeUtils.nanoTime();
 
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
+        }/* else {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).stop();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).stop();
+        }*/
+
+
+
 
         // Call continueAttacking()
         continueAttacking();
@@ -315,8 +285,6 @@ public class NinjaPlayer extends InputAdapter {
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
 
-                    // TODO moure automatic
-                    //moveRight(delta);
                 }
             }
         }
@@ -324,7 +292,10 @@ public class NinjaPlayer extends InputAdapter {
         //Collide with spikes
         for(Spikes spikes : level.getSpikes()){
             if(landedOnSpikes(spikes)){ //If collided to spikes, then dies, otherwise return
-                SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
+                if(SetupValues.sound) {
+                    SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
+                }
+
                 isAlive = false;
             }
         }
@@ -347,8 +318,15 @@ public class NinjaPlayer extends InputAdapter {
         // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
-            attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS) && (enemy.getPosition().x - position.x > 0);
-            enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS) && (enemy.getPosition().x - position.x > 0);
+            attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS)
+                    && (enemy.getPosition().x - position.x > 0)
+                    && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
+                    && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+            enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS)
+                    && (enemy.getPosition().x - position.x > 0) //Control if player passed the X position of the enemy
+                    && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
+            && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+
             //System.out.println("Colliding = " + attackColliding);
 
             if(enemy.isAlive()) {
@@ -360,12 +338,15 @@ public class NinjaPlayer extends InputAdapter {
                     score = score + 50;
 
                     //Add a bloodSplash where the enemy died
-                    SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
+                    if(SetupValues.sound) {
+                        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
+                    }
+
                     level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
+//TODO
                     //Add a bloodSplash to the bloodSplashOverlay
-//                    for (int i = 0; i < 10; i++) {
-                        for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
+                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
                         level.addBloodSplash();
                     }
@@ -374,7 +355,6 @@ public class NinjaPlayer extends InputAdapter {
                 } else { //Ninja dies if contact with the enemy
                     if (enemyAttackColliding && (attackState == AttackState.NOT_ATTACKING) && enemy.isAlive()) {
                         isAlive = false;
-                        //TODO endgame // Que fem quan el ninja mort
                     }
                 }
             }
@@ -410,23 +390,13 @@ public class NinjaPlayer extends InputAdapter {
         // check if the left/right arrow keys are pressed
         moveRight(delta);
 
-        // TODO in Android AUTO RUN
-//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            moveLeft(delta);
-//        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-//            moveRight(delta);
-//        } else{
-//            walkState = WalkState.BLOCKED;
-//        }
-
-
     }
 
     /**
      * Checks if ninjaPlayer is landed on ground or have his foots out the ground,
      * for example he maybe is falling to the spikes
-     * @param ground
-     * @return
+     * @param ground piece of ground where to check if player is landing
+     * @return true if player is landed on the ground, false otherwise
      */
     boolean landedOnGround(Ground ground){
         boolean leftFootIn = false;
@@ -455,9 +425,8 @@ public class NinjaPlayer extends InputAdapter {
     }
 
     /**
-     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge,
-     * for example he maybe is falling to the bridge
-     * @param bridge
+     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
+     * @param bridge where to check if player is landing
      * @return
      */
     boolean landedOnBridge(Bridge bridge){
@@ -487,38 +456,29 @@ public class NinjaPlayer extends InputAdapter {
 
     /**
      * Checks if ninjaPlayer had fall out to a spike
-     * @param spikes
-     * @return
+     * @param spikes where to check if player are crossing them
+     * @return true if ninjaPlayer had fall to the spike,
+     *          false otherwise
      */
     boolean landedOnSpikes(Spikes spikes){
-//        boolean leftFootIn = false;
-//        boolean rightFootIn = false;
+
         boolean straddle = false;
 
-        // First check if Players's feet were above the spikes top last frame and below the spikes top this frame
-        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y + 1 &&
-                position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
+        // First check if Players is above the spikes top last frame and below the spikes bottom frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y
+                && position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
             // If so, find the position of NinjaPlayer left and right toes
             float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
-
-//            // See if either of ninjaPlayer's toes are on the ground
-//            leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
-//            rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
-
             // See if NinjaPlayer is straddling the spikes
             straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
-            //System.out.println(" NinjaPlayer linia 401 left foot: " + leftFoot);
-
 
         }
-        //return leftFootIn || rightFootIn || straddle;
         // Return if NinjaPlayer had landed or not on the spike
         return straddle;
     }
 
-    //TODO
     /**
      * Move constantly to right if player don't collide with any obstacle
      * @param delta
@@ -541,24 +501,8 @@ public class NinjaPlayer extends InputAdapter {
     }
 
     /**
-     * TODO Delete this method when automatic runner implemented
-     * @param delta
-     */
-    private void moveLeft(float delta){
-        if(jumpState == JumpState.GROUNDED && walkState != WalkState.WALKING){
-            walkStartTime = TimeUtils.nanoTime();
-        }
-        walkState = WalkState.WALKING;
-
-        position.x -= delta * Constants.PLAYER_MOVE_SPEED;
-
-    }
-
-
-
-    /**
      * startJump()
-     * set jumpstate to JUMPING
+     * set jumpState to JUMPING
      * Set the jump start time
      * Call continueJump
      */
@@ -570,7 +514,10 @@ public class NinjaPlayer extends InputAdapter {
         // Using TimeUtils.nanoTime()
         jumpStartTime = TimeUtils.nanoTime();
 
-        SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+        }
+
 
         // Call continueJump()
         continueJump();
@@ -640,24 +587,7 @@ public class NinjaPlayer extends InputAdapter {
             region = Assets.instance.ninjaAssets.ninjaDead;
         }
 
-        batch.draw(
-                region.getTexture(),
-                position.x - Constants.PLAYER_EYE_POSITION.x,
-                position.y - Constants.PLAYER_EYE_POSITION.y,
-                0,
-                0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                1,
-                1,
-                0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false
-        );
+        Utils.drawTextureRegion(batch, region, position.x - Constants.PLAYER_EYE_POSITION.x, position.y - Constants.PLAYER_EYE_POSITION.y );
 
     }
 

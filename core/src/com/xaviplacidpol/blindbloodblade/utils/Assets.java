@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -48,6 +49,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public BackgroundStageAssets backgroundStageAssets;
 //    public SoundAssets soundAssets;
     public GameOverScreenAssets gameOverScreenAssets;
+    public SetupScreenAssets setupScreenAssets;
 
     private AssetManager assetManager;
 
@@ -84,6 +86,7 @@ public class Assets implements Disposable, AssetErrorListener {
         backgroundStageAssets = new BackgroundStageAssets(atlas);
   //      soundAssets = new SoundAssets();
         gameOverScreenAssets = new GameOverScreenAssets(atlas);
+        setupScreenAssets = new SetupScreenAssets(atlas);
     }
 
     @Override
@@ -177,6 +180,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion backgroundRegion;
         public TextureAtlas.AtlasRegion startButtonRegion;
         public TextureAtlas.AtlasRegion scoreButtonRegion;
+        public TextureAtlas.AtlasRegion setupButtonRegion;
 
 //        public Texture bgTexture;
 
@@ -189,6 +193,7 @@ public class Assets implements Disposable, AssetErrorListener {
             backgroundRegion = atlas.findRegion(Constants.SPLASH_SPRITE);
             startButtonRegion = atlas.findRegion((Constants.START_BUTTON));
             scoreButtonRegion = atlas.findRegion((Constants.SCORE_BUTTON));
+            setupButtonRegion = atlas.findRegion((Constants.SETUP_BUTTON));
 
 
         }
@@ -294,10 +299,10 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class BackgroundStageAssets{
 
-        public final TextureAtlas.AtlasRegion backgroundgamestage;
+        public final Texture backgroundgamestage;
 
         public BackgroundStageAssets(TextureAtlas atlas){
-            backgroundgamestage = atlas.findRegion(Constants.STAGE_BACKGROUND);
+            backgroundgamestage = new Texture(Gdx.files.internal(Constants.BACKGROUND_FILE));
         }
 
     }
@@ -344,6 +349,28 @@ public class Assets implements Disposable, AssetErrorListener {
             bbbgameoverfont = new BitmapFont(font, false);
             bbbgameoverfont.getData().setScale(Constants.GAMEOVER_SCREEN_SCALE);
 
+
+        }
+
+    }
+
+    public class SetupScreenAssets {
+
+        public TextureAtlas.AtlasRegion musicButtonRegion;
+        public TextureAtlas.AtlasRegion soundButtonRegion;
+        public TextureAtlas.AtlasRegion controlsButtonRegion;
+        public TextureAtlas.AtlasRegion onButtonRegion;
+        public TextureAtlas.AtlasRegion offButtonRegion;
+        public TextureAtlas.AtlasRegion controlsRegion;
+
+        public SetupScreenAssets(TextureAtlas atlas){
+
+            musicButtonRegion = atlas.findRegion(Constants.MUSIC_BUTTON);
+            soundButtonRegion = atlas.findRegion(Constants.SOUND_BUTTON);
+            controlsButtonRegion = atlas.findRegion(Constants.CONTROLS_BUTTON);
+            controlsRegion = atlas.findRegion(Constants.CONTROLS);
+            onButtonRegion = atlas.findRegion(Constants.ON_BUTTON);
+            offButtonRegion = atlas.findRegion(Constants.OFF_BUTTON);
 
         }
 
