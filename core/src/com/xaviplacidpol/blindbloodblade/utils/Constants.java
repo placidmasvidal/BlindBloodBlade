@@ -80,6 +80,7 @@ public class Constants {
     public static final float MAIN_TITLE_SCALE = 1.4f;
     public static final String START_BUTTON = "btstart";
     public static final String SCORE_BUTTON = "btscore";
+    public static final String SETUP_BUTTON = "settingsicon2";
 
     // ENEMY
     public static final String ENEMY_SPRITE = "samuraistatic";
@@ -106,4 +107,10 @@ public class Constants {
     public static final String GAME_OVER = "GAME OVER";
     public static final float GAMEOVER_SCREEN_SCALE = 1.0f;
 
+    public static final String MUSIC_BUTTON = "musicbutton";
+    public static final String SOUND_BUTTON = "soundbutton";
+    public static final String CONTROLS_BUTTON = "controlsbutton";
+    public static final String CONTROLS = "controls";
+    public static final String ON_BUTTON = "onbutton";
+    public static final String OFF_BUTTON = "offbutton";
 }
