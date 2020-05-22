@@ -275,8 +275,6 @@ public class NinjaPlayer extends InputAdapter {
                     // Make sure Ninja's feet aren't sticking into the ground
                     position.y = ground.top + Constants.PLAYER_EYE_HEIGHT;
 
-                    // TODO moure automatic
-                    //moveRight(delta);
                 }
             }
         }
@@ -340,7 +338,6 @@ public class NinjaPlayer extends InputAdapter {
                 } else { //Ninja dies if contact with the enemy
                     if (enemyAttackColliding && (attackState == AttackState.NOT_ATTACKING) && enemy.isAlive()) {
                         isAlive = false;
-                        //TODO endgame // Que fem quan el ninja mort
                     }
                 }
             }
@@ -375,16 +372,6 @@ public class NinjaPlayer extends InputAdapter {
         // Moving right automatic
         // check if the left/right arrow keys are pressed
         moveRight(delta);
-
-        // TODO in Android AUTO RUN
-//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            moveLeft(delta);
-//        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) ){
-//            moveRight(delta);
-//        } else{
-//            walkState = WalkState.BLOCKED;
-//        }
-
 
     }
 

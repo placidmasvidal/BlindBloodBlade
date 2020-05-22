@@ -90,6 +90,7 @@ public class Level implements Disposable {
         //Initialize the enemyes array
         enemies = new Array<Enemy>();
 
+        //Initialize both arrays of BloodSplashes
         bloodSplashes = new Array<BloodSplash>();
         bloodSplashesScreen = new Array<BloodSplash>();
 
@@ -120,7 +121,6 @@ public class Level implements Disposable {
         //Initialize level end to false
         levelEnd = false;
 
-        //TODO POL revisar viewport + cam en resize
         this.viewport = viewport;
 
     }
@@ -209,7 +209,6 @@ public class Level implements Disposable {
      *
      */
     private void addDebugGrounds(){
-        // TODO:  Add here all grounds in the level
         grounds.add(new Ground(0, 40, 400, 40));
         grounds.add(new Ground(541, 40, 400, 40));
         grounds.add(new Ground(2090, 40, 400, 40));
