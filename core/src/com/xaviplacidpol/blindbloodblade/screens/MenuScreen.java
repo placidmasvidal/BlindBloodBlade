@@ -132,7 +132,16 @@ public class MenuScreen extends ScreenAdapter {
         setupButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new SetupScreen(game));
+                SetupScreen newSetupScreen = new SetupScreen(game);
+                game.setScreen(newSetupScreen);
+                if(!SetupValues.music){
+                    newSetupScreen.getOnButton().setVisible(false);
+                    newSetupScreen.getOffButton().setVisible(true);
+                }
+                if(!SetupValues.sound){
+                    newSetupScreen.getOnButton2().setVisible(false);
+                    newSetupScreen.getOffButton2().setVisible(true);
+                }
             }
         });
 

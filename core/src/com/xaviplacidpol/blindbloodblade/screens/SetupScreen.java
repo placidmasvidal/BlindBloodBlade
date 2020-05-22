@@ -35,6 +35,39 @@ public class SetupScreen extends ScreenAdapter {
     private Image controlsB;
     private Image controls;
     private ImageButton onButton;
+
+    public ImageButton getOnButton() {
+        return onButton;
+    }
+
+    public void setOnButton(ImageButton onButton) {
+        this.onButton = onButton;
+    }
+
+    public ImageButton getOffButton() {
+        return offButton;
+    }
+
+    public void setOffButton(ImageButton offButton) {
+        this.offButton = offButton;
+    }
+
+    public ImageButton getOnButton2() {
+        return onButton2;
+    }
+
+    public void setOnButton2(ImageButton onButton2) {
+        this.onButton2 = onButton2;
+    }
+
+    public ImageButton getOffButton2() {
+        return offButton2;
+    }
+
+    public void setOffButton2(ImageButton offButton2) {
+        this.offButton2 = offButton2;
+    }
+
     private ImageButton offButton;
     private ImageButton onButton2;
     private ImageButton offButton2;
@@ -56,8 +89,9 @@ public class SetupScreen extends ScreenAdapter {
 
         addContentToStage();
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
 
+        if(SetupValues.music) SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
+        else SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
     }
 
     private void initComponents() {
@@ -143,6 +177,7 @@ public class SetupScreen extends ScreenAdapter {
         onButton.setPosition(232, 216);
         onButton.setWidth(64);
         onButton.setHeight(32);
+//        if(offButton.isVisible()) onButton.setVisible(false);
         onButton.setVisible(true);
         onButton.addCaptureListener(new ChangeListener() {
             @Override
