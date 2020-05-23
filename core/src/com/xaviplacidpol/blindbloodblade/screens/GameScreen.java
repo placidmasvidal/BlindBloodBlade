@@ -177,7 +177,7 @@ public class GameScreen extends ScreenAdapter {
     private void restartLevel() {
         if(level.levelEnd){
             //Repositioning ninja player to the start point
-            level.getNinjaPlayer().setPosition(new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40));
+            level.getNinjaPlayer().setPosition(new Vector2(Constants.PLAYER_START_POSITION, Constants.PLAYER_EYE_HEIGHT + 40));
 //            cam.camera = level.viewport.getCamera();
 //            cam.target = level.getNinjaPlayer();
 

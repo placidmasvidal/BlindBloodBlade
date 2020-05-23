@@ -36,6 +36,8 @@ public class Constants {
     public static final float PLAYER_HEAD_HEIGHT = 53.0f;	    ///modified
     public static final float PLAYER_MOVE_SPEED = 350;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
+    public static final float PLAYER_START_POSITION = 200f;
+    public static final float MAX_GAMEOVER_DURATION = 2f;
 
     public static final float JUMP_SPEED = 400;
     public static final float MAX_JUMP_DURATION = 0.15f;

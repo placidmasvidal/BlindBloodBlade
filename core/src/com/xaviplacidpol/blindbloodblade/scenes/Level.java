@@ -32,27 +32,27 @@ public class Level implements Disposable {
 //    private Set<Integer> scoresSet;
 
     // Add a ninjaPlayer member variable
-    NinjaPlayer ninjaPlayer;
+    private NinjaPlayer ninjaPlayer;
 
     // Add an Array of Grounds
-    Array<Ground> grounds;
+    private Array<Ground> grounds;
 
     // Add an Array of Spikes
-    Array<Spikes> spikes;
+    private Array<Spikes> spikes;
 
     public Viewport viewport;
 
     // Add an Array of Bridges
-    Array<Bridge> bridges;
+    private Array<Bridge> bridges;
 
     // Add an Array of Enemies
-    Array<Enemy> enemies;
+    private Array<Enemy> enemies;
 
     //Add blood splash to the enemy position when this enemy is killed
     private Array<BloodSplash> bloodSplashes;
 
     // Add an Array of backgrounds
-    Array<Background> backgrounds;
+    private Array<Background> backgrounds;
 
     //Array with the random fixed blood splashes to the screen
     private Array<BloodSplash> bloodSplashesScreen;
@@ -158,7 +158,7 @@ public class Level implements Disposable {
      */
     public void render(SpriteBatch batch){
 
-   //     batch.begin();
+        //     batch.begin();
 
         //Render all backgrounds
         for (Background b : backgrounds) {
