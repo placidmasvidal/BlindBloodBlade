@@ -91,7 +91,7 @@ public class GameScreen extends ScreenAdapter {
         // Initialize the SpriteBatch
         batch = new SpriteBatch();
 
-        statsHud = new StatsHud(batch, level.getNinjaPlayer());
+        statsHud = new StatsHud(batch, level.getPlayer());
 
         // Initialize the BloodSplashOverlay witch will print the fixed blood splashes
 //        bloodSplashOverlay = new BloodSplashOverlay();
@@ -179,7 +179,7 @@ public class GameScreen extends ScreenAdapter {
     private void restartLevel() {
         if(level.levelEnd){
             //Repositioning ninja player to the start point
-            level.getNinjaPlayer().setPosition(new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40));
+            level.getPlayer().setPosition(new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40));
 //            cam.camera = level.viewport.getCamera();
 //            cam.target = level.getNinjaPlayer();
 
@@ -195,7 +195,7 @@ public class GameScreen extends ScreenAdapter {
      */
     private void setCam() {
         cam.camera = level.viewport.getCamera();
-        cam.target = level.getNinjaPlayer();
+        cam.target = level.getPlayer();
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
