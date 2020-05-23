@@ -73,7 +73,22 @@ public class Level implements Disposable {
         playerFactory = PlayerFactory.getInstance();
 
         // Initialize NinjaPlayer
-        player = playerFactory.getPlayer("NINJA");
+        double random = Math.random();
+       /* if(random < 0.33) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.33 && random < 0.66){
+            player = playerFactory.getPlayer("RONIN");
+        }else if (random > 0.66){
+            player = playerFactory.getPlayer("AUTOMATA");
+        }
+        */
+        if(random < 0.50) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.50){
+            player = playerFactory.getPlayer("RONIN");
+        }
+
+//        player = playerFactory.getPlayer("RONIN");
         player.setViewport(viewport);
         player.setLevel(this);
 

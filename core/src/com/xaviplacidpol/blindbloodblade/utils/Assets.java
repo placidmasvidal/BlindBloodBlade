@@ -36,6 +36,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
 
     public NinjaAssets ninjaAssets;
+    public RoninAssets roninAssets;
+    public AutomataAssets automataAssets;
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
 
@@ -68,12 +70,16 @@ public class Assets implements Disposable, AssetErrorListener {
 
         //Load texture pack
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
+        assetManager.load(Constants.TEXTURE_ATLAS_R, TextureAtlas.class);
         assetManager.finishLoading();
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
+        TextureAtlas atlasR = assetManager.get(Constants.TEXTURE_ATLAS_R);
 
         //Initialize ninjaAssets, floorAssets, spikesAssets
         ninjaAssets = new NinjaAssets(atlas);
+        roninAssets = new RoninAssets(atlasR);
+        automataAssets = new AutomataAssets(atlasR);
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
@@ -137,6 +143,98 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
+
+        }
+
+    }
+
+    /**
+     * Build ninja textures and walking animation
+     */
+    public class RoninAssets {
+
+        public final TextureAtlas.AtlasRegion roninStatic;
+        public final TextureAtlas.AtlasRegion roninJumping;
+        public final TextureAtlas.AtlasRegion roninWalking0;
+        public final TextureAtlas.AtlasRegion roninWalking;
+        public final TextureAtlas.AtlasRegion roninWalking2;
+        public final TextureAtlas.AtlasRegion roninAttacking;
+        public final TextureAtlas.AtlasRegion roninDead;
+
+        public final Animation roninWalkingAnimation;
+
+
+        public RoninAssets(TextureAtlas atlas) {
+            //Retrieve ninja images from atlas file
+            roninStatic = atlas.findRegion(Constants.RONIN_STATIC);
+
+            roninJumping = atlas.findRegion(Constants.RONIN_JUMPING);
+
+            roninWalking0 = atlas.findRegion(Constants.RONIN_WALKING0);
+
+            roninWalking = atlas.findRegion(Constants.RONIN_WALKING);
+
+            roninWalking2 = atlas.findRegion(Constants.RONIN_WALKING2);
+
+            roninAttacking = atlas.findRegion(Constants.RONIN_ATTACKING);
+
+            roninDead = atlas.findRegion(Constants.RONIN_DEAD);
+
+            //WALKING ANIMATION
+            Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2)); //modified
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            roninWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
+
+        }
+
+    }
+
+    /**
+     * Build ninja textures and walking animation
+     */
+    public class AutomataAssets {
+
+        public final TextureAtlas.AtlasRegion automataStatic;
+        public final TextureAtlas.AtlasRegion automataJumping;
+        public final TextureAtlas.AtlasRegion automataWalking0;
+        public final TextureAtlas.AtlasRegion automataWalking;
+        public final TextureAtlas.AtlasRegion automataWalking2;
+        public final TextureAtlas.AtlasRegion automataAttacking;
+        public final TextureAtlas.AtlasRegion automataDead;
+
+        public final Animation ninjaWalkingAnimation;
+
+
+        public AutomataAssets(TextureAtlas atlas) {
+            //Retrieve ninja images from atlas file
+            automataStatic = atlas.findRegion(Constants.RONIN_STATIC);
+
+            automataJumping = atlas.findRegion(Constants.RONIN_JUMPING);
+
+            automataWalking0 = atlas.findRegion(Constants.RONIN_WALKING0);
+
+            automataWalking = atlas.findRegion(Constants.RONIN_WALKING);
+
+            automataWalking2 = atlas.findRegion(Constants.RONIN_WALKING2);
+
+            automataAttacking = atlas.findRegion(Constants.RONIN_ATTACKING);
+
+            automataDead = atlas.findRegion(Constants.RONIN_DEAD);
+
+            //WALKING ANIMATION
+            Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2)); //modified
 //            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
 //            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);

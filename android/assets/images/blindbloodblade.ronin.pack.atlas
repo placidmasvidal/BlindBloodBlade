@@ -1,0 +1,48 @@
+
+blindbloodblade.ronin.pack.png
+size: 256,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+roninattack
+  rotate: false
+  xy: 2, 262
+  size: 160, 128
+  orig: 160, 128
+  offset: 0, 0
+  index: -1
+ronindead
+  rotate: false
+  xy: 2, 2
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninjump
+  rotate: false
+  xy: 108, 132
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninwalk2
+  rotate: false
+  xy: 108, 132
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninwalk
+  rotate: false
+  xy: 2, 132
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
+roninwalk0
+  rotate: false
+  xy: 96, 2
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1

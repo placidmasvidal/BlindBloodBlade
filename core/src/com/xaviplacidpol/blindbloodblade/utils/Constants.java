@@ -27,8 +27,8 @@ public class Constants {
 
 
     public static final String TEXTURE_ATLAS = "images/blindbloodblade.pack.atlas";
+    public static final String TEXTURE_ATLAS_R = "images/blindbloodblade.ronin.pack.atlas";
 
-    //    public static final String TEXTURE_ATLAS = "images/bbbtextures.atlas";
     //PLAYER
     public static final Vector2 PLAYER_EYE_POSITION = new Vector2(16, 24);
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
@@ -51,6 +51,15 @@ public class Constants {
     public static final String NINJA_WALKING2 = "ninjawalk2";   //modified
     public static final String NINJA_ATTACKING = "ninjabloody";
     public static final String NINJA_DEAD = "ninjadead";
+
+    //ronin sprites
+    public static final String RONIN_STATIC = "roninwalk0";     //modified
+    public static final String RONIN_JUMPING = "roninjump";
+    public static final String RONIN_WALKING = "roninwalk";     //modified
+    public static final String RONIN_WALKING0 = "roninwalk0";     //modified
+    public static final String RONIN_WALKING2 = "roninwalk2";   //modified
+    public static final String RONIN_ATTACKING = "roninattack";
+    public static final String RONIN_DEAD = "ronindead";
 
     //FLOOR
     // Ground sprite
@@ -94,8 +103,11 @@ public class Constants {
     public static final String BLOOD_SPLASH_SPRITE = "bloodsplash";
     public static final Vector2 BLOOD_SPLASH_CENTER = new Vector2(8, 8);
     public static final float BLOOD_SPLASH_DURATION = 0.50f;
-    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.8f;        ///modified
-    public static final int BLOOD_SPLASHES_PER_KILL = 4;   ///modified
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE = 0.3f;        ///modified
+    public static final int BLOOD_SPLASHES_PER_KILL = 3;   ///modified
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE_R = 1.0f;        ///modified
+    public static final int BLOOD_SPLASHES_PER_KILL_R = 6;   ///modified
+
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";
