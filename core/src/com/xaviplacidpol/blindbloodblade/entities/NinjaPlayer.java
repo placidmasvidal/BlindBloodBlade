@@ -94,7 +94,7 @@ public class NinjaPlayer extends InputAdapter {
         this.viewport = viewport;
         this.level = level;
         // Initialize NinjaPlayer position with his height
-        position = new Vector2(20, Constants.PLAYER_EYE_HEIGHT + 40);
+        position = new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
 

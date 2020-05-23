@@ -254,7 +254,8 @@ public class SetupScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        stage.dispose();
     }
 
 }

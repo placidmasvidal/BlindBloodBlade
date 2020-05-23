@@ -128,7 +128,8 @@ public class ScoreScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-//        super.dispose();
+        batch.dispose();
+        stage.dispose();
     }
 
 }

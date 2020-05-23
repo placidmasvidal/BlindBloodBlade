@@ -120,6 +120,9 @@ public class GameOverScreen extends ScreenAdapter {
 
         game.gameData.flush();
 
+        stage.dispose();
+        batch.dispose();
+
     }
 
 

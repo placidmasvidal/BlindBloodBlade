@@ -1,4 +1,4 @@
-package com.xaviplacidpol.blindbloodblade.scenes;
+package com.xaviplacidpol.blindbloodblade.overlays;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

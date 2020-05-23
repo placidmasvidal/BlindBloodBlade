@@ -73,7 +73,7 @@ public class Constants {
     public static final String BACKGROUND_SPRITE = "backgroundgamestage";
     public static final String BACKGROUND_FILE = "images/unpacked/backgroundgamestage.png";
     public static final int BACKGROUND_EDGE = 8;
-    public static final int BACKGROUND_WORLD_SIZE = 10000;
+    public static final int BACKGROUND_WORLD_SIZE = 50000;
 
     //SPLASH SCREEN
     //Background sprite
