@@ -59,7 +59,9 @@ public class GameOverScreen extends ScreenAdapter {
         this.game = game;
 
         scoresSet = new HashSet<>();
-
+        for(int i =0; i<5; i++) {
+          scoresSet.add(game.gameData.getInteger("score"+i));
+        }
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
@@ -133,7 +135,6 @@ public class GameOverScreen extends ScreenAdapter {
     @Override
     public void dispose() {
 
-        int i = 1;
         scoresSet.add(score);
 
         List<Integer> scores = new ArrayList<>();
@@ -144,6 +145,7 @@ public class GameOverScreen extends ScreenAdapter {
 
         java.util.Collections.sort(scores, Collections.reverseOrder());
 
+        int i = 1;
         for(Integer score : scores){
             game.gameData.putInteger("score"+i, score);
             i++;

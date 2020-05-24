@@ -24,7 +24,7 @@ public class Constants {
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
 
-    public static final float MAX_GAMEOVER_DURATION = 2f;
+    public static final float MAX_GAMEOVER_DURATION = 1.5f;
 
     public static final String TEXTURE_ATLAS = "images/blindbloodblade.pack.atlas";
     public static final String TEXTURE_ATLAS_R = "images/blindbloodblade.ronin.pack.atlas";

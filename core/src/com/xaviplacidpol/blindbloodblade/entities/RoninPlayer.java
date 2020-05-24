@@ -540,7 +540,7 @@ public class RoninPlayer extends InputAdapter implements Player {
         jumpStartTime = TimeUtils.nanoTime();
 
         if(SetupValues.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_RONIN).play();
         }
 
 

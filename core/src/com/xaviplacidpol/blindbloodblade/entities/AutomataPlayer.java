@@ -540,7 +540,7 @@ public class AutomataPlayer extends InputAdapter implements Player {
         jumpStartTime = TimeUtils.nanoTime();
 
         if(SetupValues.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_AUTOMATA).play();
         }
 
 
