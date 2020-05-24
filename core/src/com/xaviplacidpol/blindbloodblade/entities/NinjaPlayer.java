@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,7 +41,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
     //long number to control walking time
     private long walkStartTime;
-    
+
     //long number to control attacking time
     private long attackStartTime;
 
@@ -175,7 +175,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         }else{ //ATTACK when touched the right half of the screen
             switch (attackState){
                 case ATTACKING:
-                    
+
                     break;
                 case NOT_ATTACKING:
                     startAttack();
@@ -199,7 +199,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
     /**
      *  Modify state of ninja to attacking
-     *  Modify actual sprite to ninja attack 
+     *  Modify actual sprite to ninja attack
      */
     @Override
     public void startAttack() {
@@ -320,19 +320,19 @@ public class NinjaPlayer extends InputAdapter implements Player {
             }
         }
 
-            //For each bridge, call landedOnBridge()
-            for (Bridge bridge : bridges){
-                if (landedOnBridge(bridge)) {
-                    //  If true, set jumpState to GROUNDED
-                    jumpState = JumpState.GROUNDED;
+        //For each bridge, call landedOnBridge()
+        for (Bridge bridge : bridges){
+            if (landedOnBridge(bridge)) {
+                //  If true, set jumpState to GROUNDED
+                jumpState = JumpState.GROUNDED;
 
-                    // Set zero vertical velocity
-                    velocity.y = 0;
+                // Set zero vertical velocity
+                velocity.y = 0;
 
-                    // Make sure Ninja's feet aren't sticking into the ground
-                    position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
-                }
+                // Make sure Ninja's feet aren't sticking into the ground
+                position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
             }
+        }
 
 //	int i = 0;
         // Collide with enemies, kill them or die
@@ -345,7 +345,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
             enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS)
                     && (enemy.getPosition().x - position.x > 0) //Control if player passed the X position of the enemy
                     && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
-            && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+                    && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
 
             //System.out.println("Colliding = " + attackColliding);
 
