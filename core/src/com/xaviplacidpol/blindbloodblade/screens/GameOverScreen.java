@@ -5,10 +5,12 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLInterceptor;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
@@ -39,6 +41,10 @@ public class GameOverScreen extends ScreenAdapter {
 
     private Integer score;
     private Set<Integer> scoresSet;
+
+    // Timer controls
+    private float gameOverStartTimer;
+    private boolean gameOverEnd;
 
     public GameOverScreen(final BlindBloodBlade game, Integer score) {
 
@@ -72,6 +78,10 @@ public class GameOverScreen extends ScreenAdapter {
 
         stage.addActor(lblTitle);
 
+        //Initialize timer controls
+        gameOverStartTimer = TimeUtils.nanoTime();
+        gameOverEnd = false;
+
     }
 
     @Override
@@ -92,11 +102,32 @@ public class GameOverScreen extends ScreenAdapter {
 
         stage.draw();
 
-        if (Gdx.input.isTouched()) {
+        //Control if screen touched and pause time end to return MenuScreen
+        if (Gdx.input.isTouched() && gameOverEnd) {
+            // Reset gameOverEnd
+            gameOverEnd = false;
             game.setScreen(new MenuScreen(game));
+
             dispose();
         }
 
+        gameOverPause();
+
+    }
+
+    /**
+     * Control the timer to pause the game when GameOverScreen was loaded
+     * @return gameOverEnd True if pause time reached max gameOver duration
+     */
+    private boolean gameOverPause() {
+            //Find how long we are paused in game over screen
+            float gameOverDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - gameOverStartTimer);
+            //If reached max gameOver duration then pause time is done
+            if(gameOverDuration > Constants.MAX_GAMEOVER_DURATION){
+                gameOverEnd = true;
+            }
+
+        return gameOverEnd;
     }
 
     @Override

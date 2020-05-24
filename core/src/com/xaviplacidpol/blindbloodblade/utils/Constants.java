@@ -24,22 +24,23 @@ public class Constants {
     //Kill line when player fall over ground
     public static final float KILL_PLANE = -100;
 
-
+    public static final float MAX_GAMEOVER_DURATION = 2f;
 
     public static final String TEXTURE_ATLAS = "images/blindbloodblade.pack.atlas";
     public static final String TEXTURE_ATLAS_R = "images/blindbloodblade.ronin.pack.atlas";
+    public static final String TEXTURE_ATLAS_A = "images/blindbloodblade.automata.pack.atlas"; //no caldra si aconseguim un sol atlas
 
     //PLAYER
     public static final Vector2 PLAYER_EYE_POSITION = new Vector2(16, 24);
     public static final float PLAYER_EYE_HEIGHT = 16.0f;
     public static final float PLAYER_STANCE_WIDTH = 21.0f;
-    public static final float PLAYER_HEAD_HEIGHT = 53.0f;	    ///modified
+    public static final float PLAYER_HEAD_HEIGHT = 23.0f;	    ///modified
     public static final float PLAYER_MOVE_SPEED = 350;              ///modified
     public static final float PLAYER_BLADE_RADIUS = 100f;
 
     public static final float JUMP_SPEED = 400;
     public static final float MAX_JUMP_DURATION = 0.15f;
-    public static final float WALK_LOOP_DURATION = 0.35f;   //modified
+    public static final float WALK_LOOP_DURATION = 0.25f;   //modified
 
     public static final float MAX_ATTACK_DURATION = 0.50f;
 
@@ -60,6 +61,15 @@ public class Constants {
     public static final String RONIN_WALKING2 = "roninwalk2";   //modified
     public static final String RONIN_ATTACKING = "roninattack";
     public static final String RONIN_DEAD = "ronindead";
+
+    //automata sprites
+    public static final String AUTOMATA_STATIC = "automatawalk0";     //modified
+    public static final String AUTOMATA_JUMPING = "automatajump";
+    public static final String AUTOMATA_WALKING = "automatawalk";     //modified
+    public static final String AUTOMATA_WALKING0 = "automatawalk0";     //modified
+    public static final String AUTOMATA_WALKING2 = "automatawalk2";   //modified
+    public static final String AUTOMATA_ATTACKING = "automataattack";
+    public static final String AUTOMATA_DEAD = "automatadead";
 
     //FLOOR
     // Ground sprite
@@ -107,7 +117,8 @@ public class Constants {
     public static final int BLOOD_SPLASHES_PER_KILL = 3;   ///modified
     public static final float BLOOD_SPLASH_OVERLAY_SCALE_R = 1.0f;        ///modified
     public static final int BLOOD_SPLASHES_PER_KILL_R = 6;   ///modified
-
+    public static final float BLOOD_SPLASH_OVERLAY_SCALE_A = 1.0f;        ///modified
+    public static final int BLOOD_SPLASHES_PER_KILL_A = 10;   ///modified
 
     //SCORE SCREEN
     public static final String SCORE = "SCORE";

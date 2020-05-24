@@ -366,7 +366,7 @@ public class AutomataPlayer extends InputAdapter implements Player {
 
 //TODO
                     //Add a bloodSplash to the bloodSplashOverlay
-                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
+                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL_A; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
                         level.addBloodSplash();
                     }
@@ -592,27 +592,26 @@ public class AutomataPlayer extends InputAdapter implements Player {
     public void render(SpriteBatch batch){
 
         // Render ninja standing static
-        TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
-
+        TextureRegion region = Assets.instance.automataAssets.automataStatic;
         if(isAlive){
             // Select the correct sprite based on jumpState, and walkState
             if(attackState == AttackState.ATTACKING){
-                region = Assets.instance.ninjaAssets.ninjaAttacking;
+                region = Assets.instance.automataAssets.automataAttacking;
             } else if(jumpState != JumpState.GROUNDED){
-                region = Assets.instance.ninjaAssets.ninjaJumping;
+                region = Assets.instance.automataAssets.automataJumping;
             } else if(walkState == WalkState.BLOCKED){
-                region = Assets.instance.ninjaAssets.ninjaStatic;
+                region = Assets.instance.automataAssets.automataStatic;
             } else if(walkState == WalkState.WALKING){
 
                 // Calculate how long we've been walking in seconds
                 float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
                 // Select the correct frame from the walking  animation
-                region = (TextureRegion) Assets.instance.ninjaAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
+                region = (TextureRegion) Assets.instance.automataAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
 
             }
         }else{
-            region = Assets.instance.ninjaAssets.ninjaDead;
+            region = Assets.instance.automataAssets.automataDead;
         }
 
         Utils.drawTextureRegion(batch, region, position.x - Constants.PLAYER_EYE_POSITION.x, position.y - Constants.PLAYER_EYE_POSITION.y );

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.entities.AutomataPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.RoninPlayer;
@@ -53,6 +54,8 @@ public class BloodSplashOverlay {
                 bloodSplash.render(batch, Constants.BLOOD_SPLASH_OVERLAY_SCALE);
             } else if (level.getPlayer().getClass().equals(RoninPlayer.class)){
                 bloodSplash.render(batch, Constants.BLOOD_SPLASH_OVERLAY_SCALE_R);
+            } else if (level.getPlayer().getClass().equals(AutomataPlayer.class)){
+                bloodSplash.render(batch, Constants.BLOOD_SPLASH_OVERLAY_SCALE_A);
             }
         }
 
