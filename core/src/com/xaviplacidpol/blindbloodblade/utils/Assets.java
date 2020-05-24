@@ -282,8 +282,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion scoreButtonRegion;
         public TextureAtlas.AtlasRegion setupButtonRegion;
 
-//        public Texture bgTexture;
-
         public SplashScreenAssets(TextureAtlas atlas) {
 
             FileHandle fontFile = Gdx.files.internal("fonts/bbbattack.fnt");
@@ -406,38 +404,6 @@ public class Assets implements Disposable, AssetErrorListener {
         }
 
     }
-
-/*    public class SoundAssets{
-
-        public final Sound bloodSplashSound;
-        public final Sound swordSlashSound;
-
-        public final Music backgroundMusic;
-        public final Music sakuraAmbienceStage;
-        public final Music superFastLevel;
-        public final Music thrillerStage;
-
-
-        public SoundAssets(){
-
-            bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
-            swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
-
-            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.ogg"));
-            backgroundMusic.setLooping(true);
-
-            superFastLevel = Gdx.audio.newMusic(Gdx.files.internal("sounds/nessuperfastlevel.ogg"));
-            superFastLevel.setLooping(true);
-
-            thrillerStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/thrillerstage.ogg"));
-            thrillerStage.setLooping(true);
-
-            sakuraAmbienceStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/sakuraambiencestage.ogg"));
-            sakuraAmbienceStage.setLooping(true);
-        }
-
-    }
-*/
 
     public class GameOverScreenAssets {
 

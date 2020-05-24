@@ -9,8 +9,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Manage all app's music and sound files
+ * Implements disposable(I) in order to dispose() the resources used
+ */
 public class SoundAssetsManager implements Disposable {
 
+    // SOUND CONSTANTS USED AS KEYS IN THE MAP THAT STORES THE FILES
     public static final String M_BACKGROUND = "background";
     public static final String M_LEVEL_FAST = "fastlevel";
     public static final String M_LEVEL_THRILLER = "thriller";
@@ -44,6 +49,7 @@ public class SoundAssetsManager implements Disposable {
     public static Music scorescreenMusic;
 
 
+    //MAP THAT ALLOWS ANY CLASS TO ACCESS TO MUSIC FILES IN STATIC WAY
     public static final Map<String, Music> bbbmusics;
     static{
 
@@ -73,6 +79,7 @@ public class SoundAssetsManager implements Disposable {
         bbbmusics = Collections.unmodifiableMap(musics);
     }
 
+    //MAP THAT ALLOWS ANY CLASS TO ACCESS TO SOUND FILES IN STATIC WAY
     public static final Map<String, Sound> bbbsounds;
     static{
         bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
