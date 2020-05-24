@@ -19,7 +19,7 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 /**
  * Main Player
  */
-public class RoninPlayer extends AbstractPlayer implements Player {
+public class RoninPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
     //Vector 2 with x and y position
@@ -151,6 +151,43 @@ public class RoninPlayer extends AbstractPlayer implements Player {
     }
 
     @Override
+    /**
+     * Get touchPosition, verify what side of the screen was touched,
+     * if left side touched then execute jump(),
+     * if right side touched then execute atack()
+     */
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){ //Half left of the screen touched
+            // Add a switch statement. If the jump key is pressed and player is GROUNDED, then startJump()
+            // If she's JUMPING, then continueJump()
+            // If she's falling, then don't do anything
+            switch (jumpState){
+                case GROUNDED:
+                    startJump();
+                    break;
+                case JUMPING:
+                    continueJump();
+                    break;
+                case FALLING:
+                    break;
+            }
+        }else{ //ATTACK when touched the right half of the screen
+            switch (attackState){
+                case ATTACKING:
+
+                    break;
+                case NOT_ATTACKING:
+                    startAttack();
+                    break;
+            }
+        }
+
+        return true;
+
+    }
+
+    @Override
     public void setViewport(Viewport viewport) {
         this.viewport = viewport;
     }
@@ -186,6 +223,28 @@ public class RoninPlayer extends AbstractPlayer implements Player {
         // Call continueAttacking()
         continueAttacking();
     }
+
+    /**
+     * Checks time since the attack started, apply corresponding sprite to the ninja depending
+     * if it reached the max duration or not
+     */
+    @Override
+    public void continueAttacking() {
+
+        // First, check if we're ATTACKING
+        if(attackState == AttackState.ATTACKING){
+            // Find out how long we've been jumping
+            float attackDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - attackStartTime);
+
+            // Set corresponding attackState depending if it reached the max attack duration
+            if(attackDuration < Constants.MAX_ATTACK_DURATION){
+                attackState = AttackState.ATTACKING;
+            } else{
+                attackState = AttackState.NOT_ATTACKING;
+            }
+        }//else just return
+    }
+
 
     /**
      * Update our ninja every frame
@@ -354,30 +413,6 @@ public class RoninPlayer extends AbstractPlayer implements Player {
     }
 
     /**
-     * startJump()
-     * set jumpState to JUMPING
-     * Set the jump start time
-     * Call continueJump
-     */
-    @Override
-    public void startJump(){
-        // Set jumpState to JUMPING
-        jumpState = JumpState.JUMPING;
-
-        // Set the jump start time
-        // Using TimeUtils.nanoTime()
-        jumpStartTime = TimeUtils.nanoTime();
-
-        if(SetupValues.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_RONIN).play();
-        }
-
-
-        // Call continueJump()
-        continueJump();
-    }
-
-    /**
      * Checks if ninjaPlayer is landed on ground or have his foots out the ground,
      * for example he maybe is falling to the spikes
      * @param ground piece of ground where to check if player is landing
@@ -411,6 +446,63 @@ public class RoninPlayer extends AbstractPlayer implements Player {
     }
 
     /**
+     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
+     * @param bridge where to check if player is landing
+     * @return
+     */
+    @Override
+    public boolean landedOnBridge(Bridge bridge){
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean straddle = false;
+
+        // First check if Players's feet were above the platform top last frame and below the platform top this frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= bridge.top &&
+                position.y - Constants.PLAYER_EYE_HEIGHT < bridge.top){
+            // If so, find the position of RoninPlayer left and right toes
+            float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
+
+            // See if either of ninjaPlayer's toes are on the ground
+            leftFootIn = (bridge.left < leftFoot && bridge.right > leftFoot);
+            rightFootIn = (bridge.left < rightFoot && bridge.right > rightFoot);
+
+            // See if RoninPlayer is straddling the platform
+            straddle = (bridge.left > leftFoot && bridge.right < rightFoot);
+
+        }
+        // Return whether or not RoninPlayer had landed on the ground
+        return leftFootIn || rightFootIn || straddle;
+    }
+
+
+    /**
+     * Checks if ninjaPlayer had fall out to a spike
+     * @param spikes where to check if player are crossing them
+     * @return true if ninjaPlayer had fall to the spike,
+     *          false otherwise
+     */
+    @Override
+    public boolean landedOnSpikes(Spikes spikes){
+
+        boolean straddle = false;
+
+        // First check if Players is above the spikes top last frame and below the spikes bottom frame
+        if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y
+                && position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
+            // If so, find the position of RoninPlayer left and right toes
+            float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
+            float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
+
+            // See if RoninPlayer is straddling the spikes
+            straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
+
+        }
+        // Return if RoninPlayer had landed or not on the spike
+        return straddle;
+    }
+
+    /**
      * Move constantly to right if player don't collide with any obstacle
      * @param delta
      */
@@ -429,6 +521,65 @@ public class RoninPlayer extends AbstractPlayer implements Player {
             position.x += delta * Constants.PLAYER_MOVE_SPEED;
         }else{
             position.x += 0;
+        }
+    }
+
+    /**
+     * startJump()
+     * set jumpState to JUMPING
+     * Set the jump start time
+     * Call continueJump
+     */
+    @Override
+    public void startJump(){
+        // Set jumpState to JUMPING
+        jumpState = JumpState.JUMPING;
+
+        // Set the jump start time
+        // Using TimeUtils.nanoTime()
+        jumpStartTime = TimeUtils.nanoTime();
+
+        if(SetupValues.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_RONIN).play();
+        }
+
+
+        // Call continueJump()
+        continueJump();
+    }
+
+    /**
+     * Check if we're JUMPING
+     * If we are, find out how long we've been jumping
+     *  If we have been jumping for less than the max jump duration, set player's vertical speed to the jump speed constant
+     *  Else, call endJump()
+     */
+    @Override
+    public void continueJump(){
+        // First, check if we're JUMPING, if not, just return
+        if(jumpState == JumpState.JUMPING){
+            // Find out how long we've been jumping
+            float jumpDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime);
+
+            // If we have been jumping for less than the max jump duration, set player's vertical speed to the jump
+            // speed constant
+            // Else, call endJump()
+            if(jumpDuration < Constants.MAX_JUMP_DURATION){
+                velocity.y = Constants.JUMP_SPEED;
+            } else{
+                endJump();
+            }
+        }
+    }
+
+    /**
+     * If we're JUMPING and ended the jump, now we're FALLING
+     */
+    @Override
+    public void endJump(){
+        // If we're JUMPING, now we're FALLING
+        if(jumpState == JumpState.JUMPING){
+            jumpState = JumpState.FALLING;
         }
     }
 
