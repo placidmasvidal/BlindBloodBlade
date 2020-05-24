@@ -5,10 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Player;
 
 public class Cam {
     public Camera camera;
-    public NinjaPlayer target;
+    public Player target;
 
     public Cam(Camera camera, NinjaPlayer target) {
         this.camera = camera;

@@ -19,7 +19,7 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 /**
  * Main Player
  */
-public class NinjaPlayer extends InputAdapter implements Player {
+public class AutomataPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
     //Vector 2 with x and y position
@@ -41,7 +41,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
     //long number to control walking time
     private long walkStartTime;
-    
+
     //long number to control attacking time
     private long attackStartTime;
 
@@ -95,11 +95,11 @@ public class NinjaPlayer extends InputAdapter implements Player {
     boolean attackColliding;
     boolean enemyAttackColliding;
 
-    //NinjaPlayer Constructor
-    public NinjaPlayer(/*Viewport viewport, Level level*/){
+    //AutomataPlayer Constructor
+    public AutomataPlayer(/*Viewport viewport, Level level*/){
 //        this.viewport = viewport;
 //        this.level = level;
-        // Initialize NinjaPlayer position with his height
+        // Initialize AutomataPlayer position with his height
         position = new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
@@ -175,7 +175,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         }else{ //ATTACK when touched the right half of the screen
             switch (attackState){
                 case ATTACKING:
-                    
+
                     break;
                 case NOT_ATTACKING:
                     startAttack();
@@ -199,7 +199,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
     /**
      *  Modify state of ninja to attacking
-     *  Modify actual sprite to ninja attack 
+     *  Modify actual sprite to ninja attack
      */
     @Override
     public void startAttack() {
@@ -271,7 +271,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // Multiple delta by the acceleration due to gravity and subtract it from player vertical velocity
         velocity.y -= delta * Constants.GRAVITY;
 
-        // Apply NinjaPlayer velocity
+        // Apply AutomataPlayer velocity
         // Vector2.mulAdd() is very convenient.
         position.mulAdd(velocity, delta);
 
@@ -320,19 +320,19 @@ public class NinjaPlayer extends InputAdapter implements Player {
             }
         }
 
-            //For each bridge, call landedOnBridge()
-            for (Bridge bridge : bridges){
-                if (landedOnBridge(bridge)) {
-                    //  If true, set jumpState to GROUNDED
-                    jumpState = JumpState.GROUNDED;
+        //For each bridge, call landedOnBridge()
+        for (Bridge bridge : bridges){
+            if (landedOnBridge(bridge)) {
+                //  If true, set jumpState to GROUNDED
+                jumpState = JumpState.GROUNDED;
 
-                    // Set zero vertical velocity
-                    velocity.y = 0;
+                // Set zero vertical velocity
+                velocity.y = 0;
 
-                    // Make sure Ninja's feet aren't sticking into the ground
-                    position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
-                }
+                // Make sure Ninja's feet aren't sticking into the ground
+                position.y = bridge.top + Constants.PLAYER_EYE_HEIGHT;
             }
+        }
 
 //	int i = 0;
         // Collide with enemies, kill them or die
@@ -345,7 +345,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
             enemyAttackColliding = ((enemy.getPosition().x - position.x ) < Constants.ENEMY_COLLISION_RADIUS)
                     && (enemy.getPosition().x - position.x > 0) //Control if player passed the X position of the enemy
                     && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
-            && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
+                    && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
 
             //System.out.println("Colliding = " + attackColliding);
 
@@ -366,7 +366,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
 //TODO
                     //Add a bloodSplash to the bloodSplashOverlay
-                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
+                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL_A; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
                         level.addBloodSplash();
                     }
@@ -427,7 +427,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players's feet were above the platform top last frame and below the platform top this frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of AutomataPlayer left and right toes
             float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
@@ -436,11 +436,11 @@ public class NinjaPlayer extends InputAdapter implements Player {
             leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
             rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
 
-            // See if NinjaPlayer is straddling the platform
+            // See if AutomataPlayer is straddling the platform
             straddle = (ground.left > leftFoot && ground.right < rightFoot);
 
         }
-        // Return whether or not NinjaPlayer had landed on the ground
+        // Return whether or not AutomataPlayer had landed on the ground
         return leftFootIn || rightFootIn || straddle;
 
     }
@@ -459,7 +459,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players's feet were above the platform top last frame and below the platform top this frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= bridge.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < bridge.top){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of AutomataPlayer left and right toes
             float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
@@ -467,11 +467,11 @@ public class NinjaPlayer extends InputAdapter implements Player {
             leftFootIn = (bridge.left < leftFoot && bridge.right > leftFoot);
             rightFootIn = (bridge.left < rightFoot && bridge.right > rightFoot);
 
-            // See if NinjaPlayer is straddling the platform
+            // See if AutomataPlayer is straddling the platform
             straddle = (bridge.left > leftFoot && bridge.right < rightFoot);
 
         }
-        // Return whether or not NinjaPlayer had landed on the ground
+        // Return whether or not AutomataPlayer had landed on the ground
         return leftFootIn || rightFootIn || straddle;
     }
 
@@ -490,15 +490,15 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players is above the spikes top last frame and below the spikes bottom frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y
                 && position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of AutomataPlayer left and right toes
             float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
-            // See if NinjaPlayer is straddling the spikes
+            // See if AutomataPlayer is straddling the spikes
             straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
 
         }
-        // Return if NinjaPlayer had landed or not on the spike
+        // Return if AutomataPlayer had landed or not on the spike
         return straddle;
     }
 
@@ -540,7 +540,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         jumpStartTime = TimeUtils.nanoTime();
 
         if(SetupValues.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_NINJA).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_AUTOMATA).play();
         }
 
 
@@ -592,27 +592,26 @@ public class NinjaPlayer extends InputAdapter implements Player {
     public void render(SpriteBatch batch){
 
         // Render ninja standing static
-        TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
-
+        TextureRegion region = Assets.instance.automataAssets.automataStatic;
         if(isAlive){
             // Select the correct sprite based on jumpState, and walkState
             if(attackState == AttackState.ATTACKING){
-                region = Assets.instance.ninjaAssets.ninjaAttacking;
+                region = Assets.instance.automataAssets.automataAttacking;
             } else if(jumpState != JumpState.GROUNDED){
-                region = Assets.instance.ninjaAssets.ninjaJumping;
+                region = Assets.instance.automataAssets.automataJumping;
             } else if(walkState == WalkState.BLOCKED){
-                region = Assets.instance.ninjaAssets.ninjaStatic;
+                region = Assets.instance.automataAssets.automataStatic;
             } else if(walkState == WalkState.WALKING){
 
                 // Calculate how long we've been walking in seconds
                 float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
                 // Select the correct frame from the walking  animation
-                region = (TextureRegion) Assets.instance.ninjaAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
+                region = (TextureRegion) Assets.instance.automataAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
 
             }
         }else{
-            region = Assets.instance.ninjaAssets.ninjaDead;
+            region = Assets.instance.automataAssets.automataDead;
         }
 
         Utils.drawTextureRegion(batch, region, position.x - Constants.PLAYER_EYE_POSITION.x, position.y - Constants.PLAYER_EYE_POSITION.y );

@@ -54,7 +54,7 @@ public class BaseScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-
+        Assets.instance.dispose();
     }
 
 }

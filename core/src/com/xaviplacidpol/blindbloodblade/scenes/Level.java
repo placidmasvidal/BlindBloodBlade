@@ -12,17 +12,12 @@ import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
 import com.xaviplacidpol.blindbloodblade.entities.Bridge;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
-import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Player;
+import com.xaviplacidpol.blindbloodblade.entities.PlayerFactory;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.entities.Background;
 import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 public class Level implements Disposable {
@@ -32,27 +27,27 @@ public class Level implements Disposable {
 //    private Set<Integer> scoresSet;
 
     // Add a ninjaPlayer member variable
-    private NinjaPlayer ninjaPlayer;
+    Player player;
 
     // Add an Array of Grounds
-    private Array<Ground> grounds;
+    Array<Ground> grounds;
 
     // Add an Array of Spikes
-    private Array<Spikes> spikes;
+    Array<Spikes> spikes;
 
     public Viewport viewport;
 
     // Add an Array of Bridges
-    private Array<Bridge> bridges;
+    Array<Bridge> bridges;
 
     // Add an Array of Enemies
-    private Array<Enemy> enemies;
+    Array<Enemy> enemies;
 
     //Add blood splash to the enemy position when this enemy is killed
     private Array<BloodSplash> bloodSplashes;
 
     // Add an Array of backgrounds
-    private Array<Background> backgrounds;
+    Array<Background> backgrounds;
 
     //Array with the random fixed blood splashes to the screen
     private Array<BloodSplash> bloodSplashesScreen;
@@ -61,6 +56,8 @@ public class Level implements Disposable {
     public boolean levelEnd;
 
 //    private Integer score;
+
+    private PlayerFactory playerFactory;
 
     public Level(Viewport viewport, BlindBloodBlade game){
 
@@ -72,8 +69,28 @@ public class Level implements Disposable {
         scoresSet.add(21990);
         scoresSet.add(26722);
 */
+
+        playerFactory = PlayerFactory.getInstance();
+
         // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer(viewport, this);
+        double random = Math.random();
+        if(random < 0.33) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.33 && random < 0.66){
+            player = playerFactory.getPlayer("RONIN");
+        }else if (random > 0.66){
+            player = playerFactory.getPlayer("AUTOMATA");
+        }
+       /*
+        if(random < 0.50) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.50){
+            player = playerFactory.getPlayer("RONIN");
+        }
+*/
+//        player = playerFactory.getPlayer("RONIN");
+        player.setViewport(viewport);
+        player.setLevel(this);
 
         // Initialize the bridges array
         bridges = new Array<Bridge>();
@@ -107,7 +124,7 @@ public class Level implements Disposable {
         addSpikes();
 
         //Set input touch screen for ninjaPlayer
-        Gdx.input.setInputProcessor(ninjaPlayer);
+        Gdx.input.setInputProcessor(player);
 
         //Add bridges
         addBridges();
@@ -128,7 +145,7 @@ public class Level implements Disposable {
      */
     public void update(float delta){
         // Update NinjaPlayer
-        ninjaPlayer.update(delta, grounds, bridges);    //CRITIC
+        player.update(delta, grounds, bridges);    //CRITIC
 
         endlessGame();
     }
@@ -141,7 +158,7 @@ public class Level implements Disposable {
      */
     private void endlessGame() {
         // Restart player position for endless game if player reached end point, otherwise just return
-        if(ninjaPlayer.getPosition().x > Constants.ENDLESS_POSITION){
+        if(player.getPosition().x > Constants.ENDLESS_POSITION){
             levelEnd = true;
             //Clean old blood splashes in the enemies position
             bloodSplashes.clear();
@@ -158,7 +175,7 @@ public class Level implements Disposable {
      */
     public void render(SpriteBatch batch){
 
-        //     batch.begin();
+   //     batch.begin();
 
         //Render all backgrounds
         for (Background b : backgrounds) {
@@ -191,12 +208,12 @@ public class Level implements Disposable {
         }
 
         // Render NinjaPlayer
-        ninjaPlayer.render(batch);
+        player.render(batch);
 
 //        batch.end();
-        if(!ninjaPlayer.isAlive()) {
+        if(!player.isAlive()) {
 //            dispose();
-            game.setScreen(new GameOverScreen(game, ninjaPlayer.getScore()));
+            game.setScreen(new GameOverScreen(game, player.getScore()));
         }
     }
 
@@ -389,8 +406,8 @@ public class Level implements Disposable {
     }
 
 
-    public NinjaPlayer getNinjaPlayer() {
-        return ninjaPlayer;
+    public Player getPlayer() {
+        return player;
     }
 
     public Array<Enemy> getEnemies() {
