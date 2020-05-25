@@ -40,29 +40,15 @@ public class GameOverScreen extends ScreenAdapter {
 
     public GameOverScreen(final BlindBloodBlade game) {
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
-
-        if(game.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
-        }
-
         this.game = game;
 
-        scoresSet = new HashSet<>();
+        loadSound(game);
 
-        for(int i =1; i<=5; i++) {
-            scoresSet.add(game.gameData.getString("score"+i));
-        }
+        getPersistedScores(game);
 
-        batch = new SpriteBatch();
-        camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
-        viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
-        stage = new Stage(viewport);
+        initComponents();
 
-        textStyle = new Label.LabelStyle(Assets.instance.gameOverScreenAssets.bbbgameoverfont, null);
-        lblTitle = new Label(Constants.GAME_OVER, textStyle);
-        lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()*2+ lblTitle.getHeight()*2 - lblTitle.getHeight()/3);
-        lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
+        initStageContent();
 
         stage.addActor(lblTitle);
 
@@ -72,16 +58,71 @@ public class GameOverScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Initializs the content to shown
+     */
+    private void initStageContent() {
+        textStyle = new Label.LabelStyle(Assets.instance.gameOverScreenAssets.bbbgameoverfont, null);
+        lblTitle = new Label(Constants.GAME_OVER, textStyle);
+        lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()*2+ lblTitle.getHeight()*2 - lblTitle.getHeight()/3);
+        lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
+    }
+
+    /**
+     * Initializes those components used to show screen content
+     */
+    private void initComponents() {
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
+        viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
+        stage = new Stage(viewport);
+    }
+
+    /**
+     * Get scores persisted in Preferences file and loads them to a Set
+     * @param game
+     */
+    private void getPersistedScores(BlindBloodBlade game) {
+        scoresSet = new HashSet<>();
+
+        for(int i =1; i<=5; i++) {
+            scoresSet.add(game.gameData.getString("score"+i));
+        }
+    }
+
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+
+        if(game.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
+        }
+    }
+
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
 
@@ -118,6 +159,9 @@ public class GameOverScreen extends ScreenAdapter {
         return gameOverEnd;
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
 

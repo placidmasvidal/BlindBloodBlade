@@ -22,12 +22,6 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 public class RoninPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
-    @Override
-    public Integer getPlayerId() {
-        return playerId;
-    }
-
-    //ATTRIBUTES
     private Integer playerId = 2;
 
     //Vector 2 with x and y position
@@ -645,5 +639,10 @@ public class RoninPlayer extends InputAdapter implements Player {
     @Override
     public void setGame(BlindBloodBlade game) {
         this.game = game;
+    }
+
+    @Override
+    public Integer getPlayerId() {
+        return playerId;
     }
 }

@@ -22,12 +22,6 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 public class AutomataPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
-    @Override
-    public Integer getPlayerId() {
-        return playerId;
-    }
-
-    //ATTRIBUTES
     private Integer playerId=3;
 
     //Vector 2 with x and y position
@@ -638,4 +632,10 @@ public class AutomataPlayer extends InputAdapter implements Player {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
+
+    @Override
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
 }

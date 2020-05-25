@@ -24,26 +24,26 @@ public class GameScreen extends ScreenAdapter {
     protected BlindBloodBlade game;
 
     // Add a level
-    Level level;
+    private Level level;
 
     // Add a SpriteBatch
-    SpriteBatch batch;
+    private SpriteBatch batch;
 
     //Add a Hud
-    StatsHud statsHud;
+    private StatsHud statsHud;
 
     // Add an ExtendViewport
-    ExtendViewport viewport;
+    private ExtendViewport viewport;
 
     // Add the Cam
-    Cam cam;
+    private Cam cam;
 
     // Blood Splash Overlay
-    BloodSplashOverlay bloodSplashOverlay;
+    private BloodSplashOverlay bloodSplashOverlay;
 
     //BACKGROUND
     //Background texture
-    Texture backgroundTexture;
+    private Texture backgroundTexture;
 
     //Size of the background source image
     private int sourceWidth;
@@ -55,15 +55,9 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(BlindBloodBlade game){
         this.game = game;
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        loadSound(game);
 
-        if(game.music) {
-            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
-        } else {
-            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
-        }
-
-	//BACKGROUND
+        //BACKGROUND
         //Real size of the background source image
         sourceWidth = 960;
         sourceHeight = 640;
@@ -72,6 +66,24 @@ public class GameScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+
+        if(game.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+        }
+    }
+
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         // Initialize the viewport
@@ -116,6 +128,9 @@ public class GameScreen extends ScreenAdapter {
         viewport.update(width, height, true);
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         // Dispose of the Assets instance
@@ -126,6 +141,10 @@ public class GameScreen extends ScreenAdapter {
         backgroundTexture.dispose();
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
         // Level update

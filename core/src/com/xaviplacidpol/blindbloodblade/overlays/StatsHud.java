@@ -40,9 +40,18 @@ public class StatsHud implements Disposable {
         deads = 0;
         score = 0;
 
-        viewport = new FitViewport(Constants.SCREEN_W, Constants.SCREEN_H, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+        initComponents(sb);
 
+        Table table = initStageContent();
+
+        stage.addActor(table);
+
+    }
+
+    /**
+     * Initializs the content to shown
+     */
+    private Table initStageContent() {
         Table table = new Table();
         table.top();
         table.setFillParent(true);
@@ -60,11 +69,15 @@ public class StatsHud implements Disposable {
         table.add(lblKills).expandX();
         table.add(lblScoreHeader).expandX();
         table.add(lblScore).expandX().padRight(20);
+        return table;
+    }
 
-
-
-        stage.addActor(table);
-
+    /**
+     * Initializes those components used to show screen content
+     */
+    private void initComponents(SpriteBatch sb) {
+        viewport = new FitViewport(Constants.SCREEN_W, Constants.SCREEN_H, new OrthographicCamera());
+        stage = new Stage(viewport, sb);
     }
 
     public void update(float delta){
@@ -76,17 +89,28 @@ public class StatsHud implements Disposable {
         lblScore.setText(String.format("%06d", score));
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     public void render(){
 
         stage.draw();
 
     }
 
+    /**
+     * loads player's score to the label
+     * @param value score to load
+     */
     public static void addScore(int value){
         score += value;
         lblScore.setText(String.format("%06d", score));
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         stage.dispose();

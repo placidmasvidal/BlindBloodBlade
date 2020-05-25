@@ -57,19 +57,7 @@ public class Level implements Disposable {
 
         playerFactory = PlayerFactory.getInstance();
 
-        // Initialize NinjaPlayer
-        double random = Math.random();
-        if(random < 0.33) {
-            player = playerFactory.getPlayer("NINJA");
-        } else if (random > 0.33 && random < 0.66){
-            player = playerFactory.getPlayer("RONIN");
-        }else if (random > 0.66){
-            player = playerFactory.getPlayer("AUTOMATA");
-        }
-
-        player.setViewport(viewport);
-        player.setLevel(this);
-        player.setGame(game);
+        createAPlayerRandom(viewport, game);
 
         // Initialize the bridges array
         bridges = new Array<Bridge>();
@@ -113,6 +101,27 @@ public class Level implements Disposable {
 
         this.viewport = viewport;
 
+    }
+
+    /**
+     * Initializes a Player object with an instance of a kind of Player by random factor
+     * @param viewport viewport given to the player created
+     * @param game main game class given to the player created
+     */
+    private void createAPlayerRandom(Viewport viewport, BlindBloodBlade game) {
+        // Initialize NinjaPlayer
+        double random = Math.random();
+        if(random < 0.33) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.33 && random < 0.66){
+            player = playerFactory.getPlayer("RONIN");
+        }else if (random > 0.66){
+            player = playerFactory.getPlayer("AUTOMATA");
+        }
+
+        player.setViewport(viewport);
+        player.setLevel(this);
+        player.setGame(game);
     }
 
     /**

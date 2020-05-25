@@ -22,7 +22,6 @@ import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 public class MenuScreen extends ScreenAdapter {
 
-
     private SpriteBatch batch;
     private Stage stage;
     private BlindBloodBlade game;
@@ -48,6 +47,16 @@ public class MenuScreen extends ScreenAdapter {
 
         addContentToStage();
 
+        loadSound(game);
+
+    }
+
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
 
         if(game.music) {
@@ -55,10 +64,11 @@ public class MenuScreen extends ScreenAdapter {
         } else {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
         }
-
     }
 
-
+    /**
+     * Initializes those components used to show screen content
+     */
     private void initComponents() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
@@ -66,6 +76,9 @@ public class MenuScreen extends ScreenAdapter {
         stage = new Stage(viewport);
     }
 
+    /**
+     * Initializs the content to shown
+     */
     private void initStageContent() {
         background = new Image(Assets.instance.splashScreenAssets.backgroundRegion);
         drawable = new TextureRegionDrawable(Assets.instance.splashScreenAssets.startButtonRegion);
@@ -79,6 +92,9 @@ public class MenuScreen extends ScreenAdapter {
         textLbl = new Label(Constants.MAIN_TITLE, textStyle);
     }
 
+    /**
+     * Set attributes of the elements to shown
+     */
     private void setStageContent() {
         background.setPosition(0, 0);
         background.setWidth(Constants.SCREEN_W);
@@ -132,51 +148,44 @@ public class MenuScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Add Actor elements to the stage to draw all at a time
+     */
     private void addContentToStage() {
         stage.addActor(background);
-
-
         stage.addActor(textLbl);
-
-
-
         stage.addActor(startButton);
-
-
         stage.addActor(scoreButton);
-
         stage.addActor(setupButton);
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl20.glClearColor(0, 0, 0, 1);
 
-        update(delta);
-
-        update(delta);
-
-
-
         stage.draw();
 
-        batch.begin();
-
-        batch.end();
-    }
-
-    private void update(float delta) {
     }
 
     @Override
@@ -184,8 +193,9 @@ public class MenuScreen extends ScreenAdapter {
         stage.getViewport().update(width, height, false);
     }
 
-
-
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         batch.dispose();
