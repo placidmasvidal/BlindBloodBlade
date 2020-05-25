@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import  com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 
 public class Background {

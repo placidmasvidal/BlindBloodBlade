@@ -1,9 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Vector3;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Player;
 
@@ -32,7 +29,6 @@ public class Cam {
      * @param delta the time span between the current frame and the last frame in seconds.
      */
     public void update(float delta) {
-        //camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
         if(target.isAlive()){
             camera.position.x += delta * Constants.PLAYER_MOVE_SPEED;
         }else {

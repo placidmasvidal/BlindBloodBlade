@@ -8,20 +8,16 @@ import com.badlogic.gdx.graphics.profiling.GLInterceptor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,50 +26,30 @@ public class GameOverScreen extends ScreenAdapter {
 
     private BlindBloodBlade game;
     private SpriteBatch batch;
-
     private OrthographicCamera camera;
     private StretchViewport viewport;
     private Stage stage;
-
-    private Image ninjaDead;
-
     private Label.LabelStyle textStyle;
     private Label lblTitle;
     private Vector2 lblTitlePos;
-
-//    private Integer score;
-//    private Set<Integer> scoresSet;
-
     private Set<String> scoresSet;
 
     // Timer controls
     private float gameOverStartTimer;
     private boolean gameOverEnd;
 
-    public GameOverScreen(final BlindBloodBlade game/*, Integer score*/) {
+    public GameOverScreen(final BlindBloodBlade game) {
 
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
 
-        if(SetupValues.sound) {
+        if(game.sound) {
             SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
         }
 
         this.game = game;
 
-//        this.score = game.getScore();
-
-/*        scoresSet = new HashSet<>();
-        for(int i =0; i<5; i++) {
-          scoresSet.add(game.gameData.getInteger("score"+i));
-        }
-*/
-
         scoresSet = new HashSet<>();
-/*        scoresSet.add("01");
-        scoresSet.add("02");
-        scoresSet.add("03");
-        scoresSet.add("04");
-        scoresSet.add("05");    */
+
         for(int i =1; i<5; i++) {
             scoresSet.add(game.gameData.getString("score"+i));
         }
@@ -87,11 +63,6 @@ public class GameOverScreen extends ScreenAdapter {
         lblTitle = new Label(Constants.GAME_OVER, textStyle);
         lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()*2+ lblTitle.getHeight()*2 - lblTitle.getHeight()/3);
         lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
-
-/*        ninjaDead = new Image(Assets.instance.ninjaAssets.ninjaDead);
-        ninjaDead.setPosition(lblTitlePos.x+lblTitle.getWidth()/2-ninjaDead.getWidth()/2, lblTitlePos.y-ninjaDead.getHeight()/4);
-        stage.addActor(ninjaDead);
-*/
 
         stage.addActor(lblTitle);
 

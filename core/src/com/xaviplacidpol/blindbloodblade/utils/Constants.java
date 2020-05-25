@@ -142,6 +142,7 @@ public class Constants {
     public static final String GAME_OVER = "GAME OVER";
     public static final float GAMEOVER_SCREEN_SCALE = 1.0f;
 
+    //SETUP SCREEN
     public static final String MUSIC_BUTTON = "musicbutton";
     public static final String SOUND_BUTTON = "soundbutton";
     public static final String CONTROLS_BUTTON = "controlsbutton";

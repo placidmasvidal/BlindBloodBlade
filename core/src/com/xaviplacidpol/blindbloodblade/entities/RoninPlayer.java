@@ -9,10 +9,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
@@ -67,46 +67,17 @@ public class RoninPlayer extends InputAdapter implements Player {
 
     private Integer kills;
 
-    @Override
-    public Integer getScore() {
-        return score;
-    }
-
-    @Override
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    @Override
-    public Integer getKills() {
-        return kills;
-    }
-
-    @Override
-    public void setKills(Integer kills) {
-        this.kills = kills;
-    }
-
-    @Override
-    public float getTimeLive() {
-        return timeLive;
-    }
-
-    @Override
-    public void setTimeLive(float timeLive) {
-        this.timeLive = timeLive;
-    }
-
     private float timeLive;
+
+    private BlindBloodBlade game;
 
     //Booleans to control player Versus enemies battles
     boolean attackColliding;
     boolean enemyAttackColliding;
 
     //RoninPlayer Constructor
-    public RoninPlayer(/*Viewport viewport, Level level*/){
-//        this.viewport = viewport;
-//        this.level = level;
+    public RoninPlayer(){
+
         // Initialize RoninPlayer position with his height
         position = new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
@@ -131,31 +102,6 @@ public class RoninPlayer extends InputAdapter implements Player {
         kills = 0;
         score = 0;
 
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
-    @Override
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-    @Override
-    public Vector2 getVelocity() {
-        return velocity;
-    }
-    @Override
-    public void setVelocity(Vector2 velocity) {
-        this.velocity = velocity;
-    }
-    @Override
-    public boolean isAlive() {
-        return isAlive;
-    }
-    @Override
-    public void setAlive(boolean alive) {
-        isAlive = alive;
     }
 
     @Override
@@ -195,16 +141,6 @@ public class RoninPlayer extends InputAdapter implements Player {
 
     }
 
-    @Override
-    public void setViewport(Viewport viewport) {
-        this.viewport = viewport;
-    }
-
-    @Override
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
     /**
      *  Modify state of ninja to attacking
      *  Modify actual sprite to ninja attack
@@ -217,13 +153,10 @@ public class RoninPlayer extends InputAdapter implements Player {
         // Set the attackState start time using TimeUtils.nanoTime()
         attackStartTime = TimeUtils.nanoTime();
 
-        if(SetupValues.sound) {
+        if(game.sound) {
             SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).play();
             SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
-        }/* else {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACK).stop();
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).stop();
-        }*/
+        }
 
 
 
@@ -320,7 +253,7 @@ public class RoninPlayer extends InputAdapter implements Player {
         //Collide with spikes
         for(Spikes spikes : level.getSpikes()){
             if(landedOnSpikes(spikes)){ //If collided to spikes, then dies, otherwise return
-                if(SetupValues.sound) {
+                if(game.sound) {
                     SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_SPIKE_DEAD).play();
                 }
 
@@ -342,8 +275,6 @@ public class RoninPlayer extends InputAdapter implements Player {
             }
         }
 
-//	int i = 0;
-        // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
             attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS)
@@ -355,18 +286,14 @@ public class RoninPlayer extends InputAdapter implements Player {
                     && (enemy.getPosition().y - position.y < Constants.PLAYER_HEAD_HEIGHT) //Control if player is under the enemy
                     && (position.y - enemy.getPosition().y < Constants.PLAYER_HEAD_HEIGHT); // Control if player is over the enemy
 
-            //System.out.println("Colliding = " + attackColliding);
-
             if(enemy.isAlive()) {
                 if (attackColliding && (attackState == AttackState.ATTACKING)) {
-//                System.out.println("enemy mort");
                     enemy.setAlive(false);
-//                level.getEnemies().removeIndex(i);
                     kills++;
                     score = score + 50;
 
                     //Add a bloodSplash where the enemy died
-                    if(SetupValues.sound) {
+                    if(game.sound) {
                         SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_BLOOD_SPLASH).play();
                     }
 
@@ -386,8 +313,7 @@ public class RoninPlayer extends InputAdapter implements Player {
                     }
                 }
             }
-//            i++;
-//            System.out.println("Enemies after kill:"+ level.getEnemies().size);
+
         }
 
 
@@ -399,9 +325,6 @@ public class RoninPlayer extends InputAdapter implements Player {
             // If she's JUMPING, then continueJump()
             // If she's falling, then don't do anything
             switch (jumpState){
-//                case GROUNDED:
-//                    startJump();
-//                    break;
                 case JUMPING:
                     continueJump();
                     break;
@@ -547,7 +470,7 @@ public class RoninPlayer extends InputAdapter implements Player {
         // Using TimeUtils.nanoTime()
         jumpStartTime = TimeUtils.nanoTime();
 
-        if(SetupValues.sound) {
+        if(game.sound) {
             SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_RONIN).play();
         }
 
@@ -651,5 +574,76 @@ public class RoninPlayer extends InputAdapter implements Player {
     enum AttackState{
         ATTACKING,
         NOT_ATTACKING
+    }
+
+
+    @Override
+    public Integer getScore() {
+        return score;
+    }
+
+    @Override
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    @Override
+    public Integer getKills() {
+        return kills;
+    }
+
+    @Override
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    @Override
+    public float getTimeLive() {
+        return timeLive;
+    }
+
+    @Override
+    public void setTimeLive(float timeLive) {
+        this.timeLive = timeLive;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+    @Override
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+    @Override
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+    @Override
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+    @Override
+    public boolean isAlive() {
+        return isAlive;
+    }
+    @Override
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    @Override
+    public void setViewport(Viewport viewport) {
+        this.viewport = viewport;
+    }
+
+    @Override
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    @Override
+    public void setGame(BlindBloodBlade game) {
+        this.game = game;
     }
 }

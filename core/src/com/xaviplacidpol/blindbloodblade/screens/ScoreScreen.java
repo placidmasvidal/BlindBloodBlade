@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import   com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,12 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
-
-import java.awt.Menu;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ScoreScreen extends ScreenAdapter {
 
@@ -43,10 +38,6 @@ public class ScoreScreen extends ScreenAdapter {
     private Vector2 lblTitlePos;
 
     private Label lblScores;
-
-//    private Set<Integer> scoresSet;
-
-    private Set<Integer> scoresSet;
 
     public ScoreScreen(final BlindBloodBlade game) {
 
@@ -88,7 +79,6 @@ public class ScoreScreen extends ScreenAdapter {
         textStyle = new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscoresfont, null);
 
         for (int i = 1; i<=5; i++){
-//            lblScores = new Label(Integer.toString(game.gameData.getInteger("score"+i)), textStyle);
             try {
                 lblScores = new Label(game.gameData.getString("score" + i).substring(0, game.gameData.getString("score" + i).length() - 1), textStyle);
                 lblScores.setPosition(lblTitlePos.x + lblTitlePos.x / 3, lblTitlePos.y - lblScores.getHeight() * i);
@@ -105,7 +95,7 @@ public class ScoreScreen extends ScreenAdapter {
 
         }
 
-        if(SetupValues.music) {
+        if(game.music) {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
         } else {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();

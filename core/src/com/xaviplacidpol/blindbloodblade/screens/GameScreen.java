@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import  com.badlogic.gdx.Gdx;
+import   com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +14,6 @@ import com.xaviplacidpol.blindbloodblade.overlays.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
@@ -58,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
 
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
 
-        if(SetupValues.music) {
+        if(game.music) {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
         } else {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
@@ -75,10 +74,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        //Initialize the Assets instance
- //       AssetManager am = new AssetManager();
- //       Assets.instance.init(am);
-
         // Initialize the viewport
         viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
 
@@ -94,7 +89,6 @@ public class GameScreen extends ScreenAdapter {
         statsHud = new StatsHud(batch, level.getPlayer());
 
         // Initialize the BloodSplashOverlay witch will print the fixed blood splashes
-//        bloodSplashOverlay = new BloodSplashOverlay();
         bloodSplashOverlay = new BloodSplashOverlay(level);
         bloodSplashOverlay.init();
 
@@ -180,8 +174,6 @@ public class GameScreen extends ScreenAdapter {
         if(level.levelEnd){
             //Repositioning ninja player to the start point
             level.getPlayer().setPosition(new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40));
-//            cam.camera = level.viewport.getCamera();
-//            cam.target = level.getNinjaPlayer();
 
             //Repositioning camera
             resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

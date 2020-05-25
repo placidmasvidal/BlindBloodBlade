@@ -1,11 +1,9 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-import  com.badlogic.gdx.Gdx;
+import   com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,11 +12,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
-
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -49,7 +42,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
-//    public SoundAssets soundAssets;
     public GameOverScreenAssets gameOverScreenAssets;
     public SetupScreenAssets setupScreenAssets;
 
@@ -71,7 +63,7 @@ public class Assets implements Disposable, AssetErrorListener {
         //Load texture pack
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.load(Constants.TEXTURE_ATLAS_R, TextureAtlas.class);
-        assetManager.load(Constants.TEXTURE_ATLAS_A, TextureAtlas.class);     //no caldra si aconseguim un sol atlas
+        assetManager.load(Constants.TEXTURE_ATLAS_A, TextureAtlas.class);
         assetManager.finishLoading();
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
@@ -92,7 +84,6 @@ public class Assets implements Disposable, AssetErrorListener {
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
-  //      soundAssets = new SoundAssets();
         gameOverScreenAssets = new GameOverScreenAssets(atlas);
         setupScreenAssets = new SetupScreenAssets(atlas);
     }
@@ -149,9 +140,7 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -200,9 +189,8 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2));
+
             roninWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -251,9 +239,7 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING2));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -373,6 +359,9 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    /**
+     * Assets for the Score Screen
+     */
     public class ScoreScreenAssets {
 
         public BitmapFont bbbscorefont;
@@ -400,6 +389,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Assets to paint bloodsplahes in an overlay
+     */
     public class BloodSplashAssets{
         // Add an AtlasRegion to hold the bloodSplash sprite
         public final TextureAtlas.AtlasRegion bloodSplash;
@@ -420,6 +412,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Assets for the Game Over Screen
+     */
     public class GameOverScreenAssets {
 
         public BitmapFont bbbgameoverfont;
@@ -435,6 +430,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Assets for the Setup Screen
+     */
     public class SetupScreenAssets {
 
         public TextureAtlas.AtlasRegion musicButtonRegion;

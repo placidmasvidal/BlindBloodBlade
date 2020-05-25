@@ -2,7 +2,6 @@ package com.xaviplacidpol.blindbloodblade.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLInterceptor;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -18,7 +16,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 public class SetupScreen extends ScreenAdapter {
@@ -28,51 +25,16 @@ public class SetupScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private StretchViewport viewport;
     private Stage stage;
-
     private Image background;
     private Image music;
     private Image sound;
     private Image controlsB;
     private Image controls;
     private ImageButton onButton;
-
-    public ImageButton getOnButton() {
-        return onButton;
-    }
-
-    public void setOnButton(ImageButton onButton) {
-        this.onButton = onButton;
-    }
-
-    public ImageButton getOffButton() {
-        return offButton;
-    }
-
-    public void setOffButton(ImageButton offButton) {
-        this.offButton = offButton;
-    }
-
-    public ImageButton getOnButton2() {
-        return onButton2;
-    }
-
-    public void setOnButton2(ImageButton onButton2) {
-        this.onButton2 = onButton2;
-    }
-
-    public ImageButton getOffButton2() {
-        return offButton2;
-    }
-
-    public void setOffButton2(ImageButton offButton2) {
-        this.offButton2 = offButton2;
-    }
-
     private ImageButton offButton;
     private ImageButton onButton2;
     private ImageButton offButton2;
     private ImageButton backButton;
-
     private Drawable drawable;
 
     public SetupScreen(BlindBloodBlade game){
@@ -89,7 +51,7 @@ public class SetupScreen extends ScreenAdapter {
 
         addContentToStage();
 
-        if(SetupValues.music) SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
+        if(game.music) SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
         else SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
     }
 
@@ -154,7 +116,7 @@ public class SetupScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 offButton.setVisible(false);
                 onButton.setVisible(true);
-                SetupValues.music = true;
+                game.music = true;
                 SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
             }
         });
@@ -168,7 +130,7 @@ public class SetupScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 offButton2.setVisible(false);
                 onButton2.setVisible(true);
-                SetupValues.sound = true;
+                game.sound = true;
 
             }
         });
@@ -183,7 +145,7 @@ public class SetupScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 onButton.setVisible(false);
                 offButton.setVisible(true);
-                SetupValues.music = false;
+                game.music = false;
                 SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
 
             }
@@ -198,7 +160,7 @@ public class SetupScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 offButton2.setVisible(true);
                 onButton2.setVisible(false);
-                SetupValues.sound = false;
+                game.sound = false;
 
             }
         });
@@ -256,6 +218,24 @@ public class SetupScreen extends ScreenAdapter {
     public void dispose() {
         batch.dispose();
         stage.dispose();
+    }
+
+
+    //GETTERS AND SETTERS
+    public ImageButton getOnButton() {
+        return onButton;
+    }
+
+    public ImageButton getOffButton() {
+        return offButton;
+    }
+
+    public ImageButton getOnButton2() {
+        return onButton2;
+    }
+
+    public ImageButton getOffButton2() {
+        return offButton2;
     }
 
 }
