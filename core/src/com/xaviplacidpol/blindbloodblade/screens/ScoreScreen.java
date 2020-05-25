@@ -88,9 +88,20 @@ public class ScoreScreen extends ScreenAdapter {
         textStyle = new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscoresfont, null);
 
         for (int i = 1; i<=5; i++){
-            lblScores = new Label(Integer.toString(game.gameData.getInteger("score"+i)), textStyle);
-            lblScores.setPosition(lblTitlePos.x+lblTitlePos.x/3, lblTitlePos.y-lblScores.getHeight()*i);
+//            lblScores = new Label(Integer.toString(game.gameData.getInteger("score"+i)), textStyle);
+            try {
+                lblScores = new Label(game.gameData.getString("score" + i).substring(0, game.gameData.getString("score" + i).length() - 1), textStyle);
+                lblScores.setPosition(lblTitlePos.x + lblTitlePos.x / 3, lblTitlePos.y - lblScores.getHeight() * i);
+
+                Image avatar = getAvatar(game.gameData.getString("score" + i).substring(game.gameData.getString("score" + i).length() - 1));
+                avatar.setPosition(lblScores.getX() - avatar.getWidth() * 2, lblScores.getY());
+                stage.addActor(avatar);
+            } catch(Exception e){
+                lblScores= new Label("0", textStyle);
+                lblScores.setPosition(lblTitlePos.x + lblTitlePos.x / 3, lblTitlePos.y - lblScores.getHeight() * i);
+            }
             stage.addActor(lblScores);
+
 
         }
 
@@ -103,6 +114,24 @@ public class ScoreScreen extends ScreenAdapter {
         stage.addActor(lblTitle);
 
 
+    }
+
+    private Image getAvatar(String id) {
+
+        Image avatar = null;
+
+        switch(id){
+
+            case "1": avatar = new Image(Assets.instance.ninjaAssets.ninjaAvatar);
+                break;
+            case "2": avatar = new Image(Assets.instance.roninAssets.roninAvatar);
+                break;
+            case "3": avatar = new Image(Assets.instance.automataAssets.automataAvatar);
+                break;
+
+        }
+
+        return avatar;
     }
 
 

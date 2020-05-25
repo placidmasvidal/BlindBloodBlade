@@ -18,10 +18,17 @@ public class BlindBloodBlade extends Game {
 
 	private BaseScreen baseScreen;
 
+	private Integer score;
+
+	private Integer playerId;
+
+	public static boolean music = true;
+	public static boolean sound = true;
+
 	@Override
 	public void create() {
 
-		gameData = Gdx.app.getPreferences("bbbdata");
+		gameData = Gdx.app.getPreferences("bbbscoresdata");
 
 		baseScreen = new BaseScreen(this);
 
@@ -32,5 +39,22 @@ public class BlindBloodBlade extends Game {
 	public void dispose() {
 
     }
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+
+	public Integer getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(Integer playerId) {
+		this.playerId = playerId;
+	}
 
 }

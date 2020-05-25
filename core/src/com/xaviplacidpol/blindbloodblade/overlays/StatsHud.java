@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Player;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
@@ -28,15 +29,15 @@ public class StatsHud implements Disposable {
     private Label lblDeadsHeader;
     private Label lblDeads;
 
-    private NinjaPlayer ninjaPlayer;
+    private Player player;
 
     private Label lblKillsHeader;
     private Label lblKills;
     private Integer kills;
 
-    public StatsHud(SpriteBatch sb, NinjaPlayer ninjaPlayer){
+    public StatsHud(SpriteBatch sb, Player player){
 
-        this.ninjaPlayer = ninjaPlayer;
+        this.player = player;
 
         timer = 0.0f;
         deads = 0;
@@ -72,9 +73,9 @@ public class StatsHud implements Disposable {
     public void update(float delta){
         timer += delta;
             lblTime.setText(String.format("%.0f", timer));
-        kills = ninjaPlayer.getKills();
+        kills = player.getKills();
         lblKills.setText(String.format("%02d", kills));
-        score = ninjaPlayer.getScore();
+        score = player.getScore();
         lblScore.setText(String.format("%06d", score));
     }
 

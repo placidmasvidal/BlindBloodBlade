@@ -36,6 +36,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
 
     public NinjaAssets ninjaAssets;
+    public RoninAssets roninAssets;
+    public AutomataAssets automataAssets;
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
 
@@ -68,12 +70,18 @@ public class Assets implements Disposable, AssetErrorListener {
 
         //Load texture pack
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
+        assetManager.load(Constants.TEXTURE_ATLAS_R, TextureAtlas.class);
+        assetManager.load(Constants.TEXTURE_ATLAS_A, TextureAtlas.class);     //no caldra si aconseguim un sol atlas
         assetManager.finishLoading();
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
+        TextureAtlas atlasR = assetManager.get(Constants.TEXTURE_ATLAS_R);
+        TextureAtlas atlasA = assetManager.get(Constants.TEXTURE_ATLAS_A);
 
         //Initialize ninjaAssets, floorAssets, spikesAssets
         ninjaAssets = new NinjaAssets(atlas);
+        roninAssets = new RoninAssets(atlasR);
+        automataAssets = new AutomataAssets(atlasA);
         groundAssets = new GroundAssets(atlas);
         spikesAssets = new SpikesAssets(atlas);
         bridgeAssets = new BridgeAssets(atlas);
@@ -104,6 +112,8 @@ public class Assets implements Disposable, AssetErrorListener {
      */
     public class NinjaAssets {
 
+        public final Texture ninjaAvatar;
+
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking0;
@@ -116,6 +126,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public NinjaAssets(TextureAtlas atlas) {
+
+            ninjaAvatar = new Texture(Gdx.files.internal(Constants.NINJA_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             ninjaStatic = atlas.findRegion(Constants.NINJA_STATIC);
 
@@ -137,6 +150,108 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
+
+        }
+
+    }
+
+    /**
+     * Build ninja textures and walking animation
+     */
+    public class RoninAssets {
+
+        public final Texture roninAvatar;
+
+        public final TextureAtlas.AtlasRegion roninStatic;
+        public final TextureAtlas.AtlasRegion roninJumping;
+        public final TextureAtlas.AtlasRegion roninWalking0;
+        public final TextureAtlas.AtlasRegion roninWalking;
+        public final TextureAtlas.AtlasRegion roninWalking2;
+        public final TextureAtlas.AtlasRegion roninAttacking;
+        public final TextureAtlas.AtlasRegion roninDead;
+
+        public final Animation roninWalkingAnimation;
+
+
+        public RoninAssets(TextureAtlas atlas) {
+
+            roninAvatar = new Texture(Gdx.files.internal(Constants.RONIN_AVATAR_FILE));
+
+            //Retrieve ninja images from atlas file
+            roninStatic = atlas.findRegion(Constants.RONIN_STATIC);
+
+            roninJumping = atlas.findRegion(Constants.RONIN_JUMPING);
+
+            roninWalking0 = atlas.findRegion(Constants.RONIN_WALKING0);
+
+            roninWalking = atlas.findRegion(Constants.RONIN_WALKING);
+
+            roninWalking2 = atlas.findRegion(Constants.RONIN_WALKING2);
+
+            roninAttacking = atlas.findRegion(Constants.RONIN_ATTACKING);
+
+            roninDead = atlas.findRegion(Constants.RONIN_DEAD);
+
+            //WALKING ANIMATION
+            Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2)); //modified
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
+//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            roninWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
+
+        }
+
+    }
+
+    /**
+     * Build ninja textures and walking animation
+     */
+    public class AutomataAssets {
+
+        public final Texture automataAvatar;
+
+        public final TextureAtlas.AtlasRegion automataStatic;
+        public final TextureAtlas.AtlasRegion automataJumping;
+        public final TextureAtlas.AtlasRegion automataWalking0;
+        public final TextureAtlas.AtlasRegion automataWalking;
+        public final TextureAtlas.AtlasRegion automataWalking2;
+        public final TextureAtlas.AtlasRegion automataAttacking;
+        public final TextureAtlas.AtlasRegion automataDead;
+
+        public final Animation ninjaWalkingAnimation;
+
+
+        public AutomataAssets(TextureAtlas atlas) {
+
+            automataAvatar = new Texture(Gdx.files.internal(Constants.AUTOMATA_AVATAR_FILE));
+
+            //Retrieve ninja images from atlas file
+            automataStatic = atlas.findRegion(Constants.AUTOMATA_STATIC);
+
+            automataJumping = atlas.findRegion(Constants.AUTOMATA_JUMPING);
+
+            automataWalking0 = atlas.findRegion(Constants.AUTOMATA_WALKING0);
+
+            automataWalking = atlas.findRegion(Constants.AUTOMATA_WALKING);
+
+            automataWalking2 = atlas.findRegion(Constants.AUTOMATA_WALKING2);
+
+            automataAttacking = atlas.findRegion(Constants.AUTOMATA_ATTACKING);
+
+            automataDead = atlas.findRegion(Constants.AUTOMATA_DEAD);
+
+            //WALKING ANIMATION
+            Array<TextureAtlas.AtlasRegion> ninjaWalkingFrames = new Array<TextureAtlas.AtlasRegion>();
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_STATIC));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING2)); //modified
 //            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
 //            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
@@ -181,8 +296,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion startButtonRegion;
         public TextureAtlas.AtlasRegion scoreButtonRegion;
         public TextureAtlas.AtlasRegion setupButtonRegion;
-
-//        public Texture bgTexture;
 
         public SplashScreenAssets(TextureAtlas atlas) {
 
@@ -306,38 +419,6 @@ public class Assets implements Disposable, AssetErrorListener {
         }
 
     }
-
-/*    public class SoundAssets{
-
-        public final Sound bloodSplashSound;
-        public final Sound swordSlashSound;
-
-        public final Music backgroundMusic;
-        public final Music sakuraAmbienceStage;
-        public final Music superFastLevel;
-        public final Music thrillerStage;
-
-
-        public SoundAssets(){
-
-            bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
-            swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
-
-            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.ogg"));
-            backgroundMusic.setLooping(true);
-
-            superFastLevel = Gdx.audio.newMusic(Gdx.files.internal("sounds/nessuperfastlevel.ogg"));
-            superFastLevel.setLooping(true);
-
-            thrillerStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/thrillerstage.ogg"));
-            thrillerStage.setLooping(true);
-
-            sakuraAmbienceStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/sakuraambiencestage.ogg"));
-            sakuraAmbienceStage.setLooping(true);
-        }
-
-    }
-*/
 
     public class GameOverScreenAssets {
 
