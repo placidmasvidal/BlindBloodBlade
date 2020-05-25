@@ -15,7 +15,6 @@ import com.xaviplacidpol.blindbloodblade.entities.Ground;
 import com.xaviplacidpol.blindbloodblade.entities.Player;
 import com.xaviplacidpol.blindbloodblade.entities.PlayerFactory;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
-import com.xaviplacidpol.blindbloodblade.entities.Background;
 import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
@@ -43,9 +42,6 @@ public class Level implements Disposable {
 
     //Add blood splash to the enemy position when this enemy is killed
     private Array<BloodSplash> bloodSplashes;
-
-    // Add an Array of backgrounds
-    private Array<Background> backgrounds;
 
     //Array with the random fixed blood splashes to the screen
     private Array<BloodSplash> bloodSplashesScreen;
@@ -93,9 +89,6 @@ public class Level implements Disposable {
         //Initialize both arrays of BloodSplashes
         bloodSplashes = new Array<BloodSplash>();
         bloodSplashesScreen = new Array<BloodSplash>();
-
-        // Initialize the backgrounds array
-        backgrounds = new Array<Background>();
 
         //Add bridges
         addBridges();
@@ -157,11 +150,6 @@ public class Level implements Disposable {
      * @param batch
      */
     public void render(SpriteBatch batch){
-
-        //Render all backgrounds
-        for (Background b : backgrounds) {
-            b.render(batch);
-        }
 
         // Render all grounds in the grounds array
         for(Ground ground : grounds){
