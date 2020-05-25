@@ -50,7 +50,7 @@ public class GameOverScreen extends ScreenAdapter {
 
         scoresSet = new HashSet<>();
 
-        for(int i =1; i<5; i++) {
+        for(int i =1; i<=5; i++) {
             scoresSet.add(game.gameData.getString("score"+i));
         }
 
