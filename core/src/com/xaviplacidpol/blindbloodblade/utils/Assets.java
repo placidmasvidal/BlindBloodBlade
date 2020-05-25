@@ -1,11 +1,9 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
-import  com.badlogic.gdx.Gdx;
+import   com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,11 +12,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
-
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  *  This utility class holds onto all the assets used in BlindBloodBlade Game Screen. It's a singleton, so the constructor
@@ -40,7 +33,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public AutomataAssets automataAssets;
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
-
     public BridgeAssets bridgeAssets;
     public BackgroundAssets backgroundAssets;
     public GroundWithSpikesAssets groundSpikesAssets;
@@ -49,7 +41,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public ScoreScreenAssets scoreScreenAssets;
     public BloodSplashAssets bloodSplashAssets;
     public BackgroundStageAssets backgroundStageAssets;
-//    public SoundAssets soundAssets;
     public GameOverScreenAssets gameOverScreenAssets;
     public SetupScreenAssets setupScreenAssets;
 
@@ -71,7 +62,7 @@ public class Assets implements Disposable, AssetErrorListener {
         //Load texture pack
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.load(Constants.TEXTURE_ATLAS_R, TextureAtlas.class);
-        assetManager.load(Constants.TEXTURE_ATLAS_A, TextureAtlas.class);     //no caldra si aconseguim un sol atlas
+        assetManager.load(Constants.TEXTURE_ATLAS_A, TextureAtlas.class);
         assetManager.finishLoading();
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
@@ -92,7 +83,6 @@ public class Assets implements Disposable, AssetErrorListener {
         scoreScreenAssets = new ScoreScreenAssets(atlas);
         bloodSplashAssets = new BloodSplashAssets(atlas);
         backgroundStageAssets = new BackgroundStageAssets(atlas);
-  //      soundAssets = new SoundAssets();
         gameOverScreenAssets = new GameOverScreenAssets(atlas);
         setupScreenAssets = new SetupScreenAssets(atlas);
     }
@@ -112,6 +102,8 @@ public class Assets implements Disposable, AssetErrorListener {
      */
     public class NinjaAssets {
 
+        public final Texture ninjaAvatar;
+
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking0;
@@ -124,6 +116,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public NinjaAssets(TextureAtlas atlas) {
+
+            ninjaAvatar = new Texture(Gdx.files.internal(Constants.NINJA_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             ninjaStatic = atlas.findRegion(Constants.NINJA_STATIC);
 
@@ -144,9 +139,7 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING2));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -157,6 +150,8 @@ public class Assets implements Disposable, AssetErrorListener {
      * Build ninja textures and walking animation
      */
     public class RoninAssets {
+
+        public final Texture roninAvatar;
 
         public final TextureAtlas.AtlasRegion roninStatic;
         public final TextureAtlas.AtlasRegion roninJumping;
@@ -170,6 +165,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public RoninAssets(TextureAtlas atlas) {
+
+            roninAvatar = new Texture(Gdx.files.internal(Constants.RONIN_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             roninStatic = atlas.findRegion(Constants.RONIN_STATIC);
 
@@ -190,9 +188,8 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.RONIN_WALKING2));
+
             roninWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -203,6 +200,8 @@ public class Assets implements Disposable, AssetErrorListener {
      * Build ninja textures and walking animation
      */
     public class AutomataAssets {
+
+        public final Texture automataAvatar;
 
         public final TextureAtlas.AtlasRegion automataStatic;
         public final TextureAtlas.AtlasRegion automataJumping;
@@ -216,6 +215,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public AutomataAssets(TextureAtlas atlas) {
+
+            automataAvatar = new Texture(Gdx.files.internal(Constants.AUTOMATA_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             automataStatic = atlas.findRegion(Constants.AUTOMATA_STATIC);
 
@@ -236,9 +238,7 @@ public class Assets implements Disposable, AssetErrorListener {
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_STATIC));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING0));
             ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING));
-            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING2)); //modified
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_STATIC));
-//            ninjaWalkingFrames.add(atlas.findRegion(Constants.NINJA_WALKING0));
+            ninjaWalkingFrames.add(atlas.findRegion(Constants.AUTOMATA_WALKING2));
             ninjaWalkingAnimation = new Animation(Constants.WALK_LOOP_DURATION, ninjaWalkingFrames, Animation.PlayMode.LOOP);
 
         }
@@ -281,8 +281,6 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion startButtonRegion;
         public TextureAtlas.AtlasRegion scoreButtonRegion;
         public TextureAtlas.AtlasRegion setupButtonRegion;
-
-//        public Texture bgTexture;
 
         public SplashScreenAssets(TextureAtlas atlas) {
 
@@ -360,6 +358,9 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+    /**
+     * Assets for the Score Screen
+     */
     public class ScoreScreenAssets {
 
         public BitmapFont bbbscorefont;
@@ -387,6 +388,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Assets to paint bloodsplahes in an overlay
+     */
     public class BloodSplashAssets{
         // Add an AtlasRegion to hold the bloodSplash sprite
         public final TextureAtlas.AtlasRegion bloodSplash;
@@ -407,38 +411,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
-/*    public class SoundAssets{
-
-        public final Sound bloodSplashSound;
-        public final Sound swordSlashSound;
-
-        public final Music backgroundMusic;
-        public final Music sakuraAmbienceStage;
-        public final Music superFastLevel;
-        public final Music thrillerStage;
-
-
-        public SoundAssets(){
-
-            bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
-            swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
-
-            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundmusic.ogg"));
-            backgroundMusic.setLooping(true);
-
-            superFastLevel = Gdx.audio.newMusic(Gdx.files.internal("sounds/nessuperfastlevel.ogg"));
-            superFastLevel.setLooping(true);
-
-            thrillerStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/thrillerstage.ogg"));
-            thrillerStage.setLooping(true);
-
-            sakuraAmbienceStage = Gdx.audio.newMusic(Gdx.files.internal("sounds/sakuraambiencestage.ogg"));
-            sakuraAmbienceStage.setLooping(true);
-        }
-
-    }
-*/
-
+    /**
+     * Assets for the Game Over Screen
+     */
     public class GameOverScreenAssets {
 
         public BitmapFont bbbgameoverfont;
@@ -454,6 +429,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * Assets for the Setup Screen
+     */
     public class SetupScreenAssets {
 
         public TextureAtlas.AtlasRegion musicButtonRegion;

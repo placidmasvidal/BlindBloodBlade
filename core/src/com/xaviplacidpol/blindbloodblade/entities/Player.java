@@ -1,25 +1,20 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.scenes.Level;
-import com.xaviplacidpol.blindbloodblade.utils.Assets;
-import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
-import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
-import com.xaviplacidpol.blindbloodblade.utils.Utils;
 
 public interface Player extends InputProcessor {
 
     public void setViewport(Viewport viewport);
     public void setLevel(Level level);
+
+    Integer getPlayerId();
+
     public Integer getScore();
     public void setScore(Integer score);
     public Integer getKills();
@@ -144,4 +139,6 @@ public interface Player extends InputProcessor {
 
     @Override
     boolean scrolled(int amount);
+
+    void setGame(BlindBloodBlade game);
 }

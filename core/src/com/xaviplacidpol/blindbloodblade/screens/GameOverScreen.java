@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.profiling.GLInterceptor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.util.ArrayList;
@@ -28,55 +26,29 @@ public class GameOverScreen extends ScreenAdapter {
 
     private BlindBloodBlade game;
     private SpriteBatch batch;
-
     private OrthographicCamera camera;
     private StretchViewport viewport;
     private Stage stage;
-
-    private Image ninjaDead;
-
     private Label.LabelStyle textStyle;
     private Label lblTitle;
     private Vector2 lblTitlePos;
-
-    private Integer score;
-    private Set<Integer> scoresSet;
+    private Set<String> scoresSet;
 
     // Timer controls
     private float gameOverStartTimer;
     private boolean gameOverEnd;
 
-    public GameOverScreen(final BlindBloodBlade game, Integer score) {
-
-        this.score = score;
-
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
-
-        if(SetupValues.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
-        }
+    public GameOverScreen(final BlindBloodBlade game) {
 
         this.game = game;
 
-        scoresSet = new HashSet<>();
-        for(int i =0; i<5; i++) {
-          scoresSet.add(game.gameData.getInteger("score"+i));
-        }
+        loadSound(game);
 
-        batch = new SpriteBatch();
-        camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
-        viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
-        stage = new Stage(viewport);
+        getPersistedScores(game);
 
-        textStyle = new Label.LabelStyle(Assets.instance.gameOverScreenAssets.bbbgameoverfont, null);
-        lblTitle = new Label(Constants.GAME_OVER, textStyle);
-        lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()*2+ lblTitle.getHeight()*2 - lblTitle.getHeight()/3);
-        lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
+        initComponents();
 
-/*        ninjaDead = new Image(Assets.instance.ninjaAssets.ninjaDead);
-        ninjaDead.setPosition(lblTitlePos.x+lblTitle.getWidth()/2-ninjaDead.getWidth()/2, lblTitlePos.y-ninjaDead.getHeight()/4);
-        stage.addActor(ninjaDead);
-*/
+        initStageContent();
 
         stage.addActor(lblTitle);
 
@@ -86,16 +58,71 @@ public class GameOverScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Initializs the content to shown
+     */
+    private void initStageContent() {
+        textStyle = new Label.LabelStyle(Assets.instance.gameOverScreenAssets.bbbgameoverfont, null);
+        lblTitle = new Label(Constants.GAME_OVER, textStyle);
+        lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()*2+ lblTitle.getHeight()*2 - lblTitle.getHeight()/3);
+        lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
+    }
+
+    /**
+     * Initializes those components used to show screen content
+     */
+    private void initComponents() {
+        batch = new SpriteBatch();
+        camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
+        viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
+        stage = new Stage(viewport);
+    }
+
+    /**
+     * Get scores persisted in Preferences file and loads them to a Set
+     * @param game
+     */
+    private void getPersistedScores(BlindBloodBlade game) {
+        scoresSet = new HashSet<>();
+
+        for(int i =1; i<=5; i++) {
+            scoresSet.add(game.gameData.getString("score"+i));
+        }
+    }
+
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+
+        if(game.sound) {
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_GAME_OVER).play();
+        }
+    }
+
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
 
@@ -132,22 +159,33 @@ public class GameOverScreen extends ScreenAdapter {
         return gameOverEnd;
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
 
-        scoresSet.add(score);
+        String scoreString = String.valueOf(game.getScore());
+        String idString = String.valueOf(game.getPlayerId());
 
+        scoresSet.add(scoreString+idString);
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
         List<Integer> scores = new ArrayList<>();
 
-        for(Integer score : scoresSet){
-            scores.add(score);
+        for(String score : scoresSet){
+            if(!score.isEmpty())
+                scores.add(Integer.valueOf(score));
         }
 
         java.util.Collections.sort(scores, Collections.reverseOrder());
 
         int i = 1;
         for(Integer score : scores){
-            game.gameData.putInteger("score"+i, score);
+            game.gameData.putString("score"+i, String.valueOf(score));
             i++;
         }
 

@@ -1,13 +1,10 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import  com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
-import com.xaviplacidpol.blindbloodblade.utils.Constants;
 import com.xaviplacidpol.blindbloodblade.utils.Utils;
-
-import javax.rmi.CORBA.Util;
 
 /**
  * Lethal spikes object where the player will die

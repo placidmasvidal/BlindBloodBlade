@@ -10,6 +10,11 @@ public class PlayerFactory {
         return instance;
     }
 
+    /**
+     * Retrieves an instance of Player based on the string given
+     * @param playerType String to determine the instance to give
+     * @return Player object with the instance required
+     */
     public Player getPlayer(String playerType){
         if(playerType == null){
             return null;

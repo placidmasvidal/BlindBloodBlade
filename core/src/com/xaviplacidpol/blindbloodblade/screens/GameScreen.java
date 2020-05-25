@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import  com.badlogic.gdx.Gdx;
+import   com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +14,6 @@ import com.xaviplacidpol.blindbloodblade.overlays.StatsHud;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Cam;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
@@ -25,26 +24,26 @@ public class GameScreen extends ScreenAdapter {
     protected BlindBloodBlade game;
 
     // Add a level
-    Level level;
+    private Level level;
 
     // Add a SpriteBatch
-    SpriteBatch batch;
+    private SpriteBatch batch;
 
     //Add a Hud
-    StatsHud statsHud;
+    private StatsHud statsHud;
 
     // Add an ExtendViewport
-    ExtendViewport viewport;
+    private ExtendViewport viewport;
 
     // Add the Cam
-    Cam cam;
+    private Cam cam;
 
     // Blood Splash Overlay
-    BloodSplashOverlay bloodSplashOverlay;
+    private BloodSplashOverlay bloodSplashOverlay;
 
     //BACKGROUND
     //Background texture
-    Texture backgroundTexture;
+    private Texture backgroundTexture;
 
     //Size of the background source image
     private int sourceWidth;
@@ -56,15 +55,9 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(BlindBloodBlade game){
         this.game = game;
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+        loadSound(game);
 
-        if(SetupValues.music) {
-            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
-        } else {
-            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
-        }
-
-	//BACKGROUND
+        //BACKGROUND
         //Real size of the background source image
         sourceWidth = 960;
         sourceHeight = 640;
@@ -73,12 +66,26 @@ public class GameScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+
+        if(game.music) {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).play();
+        } else {
+            SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
+        }
+    }
+
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
-        //Initialize the Assets instance
- //       AssetManager am = new AssetManager();
- //       Assets.instance.init(am);
-
         // Initialize the viewport
         viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
 
@@ -94,7 +101,6 @@ public class GameScreen extends ScreenAdapter {
         statsHud = new StatsHud(batch, level.getPlayer());
 
         // Initialize the BloodSplashOverlay witch will print the fixed blood splashes
-//        bloodSplashOverlay = new BloodSplashOverlay();
         bloodSplashOverlay = new BloodSplashOverlay(level);
         bloodSplashOverlay.init();
 
@@ -122,6 +128,9 @@ public class GameScreen extends ScreenAdapter {
         viewport.update(width, height, true);
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         // Dispose of the Assets instance
@@ -132,6 +141,10 @@ public class GameScreen extends ScreenAdapter {
         backgroundTexture.dispose();
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
         // Level update
@@ -180,8 +193,6 @@ public class GameScreen extends ScreenAdapter {
         if(level.levelEnd){
             //Repositioning ninja player to the start point
             level.getPlayer().setPosition(new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40));
-//            cam.camera = level.viewport.getCamera();
-//            cam.target = level.getNinjaPlayer();
 
             //Repositioning camera
             resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
