@@ -39,7 +39,7 @@ public class SetupScreen extends ScreenAdapter {
 
     public SetupScreen(BlindBloodBlade game){
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
+
 
         this.game = game;
 
@@ -51,10 +51,22 @@ public class SetupScreen extends ScreenAdapter {
 
         addContentToStage();
 
+        loadSound(game);
+    }
+
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
         if(game.music) SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
         else SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
     }
 
+    /**
+     * Initializes those components used to show screen content
+     */
     private void initComponents() {
 
         batch = new SpriteBatch();
@@ -64,6 +76,9 @@ public class SetupScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Initializs the content to shown
+     */
     private void initStageContent() {
 
         background = new Image(Assets.instance.splashScreenAssets.backgroundRegion);
@@ -85,6 +100,9 @@ public class SetupScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Set attributes of the elements to shown
+     */
     private void setStageContent() {
 
         background.setPosition(0, 0);
@@ -179,6 +197,9 @@ public class SetupScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Add Actor elements to the stage to draw all at a time
+     */
     private void addContentToStage() {
 
         stage.addActor(background);
@@ -194,16 +215,26 @@ public class SetupScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
 
@@ -214,6 +245,9 @@ public class SetupScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         batch.dispose();

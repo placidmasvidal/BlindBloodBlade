@@ -41,15 +41,35 @@ public class ScoreScreen extends ScreenAdapter {
 
     public ScoreScreen(final BlindBloodBlade game) {
 
-        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
-
         this.game = game;
 
+        initComponents();
+
+        initStageContent(game);
+
+        loadPersistedData(game);
+
+        loadSound(game);
+
+        stage.addActor(lblTitle);
+
+
+    }
+
+    /**
+     * Initializes those components used to show screen content
+     */
+    private void initComponents() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
         viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
         stage = new Stage(viewport);
+    }
 
+    /**
+     * Initializs the content to shown
+     */
+    private void initStageContent(final BlindBloodBlade game) {
         background = new Image(Assets.instance.splashScreenAssets.backgroundRegion);
         background.setPosition(0, 0);
         background.setWidth(Constants.SCREEN_W);
@@ -74,8 +94,13 @@ public class ScoreScreen extends ScreenAdapter {
         lblTitle = new Label(Constants.SCORE, textStyle);
         lblTitlePos = new Vector2(Constants.SCREEN_W/2 - lblTitle.getWidth()/2, Constants.SCREEN_H/2 - lblTitle.getHeight()/2+ lblTitle.getHeight()+ lblTitle.getHeight()/2);
         lblTitle.setPosition(lblTitlePos.x, lblTitlePos.y);
+    }
 
-
+    /**
+     * Loads data from persistence file
+     * @param game main class that generates the Preferences persistance file
+     */
+    private void loadPersistedData(BlindBloodBlade game) {
         textStyle = new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscoresfont, null);
 
         for (int i = 1; i<=5; i++){
@@ -94,18 +119,27 @@ public class ScoreScreen extends ScreenAdapter {
 
 
         }
+    }
 
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
+        SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
         if(game.music) {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).play();
         } else {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
         }
-
-        stage.addActor(lblTitle);
-
-
     }
 
+    /**
+     * Loads the Texture corresponding the id given and instantiates an Image with it
+     * @param id the id given
+     * @return Image instance to draw the avatar of the id given
+     */
     private Image getAvatar(String id) {
 
         Image avatar = null;
@@ -124,17 +158,26 @@ public class ScoreScreen extends ScreenAdapter {
         return avatar;
     }
 
-
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
 
@@ -145,6 +188,9 @@ public class ScoreScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         batch.dispose();

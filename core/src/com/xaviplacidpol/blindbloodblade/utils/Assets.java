@@ -33,7 +33,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public AutomataAssets automataAssets;
     public GroundAssets groundAssets;
     public SpikesAssets spikesAssets;
-
     public BridgeAssets bridgeAssets;
     public BackgroundAssets backgroundAssets;
     public GroundWithSpikesAssets groundSpikesAssets;
