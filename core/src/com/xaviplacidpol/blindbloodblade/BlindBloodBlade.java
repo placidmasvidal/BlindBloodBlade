@@ -28,7 +28,7 @@ public class BlindBloodBlade extends Game {
 	@Override
 	public void create() {
 
-		gameData = Gdx.app.getPreferences("bbbdataTesting21");
+		gameData = Gdx.app.getPreferences("bbbscoresdata");
 
 		baseScreen = new BaseScreen(this);
 

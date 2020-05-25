@@ -154,11 +154,11 @@ public class GameOverScreen extends ScreenAdapter {
         String idString = String.valueOf(game.getPlayerId());
 
         scoresSet.add(scoreString+idString);
-        scoresSet.add("09");
-        scoresSet.add("08");
-        scoresSet.add("07");
-        scoresSet.add("06");
-        scoresSet.add("05");
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
+        scoresSet.add("00");
         List<Integer> scores = new ArrayList<>();
 
         for(String score : scoresSet){
