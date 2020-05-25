@@ -21,7 +21,14 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
  */
 public class NinjaPlayer extends InputAdapter implements Player {
 
+    @Override
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
     //ATTRIBUTES
+    private Integer playerId =1;
+
     //Vector 2 with x and y position
     private Vector2 position;
 

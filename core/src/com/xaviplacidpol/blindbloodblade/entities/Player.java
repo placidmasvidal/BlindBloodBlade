@@ -20,6 +20,9 @@ public interface Player extends InputProcessor {
 
     public void setViewport(Viewport viewport);
     public void setLevel(Level level);
+
+    Integer getPlayerId();
+
     public Integer getScore();
     public void setScore(Integer score);
     public Integer getKills();

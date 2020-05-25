@@ -112,6 +112,8 @@ public class Assets implements Disposable, AssetErrorListener {
      */
     public class NinjaAssets {
 
+        public final Texture ninjaAvatar;
+
         public final TextureAtlas.AtlasRegion ninjaStatic;
         public final TextureAtlas.AtlasRegion ninjaJumping;
         public final TextureAtlas.AtlasRegion ninjaWalking0;
@@ -124,6 +126,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public NinjaAssets(TextureAtlas atlas) {
+
+            ninjaAvatar = new Texture(Gdx.files.internal(Constants.NINJA_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             ninjaStatic = atlas.findRegion(Constants.NINJA_STATIC);
 
@@ -158,6 +163,8 @@ public class Assets implements Disposable, AssetErrorListener {
      */
     public class RoninAssets {
 
+        public final Texture roninAvatar;
+
         public final TextureAtlas.AtlasRegion roninStatic;
         public final TextureAtlas.AtlasRegion roninJumping;
         public final TextureAtlas.AtlasRegion roninWalking0;
@@ -170,6 +177,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public RoninAssets(TextureAtlas atlas) {
+
+            roninAvatar = new Texture(Gdx.files.internal(Constants.RONIN_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             roninStatic = atlas.findRegion(Constants.RONIN_STATIC);
 
@@ -204,6 +214,8 @@ public class Assets implements Disposable, AssetErrorListener {
      */
     public class AutomataAssets {
 
+        public final Texture automataAvatar;
+
         public final TextureAtlas.AtlasRegion automataStatic;
         public final TextureAtlas.AtlasRegion automataJumping;
         public final TextureAtlas.AtlasRegion automataWalking0;
@@ -216,6 +228,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
 
         public AutomataAssets(TextureAtlas atlas) {
+
+            automataAvatar = new Texture(Gdx.files.internal(Constants.AUTOMATA_AVATAR_FILE));
+
             //Retrieve ninja images from atlas file
             automataStatic = atlas.findRegion(Constants.AUTOMATA_STATIC);
 

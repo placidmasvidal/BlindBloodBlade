@@ -44,7 +44,11 @@ public class Constants {
 
     public static final float MAX_ATTACK_DURATION = 0.50f;
 
+
     //ninja sprites
+
+    public static final String NINJA_AVATAR_FILE = "images/unpacked/ninjaavatar.png";
+
     public static final String NINJA_STATIC = "ninjawalk3";
     public static final String NINJA_JUMPING = "ninjajump";
     public static final String NINJA_WALKING = "ninjawalk";
@@ -54,6 +58,9 @@ public class Constants {
     public static final String NINJA_DEAD = "ninjadead";
 
     //ronin sprites
+
+    public static final String RONIN_AVATAR_FILE = "images/unpacked/roninavatar.png";
+
     public static final String RONIN_STATIC = "roninwalk0";
     public static final String RONIN_JUMPING = "roninjump";
     public static final String RONIN_WALKING = "roninwalk";
@@ -63,6 +70,9 @@ public class Constants {
     public static final String RONIN_DEAD = "ronindead";
 
     //automata sprites
+
+    public static final String AUTOMATA_AVATAR_FILE = "images/unpacked/automataavatar.png";
+
     public static final String AUTOMATA_STATIC = "automatawalk0";
     public static final String AUTOMATA_JUMPING = "automatajump";
     public static final String AUTOMATA_WALKING = "automatawalk";

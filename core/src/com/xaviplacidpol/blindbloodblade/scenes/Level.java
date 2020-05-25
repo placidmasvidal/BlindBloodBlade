@@ -213,7 +213,9 @@ public class Level implements Disposable {
 //        batch.end();
         if(!player.isAlive()) {
 //            dispose();
-            game.setScreen(new GameOverScreen(game, player.getScore()));
+            game.setScore(player.getScore());
+            game.setPlayerId(player.getPlayerId());
+            game.setScreen(new GameOverScreen(game/*, player.getScore()*/));
         }
     }
 

@@ -19,7 +19,9 @@ import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,16 +41,16 @@ public class GameOverScreen extends ScreenAdapter {
     private Label lblTitle;
     private Vector2 lblTitlePos;
 
-    private Integer score;
-    private Set<Integer> scoresSet;
+//    private Integer score;
+//    private Set<Integer> scoresSet;
+
+    private Set<String> scoresSet;
 
     // Timer controls
     private float gameOverStartTimer;
     private boolean gameOverEnd;
 
-    public GameOverScreen(final BlindBloodBlade game, Integer score) {
-
-        this.score = score;
+    public GameOverScreen(final BlindBloodBlade game/*, Integer score*/) {
 
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_LEVEL_FAST).stop();
 
@@ -58,9 +60,22 @@ public class GameOverScreen extends ScreenAdapter {
 
         this.game = game;
 
-        scoresSet = new HashSet<>();
+//        this.score = game.getScore();
+
+/*        scoresSet = new HashSet<>();
         for(int i =0; i<5; i++) {
           scoresSet.add(game.gameData.getInteger("score"+i));
+        }
+*/
+
+        scoresSet = new HashSet<>();
+/*        scoresSet.add("01");
+        scoresSet.add("02");
+        scoresSet.add("03");
+        scoresSet.add("04");
+        scoresSet.add("05");    */
+        for(int i =0; i<5; i++) {
+            scoresSet.add(game.gameData.getString("score"+i));
         }
 
         batch = new SpriteBatch();
@@ -135,19 +150,27 @@ public class GameOverScreen extends ScreenAdapter {
     @Override
     public void dispose() {
 
-        scoresSet.add(score);
+        String scoreString = String.valueOf(game.getScore());
+        String idString = String.valueOf(game.getPlayerId());
 
+        scoresSet.add(scoreString+idString);
+        scoresSet.add("09");
+        scoresSet.add("08");
+        scoresSet.add("07");
+        scoresSet.add("06");
+        scoresSet.add("05");
         List<Integer> scores = new ArrayList<>();
 
-        for(Integer score : scoresSet){
-            scores.add(score);
+        for(String score : scoresSet){
+            if(!score.isEmpty())
+                scores.add(Integer.valueOf(score));
         }
 
         java.util.Collections.sort(scores, Collections.reverseOrder());
 
         int i = 1;
         for(Integer score : scores){
-            game.gameData.putInteger("score"+i, score);
+            game.gameData.putString("score"+i, String.valueOf(score));
             i++;
         }
 
