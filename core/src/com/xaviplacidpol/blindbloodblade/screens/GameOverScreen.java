@@ -74,7 +74,7 @@ public class GameOverScreen extends ScreenAdapter {
         scoresSet.add("03");
         scoresSet.add("04");
         scoresSet.add("05");    */
-        for(int i =0; i<5; i++) {
+        for(int i =1; i<5; i++) {
             scoresSet.add(game.gameData.getString("score"+i));
         }
 
