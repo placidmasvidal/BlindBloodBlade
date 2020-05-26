@@ -22,7 +22,7 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 public class AutomataPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
-    private Integer playerId=3;
+    private Integer playerId= Constants.AUTOMATA_ID;
 
     //Vector 2 with x and y position
     private Vector2 position;

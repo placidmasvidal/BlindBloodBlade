@@ -103,6 +103,7 @@ public class ScoreScreen extends ScreenAdapter {
     private void loadPersistedData(BlindBloodBlade game) {
         textStyle = new Label.LabelStyle(Assets.instance.scoreScreenAssets.bbbscoresfont, null);
 
+        //extracts from the data persisted Strings the scores and the ids and proceed properly to shown or get the avatar
         for (int i = 1; i<=5; i++){
             try {
                 lblScores = new Label(game.gameData.getString("score" + i).substring(0, game.gameData.getString("score" + i).length() - 1), textStyle);

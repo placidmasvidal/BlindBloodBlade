@@ -165,31 +165,42 @@ public class GameOverScreen extends ScreenAdapter {
     @Override
     public void dispose() {
 
+        /*
+          Preferences class from Libgdx uses dispose() to persist data when
+          current class instance is destructed as described in official
+          documentation, so next lines had to be here.
+        */
+
+        //get the score obtained by the player in current game after Game Over succeed
         String scoreString = String.valueOf(game.getScore());
+        //get the id of the player in current game after Game Over succeed
         String idString = String.valueOf(game.getPlayerId());
 
+        //store both (score and id) in a set of String in order to avoid adding repited scores
+        //set was previously filled with data recovered from persist file in the constructor
         scoresSet.add(scoreString+idString);
-        scoresSet.add("00");
-        scoresSet.add("00");
-        scoresSet.add("00");
-        scoresSet.add("00");
-        scoresSet.add("00");
+
+        //copy all set data to a Collection to let sort the data
         List<Integer> scores = new ArrayList<>();
 
         for(String score : scoresSet){
-            if(!score.isEmpty())
+            if(!score.isEmpty())    //avoid crashes for NPE if there is no data
                 scores.add(Integer.valueOf(score));
         }
 
+        //sort collection to show scores from max to min
         java.util.Collections.sort(scores, Collections.reverseOrder());
 
+        //Persist every score to the Preferences persist file
         int i = 1;
         for(Integer score : scores){
             game.gameData.putString("score"+i, String.valueOf(score));
             i++;
         }
 
+        //required to persist data using libgdx Preferences
         game.gameData.flush();
+
 
         stage.dispose();
         batch.dispose();

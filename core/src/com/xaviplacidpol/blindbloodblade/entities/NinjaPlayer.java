@@ -23,7 +23,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
 
     //ATTRIBUTES
-    private Integer playerId =1;
+    private Integer playerId = Constants.NINJA_ID;
 
     //Vector 2 with x and y position
     private Vector2 position;

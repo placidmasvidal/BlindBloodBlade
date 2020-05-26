@@ -1,14 +1,13 @@
 package com.xaviplacidpol.blindbloodblade.utils;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
 import com.xaviplacidpol.blindbloodblade.entities.Player;
 
 public class Cam {
     public Camera camera;
     public Player target;
 
-    public Cam(Camera camera, NinjaPlayer target) {
+    public Cam(Camera camera, Player target) {
         this.camera = camera;
         this.target = target;
     }

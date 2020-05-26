@@ -22,7 +22,7 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 public class RoninPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
-    private Integer playerId = 2;
+    private Integer playerId = Constants.RONIN_ID;
 
     //Vector 2 with x and y position
     private Vector2 position;

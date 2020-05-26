@@ -47,6 +47,7 @@ public class Constants {
 
     //ninja sprites
 
+    public static Integer NINJA_ID = 1;
     public static final String NINJA_AVATAR_FILE = "images/unpacked/ninjaavatar.png";
 
     public static final String NINJA_STATIC = "ninjawalk3";
@@ -59,6 +60,7 @@ public class Constants {
 
     //ronin sprites
 
+    public static Integer RONIN_ID = 2;
     public static final String RONIN_AVATAR_FILE = "images/unpacked/roninavatar.png";
 
     public static final String RONIN_STATIC = "roninwalk0";
@@ -71,6 +73,7 @@ public class Constants {
 
     //automata sprites
 
+    public static Integer AUTOMATA_ID = 3;
     public static final String AUTOMATA_AVATAR_FILE = "images/unpacked/automataavatar.png";
 
     public static final String AUTOMATA_STATIC = "automatawalk0";
