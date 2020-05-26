@@ -18,12 +18,14 @@ import com.xaviplacidpol.blindbloodblade.entities.Spikes;
 import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
-
+/**
+ *  Level is the map where we all action happens
+ */
 public class Level implements Disposable {
 
     private BlindBloodBlade game;
 
-    // Add a ninjaPlayer member variable
+    // Add a Player member variable
     private Player player;
 
     // Add an Array of Grounds
@@ -40,7 +42,7 @@ public class Level implements Disposable {
     // Add an Array of Enemies
     private Array<Enemy> enemies;
 
-    //Add blood splash to the enemy position when this enemy is killed
+    //Array of blood splashes in the enemy position when an enemy is killed
     private Array<BloodSplash> bloodSplashes;
 
     //Array with the random fixed blood splashes to the screen
@@ -55,7 +57,7 @@ public class Level implements Disposable {
 
         this.game = game;
 
-        playerFactory = PlayerFactory.getInstance();
+        playerFactory = new PlayerFactory();
 
         createAPlayerRandom(viewport, game);
 
@@ -87,7 +89,7 @@ public class Level implements Disposable {
         //Add spikes
         addSpikes();
 
-        //Set input touch screen for ninjaPlayer
+        //Set input touch screen for Player
         Gdx.input.setInputProcessor(player);
 
         //Add bridges
@@ -109,7 +111,7 @@ public class Level implements Disposable {
      * @param game main game class given to the player created
      */
     private void createAPlayerRandom(Viewport viewport, BlindBloodBlade game) {
-        // Initialize NinjaPlayer
+        // Initialize Player
         double random = Math.random();
         if(random < 0.33) {
             player = playerFactory.getPlayer("NINJA");
@@ -125,11 +127,11 @@ public class Level implements Disposable {
     }
 
     /**
-     * Update level and all components
+     * Update level and check if reached the end of the level
      * @param delta
      */
     public void update(float delta){
-        // Update NinjaPlayer
+        // Update Player
         player.update(delta, grounds, bridges);    //CRITIC
 
         endlessGame();
@@ -155,7 +157,7 @@ public class Level implements Disposable {
     }
 
     /**
-     * Renderize level and all components
+     * Render level and all components
      * @param batch
      */
     public void render(SpriteBatch batch){
@@ -227,6 +229,9 @@ public class Level implements Disposable {
         grounds.add(new Ground(13921, 40, 400, 40));
     }
 
+    /**
+     * Add here all the spikes on the map
+     */
     private void addSpikes() {
         spikes.add(new Spikes(new Vector2(800, 0)));
         spikes.add(new Spikes(new Vector2(870, 0)));
@@ -335,6 +340,9 @@ public class Level implements Disposable {
 
     }
 
+    /**
+     * Add here all the bridges on the map
+     */
     private void addBridges() {
         bridges.add(new Bridge(1100, 100, 330, 180));
         bridges.add(new Bridge(1660, 100, 330, 180));
@@ -362,6 +370,9 @@ public class Level implements Disposable {
         bridges.add(new Bridge(12101, 250, 100, 330));
     }
 
+    /**
+     * Add here all the enemies on the map
+     */
     private void addEnemies(){
         enemies.add(new Enemy(new Vector2(750, 60)));
         enemies.add(new Enemy(new Vector2(1150, 120)));
