@@ -366,7 +366,8 @@ public class NinjaPlayer extends InputAdapter implements Player {
     /**
      * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
      * @param bridge where to check if player is landing
-     * @return
+     * @return true if player is landing on bridge,
+     *          false otherwise
      */
     @Override
     public boolean landedOnBridge(Bridge bridge){
@@ -491,18 +492,18 @@ public class NinjaPlayer extends InputAdapter implements Player {
     }
 
     /**
-     * If we're JUMPING and ended the jump, now we're FALLING
+     * If we where JUMPING and ended the jump, now we're FALLING
      */
     @Override
     public void endJump(){
-        // If we're JUMPING, now we're FALLING
+        // If we where JUMPING, now we're FALLING
         if(jumpState == JumpState.JUMPING){
             jumpState = JumpState.FALLING;
         }
     }
 
     /**
-     * Renderize our ninjaPlayer
+     * Render our ninjaPlayer
      *
      * @param batch
      */
@@ -538,7 +539,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
     }
 
     /**
-     * enum list containing jumping states of ninja player
+     * enum list containing jumping states of player
      */
     enum JumpState{
         JUMPING,
