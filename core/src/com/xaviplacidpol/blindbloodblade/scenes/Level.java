@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.scenes;
 
-import com.badlogic.gdx.Gdx;
+import  com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -12,47 +12,36 @@ import com.xaviplacidpol.blindbloodblade.entities.BloodSplash;
 import com.xaviplacidpol.blindbloodblade.entities.Bridge;
 import com.xaviplacidpol.blindbloodblade.entities.Enemy;
 import com.xaviplacidpol.blindbloodblade.entities.Ground;
-import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Player;
+import com.xaviplacidpol.blindbloodblade.entities.PlayerFactory;
 import com.xaviplacidpol.blindbloodblade.entities.Spikes;
-import com.xaviplacidpol.blindbloodblade.entities.Background;
 import com.xaviplacidpol.blindbloodblade.screens.GameOverScreen;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 public class Level implements Disposable {
 
     private BlindBloodBlade game;
 
-//    private Set<Integer> scoresSet;
-
     // Add a ninjaPlayer member variable
-    NinjaPlayer ninjaPlayer;
+    private Player player;
 
     // Add an Array of Grounds
-    Array<Ground> grounds;
+    private Array<Ground> grounds;
 
     // Add an Array of Spikes
-    Array<Spikes> spikes;
+    private Array<Spikes> spikes;
 
     public Viewport viewport;
 
     // Add an Array of Bridges
-    Array<Bridge> bridges;
+    private Array<Bridge> bridges;
 
     // Add an Array of Enemies
-    Array<Enemy> enemies;
+    private Array<Enemy> enemies;
 
     //Add blood splash to the enemy position when this enemy is killed
     private Array<BloodSplash> bloodSplashes;
-
-    // Add an Array of backgrounds
-    Array<Background> backgrounds;
 
     //Array with the random fixed blood splashes to the screen
     private Array<BloodSplash> bloodSplashesScreen;
@@ -60,20 +49,15 @@ public class Level implements Disposable {
     //Boolean to control if reached end of level
     public boolean levelEnd;
 
-//    private Integer score;
+    private PlayerFactory playerFactory;
 
     public Level(Viewport viewport, BlindBloodBlade game){
 
         this.game = game;
-//        scoresSet = new HashSet<>();
- /*       scoresSet.add(19286);
-        scoresSet.add(17388);
-        scoresSet.add(19281);
-        scoresSet.add(21990);
-        scoresSet.add(26722);
-*/
-        // Initialize NinjaPlayer
-        ninjaPlayer = new NinjaPlayer(viewport, this);
+
+        playerFactory = PlayerFactory.getInstance();
+
+        createAPlayerRandom(viewport, game);
 
         // Initialize the bridges array
         bridges = new Array<Bridge>();
@@ -94,9 +78,6 @@ public class Level implements Disposable {
         bloodSplashes = new Array<BloodSplash>();
         bloodSplashesScreen = new Array<BloodSplash>();
 
-        // Initialize the backgrounds array
-        backgrounds = new Array<Background>();
-
         //Add bridges
         addBridges();
 
@@ -107,7 +88,7 @@ public class Level implements Disposable {
         addSpikes();
 
         //Set input touch screen for ninjaPlayer
-        Gdx.input.setInputProcessor(ninjaPlayer);
+        Gdx.input.setInputProcessor(player);
 
         //Add bridges
         addBridges();
@@ -123,12 +104,33 @@ public class Level implements Disposable {
     }
 
     /**
+     * Initializes a Player object with an instance of a kind of Player by random factor
+     * @param viewport viewport given to the player created
+     * @param game main game class given to the player created
+     */
+    private void createAPlayerRandom(Viewport viewport, BlindBloodBlade game) {
+        // Initialize NinjaPlayer
+        double random = Math.random();
+        if(random < 0.33) {
+            player = playerFactory.getPlayer("NINJA");
+        } else if (random > 0.33 && random < 0.66){
+            player = playerFactory.getPlayer("RONIN");
+        }else if (random > 0.66){
+            player = playerFactory.getPlayer("AUTOMATA");
+        }
+
+        player.setViewport(viewport);
+        player.setLevel(this);
+        player.setGame(game);
+    }
+
+    /**
      * Update level and all components
      * @param delta
      */
     public void update(float delta){
         // Update NinjaPlayer
-        ninjaPlayer.update(delta, grounds, bridges);    //CRITIC
+        player.update(delta, grounds, bridges);    //CRITIC
 
         endlessGame();
     }
@@ -141,7 +143,7 @@ public class Level implements Disposable {
      */
     private void endlessGame() {
         // Restart player position for endless game if player reached end point, otherwise just return
-        if(ninjaPlayer.getPosition().x > Constants.ENDLESS_POSITION){
+        if(player.getPosition().x > Constants.ENDLESS_POSITION){
             levelEnd = true;
             //Clean old blood splashes in the enemies position
             bloodSplashes.clear();
@@ -157,13 +159,6 @@ public class Level implements Disposable {
      * @param batch
      */
     public void render(SpriteBatch batch){
-
-   //     batch.begin();
-
-        //Render all backgrounds
-        for (Background b : backgrounds) {
-            b.render(batch);
-        }
 
         // Render all grounds in the grounds array
         for(Ground ground : grounds){
@@ -191,12 +186,12 @@ public class Level implements Disposable {
         }
 
         // Render NinjaPlayer
-        ninjaPlayer.render(batch);
+        player.render(batch);
 
-//        batch.end();
-        if(!ninjaPlayer.isAlive()) {
-//            dispose();
-            game.setScreen(new GameOverScreen(game, ninjaPlayer.getScore()));
+        if(!player.isAlive()) {
+            game.setScore(player.getScore());
+            game.setPlayerId(player.getPlayerId());
+            game.setScreen(new GameOverScreen(game));
         }
     }
 
@@ -389,8 +384,8 @@ public class Level implements Disposable {
     }
 
 
-    public NinjaPlayer getNinjaPlayer() {
-        return ninjaPlayer;
+    public Player getPlayer() {
+        return player;
     }
 
     public Array<Enemy> getEnemies() {

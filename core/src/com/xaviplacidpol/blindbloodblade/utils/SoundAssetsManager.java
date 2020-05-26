@@ -9,8 +9,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Manage all app's music and sound files
+ * Implements disposable(I) in order to dispose() the resources used
+ */
 public class SoundAssetsManager implements Disposable {
 
+    // SOUND CONSTANTS USED AS KEYS IN THE MAP THAT STORES THE FILES
     public static final String M_BACKGROUND = "background";
     public static final String M_LEVEL_FAST = "fastlevel";
     public static final String M_LEVEL_THRILLER = "thriller";
@@ -19,7 +24,9 @@ public class SoundAssetsManager implements Disposable {
 
     public static final String S_SWORD_SLASH = "swordslash";
     public static final String S_BLOOD_SPLASH = "bloodsplash";
-    public static final String S_JUMP = "jump";
+    public static final String S_JUMP_NINJA = "jump";
+    public static final String S_JUMP_RONIN = "jump2";
+    public static final String S_JUMP_AUTOMATA = "jump3";
     public static final String S_ATTACK = "attack";
     public static final String S_ATTACKING = "attacking";
     public static final String S_SPIKE_DEAD = "spiketrap";
@@ -28,6 +35,8 @@ public class SoundAssetsManager implements Disposable {
     public static Sound bloodSplashSound;
     public static Sound swordSlashSound;
     public static Sound jumpSound;
+    public static Sound jumpSound2;
+    public static Sound jumpSound3;
     public static Sound attackSound;
     public static Sound attackingSound;
     public static Sound spikeTrapSound;
@@ -40,6 +49,7 @@ public class SoundAssetsManager implements Disposable {
     public static Music scorescreenMusic;
 
 
+    //MAP THAT ALLOWS ANY CLASS TO ACCESS TO MUSIC FILES IN STATIC WAY
     public static final Map<String, Music> bbbmusics;
     static{
 
@@ -69,11 +79,14 @@ public class SoundAssetsManager implements Disposable {
         bbbmusics = Collections.unmodifiableMap(musics);
     }
 
+    //MAP THAT ALLOWS ANY CLASS TO ACCESS TO SOUND FILES IN STATIC WAY
     public static final Map<String, Sound> bbbsounds;
     static{
         bloodSplashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bloodhitting.ogg"));
         swordSlashSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordslash.ogg"));
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump1.ogg"));
+        jumpSound2 = Gdx.audio.newSound(Gdx.files.internal("sounds/jump2.ogg"));
+        jumpSound3 = Gdx.audio.newSound(Gdx.files.internal("sounds/jump3.ogg"));
         attackSound = Gdx.audio.newSound(Gdx.files.internal("sounds/drawingswordfromscabbard.ogg"));
         attackingSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swordcuttingair.ogg"));
         spikeTrapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/spiketrap.ogg"));
@@ -82,7 +95,9 @@ public class SoundAssetsManager implements Disposable {
         Hashtable<String, Sound> sounds = new Hashtable<>();
         sounds.put(S_SWORD_SLASH, swordSlashSound);
         sounds.put(S_BLOOD_SPLASH, bloodSplashSound);
-        sounds.put(S_JUMP, jumpSound);
+        sounds.put(S_JUMP_NINJA, jumpSound);
+        sounds.put(S_JUMP_RONIN, jumpSound2);
+        sounds.put(S_JUMP_AUTOMATA, jumpSound3);
         sounds.put(S_ATTACK, attackSound);
         sounds.put(S_ATTACKING, attackingSound);
         sounds.put(S_SPIKE_DEAD, spikeTrapSound);

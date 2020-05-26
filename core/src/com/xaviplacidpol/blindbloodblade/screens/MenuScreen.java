@@ -1,8 +1,7 @@
 package com.xaviplacidpol.blindbloodblade.screens;
 
-import  com.badlogic.gdx.Gdx;
+import   com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,22 +17,16 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.xaviplacidpol.blindbloodblade.BlindBloodBlade;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
-import com.xaviplacidpol.blindbloodblade.utils.SetupValues;
 import com.xaviplacidpol.blindbloodblade.utils.SoundAssetsManager;
 
 
 public class MenuScreen extends ScreenAdapter {
 
-
     private SpriteBatch batch;
     private Stage stage;
-
-
     private BlindBloodBlade game;
-
     private OrthographicCamera camera;
     private StretchViewport viewport;
-
     private Image background;
     private Drawable drawable;
     private ImageButton startButton;
@@ -54,31 +47,41 @@ public class MenuScreen extends ScreenAdapter {
 
         addContentToStage();
 
-//        Assets.instance.soundAssets.backgroundMusic.play();
+        loadSound(game);
+
+    }
+
+    /**
+     * Plays or stops game sound as user indicated in setup screen
+     * @param game main class of the app that stores the sound map
+     * to let acces from any package
+     */
+    private void loadSound(BlindBloodBlade game) {
         SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_SCORE_SCREEN).stop();
 
-        if(SetupValues.music) {
+        if(game.music) {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).play();
         } else {
             SoundAssetsManager.bbbmusics.get(SoundAssetsManager.M_BACKGROUND).stop();
         }
-
     }
 
-
+    /**
+     * Initializes those components used to show screen content
+     */
     private void initComponents() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Constants.SCREEN_W, Constants.SCREEN_H);
         viewport = new StretchViewport(Constants.SCREEN_W, Constants.SCREEN_H, camera);
         stage = new Stage(viewport);
-//        Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Initializs the content to shown
+     */
     private void initStageContent() {
         background = new Image(Assets.instance.splashScreenAssets.backgroundRegion);
-//        startImg = new Image(Assets.instance.splashScreenAssets.startButtonRegion);
         drawable = new TextureRegionDrawable(Assets.instance.splashScreenAssets.startButtonRegion);
-//        startButton = new ImageButton(startImg.getDrawable());
         startButton = new ImageButton(drawable);
         drawable = new TextureRegionDrawable(Assets.instance.splashScreenAssets.scoreButtonRegion);
         scoreButton = new ImageButton(drawable);
@@ -89,15 +92,15 @@ public class MenuScreen extends ScreenAdapter {
         textLbl = new Label(Constants.MAIN_TITLE, textStyle);
     }
 
+    /**
+     * Set attributes of the elements to shown
+     */
     private void setStageContent() {
         background.setPosition(0, 0);
         background.setWidth(Constants.SCREEN_W);
         background.setHeight(Constants.SCREEN_H);
         background.setHeight(300);
 
-
-
-//        textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2);
         textLbl.setPosition(Constants.SCREEN_W/2 - textLbl.getWidth()/2, Constants.SCREEN_H/2 - textLbl.getHeight()/2+textLbl.getHeight()*2);
 
         startButton.setPosition(196, 80);
@@ -108,11 +111,9 @@ public class MenuScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new GameScreen(game));
 
-                if(SetupValues.sound) {
+                if(game.sound) {
                     SoundAssetsManager.bbbsounds.get("swordslash").play();
                 }
-//                Assets.instance.soundAssets.backgroundMusic.stop();
-//                Assets.instance.soundAssets.swordSlashSound.play();
             }
         });
 
@@ -134,11 +135,11 @@ public class MenuScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 SetupScreen newSetupScreen = new SetupScreen(game);
                 game.setScreen(newSetupScreen);
-                if(!SetupValues.music){
+                if(!game.music){
                     newSetupScreen.getOnButton().setVisible(false);
                     newSetupScreen.getOffButton().setVisible(true);
                 }
-                if(!SetupValues.sound){
+                if(!game.sound){
                     newSetupScreen.getOnButton2().setVisible(false);
                     newSetupScreen.getOffButton2().setVisible(true);
                 }
@@ -147,56 +148,44 @@ public class MenuScreen extends ScreenAdapter {
 
     }
 
+    /**
+     * Add Actor elements to the stage to draw all at a time
+     */
     private void addContentToStage() {
         stage.addActor(background);
-
-
         stage.addActor(textLbl);
-
-
-
         stage.addActor(startButton);
-
-
         stage.addActor(scoreButton);
-
         stage.addActor(setupButton);
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen get the focus
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter is called every time the screen loses the focus
+     */
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage); //inputs will affect all stage actors
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     @Override
     public void render(float delta) {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl20.glClearColor(0, 0, 0, 1);
 
-        update(delta);
-
-        update(delta);
-
-
-
         stage.draw();
 
-        batch.begin();
-
-//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width/2+128f,stage.getHeight()-textLayout.height+256f);
-//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width+128f,stage.getHeight()-textLayout.height+64f);
-//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()-textLayout.width,stage.getHeight()-textLayout.height);
-//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()/2f,stage.getHeight()/2f);
-//        Assets.instance.splashScreenAssets.bbbattackfont.draw(batch, textLayout, stage.getWidth()/2-textLayout.width/2,stage.getHeight()/2-textLayout.height/2);
-        batch.end();
-    }
-
-    private void update(float delta) {
     }
 
     @Override
@@ -204,8 +193,9 @@ public class MenuScreen extends ScreenAdapter {
         stage.getViewport().update(width, height, false);
     }
 
-
-
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         batch.dispose();

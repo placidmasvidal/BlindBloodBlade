@@ -1,0 +1,314 @@
+
+blindbloodblade.pack.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+backbutton
+  rotate: false
+  xy: 906, 163
+  size: 180, 62
+  orig: 180, 62
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 1153
+  size: 1200, 640
+  orig: 1200, 640
+  offset: 0, 0
+  index: -1
+backgroundgamestage
+  rotate: false
+  xy: 2, 511
+  size: 960, 640
+  orig: 960, 640
+  offset: 0, 0
+  index: -1
+backicon
+  rotate: false
+  xy: 1536, 631
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+block
+  rotate: false
+  xy: 1308, 203
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+bloodslash
+  rotate: false
+  xy: 1436, 349
+  size: 320, 280
+  orig: 320, 280
+  offset: 0, 0
+  index: -1
+bloodsplash
+  rotate: false
+  xy: 1308, 337
+  size: 114, 130
+  orig: 114, 130
+  offset: 0, 0
+  index: -1
+bridge
+  rotate: false
+  xy: 1786, 1553
+  size: 200, 240
+  orig: 200, 240
+  offset: 0, 0
+  index: -1
+bridgedouble
+  rotate: false
+  xy: 906, 227
+  size: 400, 240
+  orig: 400, 240
+  offset: 0, 0
+  index: -1
+btscore
+  rotate: false
+  xy: 964, 967
+  size: 180, 62
+  orig: 180, 62
+  offset: 0, 0
+  index: -1
+btstart
+  rotate: false
+  xy: 2, 2
+  size: 163, 65
+  orig: 163, 65
+  offset: 0, 0
+  index: -1
+controls
+  rotate: false
+  xy: 1204, 1185
+  size: 545, 306
+  orig: 545, 306
+  offset: 0, 0
+  index: -1
+controlsbutton
+  rotate: false
+  xy: 964, 469
+  size: 470, 170
+  orig: 470, 170
+  offset: 0, 0
+  index: -1
+exit
+  rotate: false
+  xy: 1204, 1493
+  size: 580, 300
+  orig: 580, 300
+  offset: 0, 0
+  index: -1
+grassblock
+  rotate: false
+  xy: 1442, 215
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+ground
+  rotate: false
+  xy: 2, 1795
+  size: 1860, 200
+  orig: 1860, 200
+  offset: 0, 0
+  index: -1
+musicbutton
+  rotate: false
+  xy: 1204, 913
+  size: 570, 270
+  orig: 570, 270
+  offset: 0, 0
+  index: -1
+ninjaatack
+  rotate: false
+  xy: 1576, 219
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
+ninjabloody
+  rotate: false
+  xy: 1682, 219
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
+ninjadead
+  rotate: false
+  xy: 1758, 501
+  size: 94, 128
+  orig: 94, 128
+  offset: 0, 0
+  index: -1
+ninjajump
+  rotate: false
+  xy: 848, 19
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjajump.old
+  rotate: false
+  xy: 1988, 1607
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjastatic
+  rotate: false
+  xy: 1751, 1363
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk
+  rotate: false
+  xy: 1988, 1737
+  size: 58, 128
+  orig: 58, 128
+  offset: 0, 0
+  index: -1
+ninjawalk0
+  rotate: false
+  xy: 1751, 1233
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk2
+  rotate: false
+  xy: 1899, 1293
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk2.old
+  rotate: false
+  xy: 1973, 1423
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk3
+  rotate: false
+  xy: 1957, 1293
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+ninjawalk.old
+  rotate: false
+  xy: 1957, 1293
+  size: 56, 128
+  orig: 56, 128
+  offset: 0, 0
+  index: -1
+offbutton
+  rotate: false
+  xy: 424, 17
+  size: 210, 130
+  orig: 210, 130
+  offset: 0, 0
+  index: -1
+onbutton
+  rotate: false
+  xy: 636, 17
+  size: 210, 130
+  orig: 210, 130
+  offset: 0, 0
+  index: -1
+roninattack
+  rotate: false
+  xy: 1864, 1867
+  size: 160, 128
+  orig: 160, 128
+  offset: 0, 0
+  index: -1
+ronindead
+  rotate: false
+  xy: 906, 33
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninjump
+  rotate: false
+  xy: 1000, 33
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninwalk2
+  rotate: false
+  xy: 1000, 33
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+roninwalk
+  rotate: false
+  xy: 1758, 371
+  size: 104, 128
+  orig: 104, 128
+  offset: 0, 0
+  index: -1
+roninwalk0
+  rotate: false
+  xy: 1788, 241
+  size: 92, 128
+  orig: 92, 128
+  offset: 0, 0
+  index: -1
+samuraiatack
+  rotate: false
+  xy: 1809, 1423
+  size: 90, 128
+  orig: 90, 128
+  offset: 0, 0
+  index: -1
+samuraijump
+  rotate: false
+  xy: 1901, 1423
+  size: 70, 128
+  orig: 70, 128
+  offset: 0, 0
+  index: -1
+samuraistatic
+  rotate: false
+  xy: 1809, 1293
+  size: 88, 128
+  orig: 88, 128
+  offset: 0, 0
+  index: -1
+settingsicon1
+  rotate: false
+  xy: 424, 149
+  size: 480, 360
+  orig: 480, 360
+  offset: 0, 0
+  index: -1
+settingsicon2
+  rotate: false
+  xy: 2, 69
+  size: 420, 440
+  orig: 420, 440
+  offset: 0, 0
+  index: -1
+soundbutton
+  rotate: false
+  xy: 964, 641
+  size: 570, 270
+  orig: 570, 270
+  offset: 0, 0
+  index: -1
+spikes
+  rotate: false
+  xy: 964, 1031
+  size: 234, 120
+  orig: 234, 120
+  offset: 0, 0
+  index: -1

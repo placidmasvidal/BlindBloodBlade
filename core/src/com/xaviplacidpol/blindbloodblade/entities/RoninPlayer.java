@@ -1,6 +1,6 @@
 package com.xaviplacidpol.blindbloodblade.entities;
 
-import   com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,11 +19,10 @@ import com.xaviplacidpol.blindbloodblade.utils.Utils;
 /**
  * Main Player
  */
-public class NinjaPlayer extends InputAdapter implements Player {
-
+public class RoninPlayer extends InputAdapter implements Player {
 
     //ATTRIBUTES
-    private Integer playerId = Constants.NINJA_ID;
+    private Integer playerId = Constants.RONIN_ID;
 
     //Vector 2 with x and y position
     private Vector2 position;
@@ -59,19 +58,21 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
     private Integer score;
 
-    private BlindBloodBlade game;
 
     private Integer kills;
 
     private float timeLive;
 
+    private BlindBloodBlade game;
+
     //Booleans to control player Versus enemies battles
     boolean attackColliding;
     boolean enemyAttackColliding;
 
-    //NinjaPlayer Constructor
-    public NinjaPlayer(){
-        // Initialize NinjaPlayer position with his height
+    //RoninPlayer Constructor
+    public RoninPlayer(){
+
+        // Initialize RoninPlayer position with his height
         position = new Vector2(200, Constants.PLAYER_EYE_HEIGHT + 40);
         // Initialize a new Vector2 for lastFramePosition
         lastFramePosition = new Vector2(position);
@@ -151,6 +152,9 @@ public class NinjaPlayer extends InputAdapter implements Player {
             SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_ATTACKING).play();
         }
 
+
+
+
         // Call continueAttacking()
         continueAttacking();
     }
@@ -202,7 +206,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // Multiple delta by the acceleration due to gravity and subtract it from player vertical velocity
         velocity.y -= delta * Constants.GRAVITY;
 
-        // Apply NinjaPlayer velocity
+        // Apply RoninPlayer velocity
         // Vector2.mulAdd() is very convenient.
         position.mulAdd(velocity, delta);
 
@@ -265,7 +269,6 @@ public class NinjaPlayer extends InputAdapter implements Player {
             }
         }
 
-        // Collide with enemies, kill them or die
         for (Enemy enemy : level.getEnemies()) {
             //Save attackColliding
             attackColliding = ((enemy.getPosition().x - position.x ) < Constants.PLAYER_BLADE_RADIUS)
@@ -290,8 +293,9 @@ public class NinjaPlayer extends InputAdapter implements Player {
 
                     level.spawnBloodSplash(new Vector2(enemy.getPosition().x, enemy.getPosition().y));
 
+//TODO
                     //Add a bloodSplash to the bloodSplashOverlay
-                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL; i++) {
+                    for (int i = 0; i < Constants.BLOOD_SPLASHES_PER_KILL_R; i++) {
                         //Add a bloodSplash to the bloodSplashOverlay
                         level.addBloodSplash();
                     }
@@ -303,7 +307,10 @@ public class NinjaPlayer extends InputAdapter implements Player {
                     }
                 }
             }
+
         }
+
+
 
         // Jumping
         if(Gdx.input.justTouched()){
@@ -345,7 +352,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players's feet were above the platform top last frame and below the platform top this frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= ground.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < ground.top){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of RoninPlayer left and right toes
             float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
@@ -354,11 +361,11 @@ public class NinjaPlayer extends InputAdapter implements Player {
             leftFootIn = (ground.left < leftFoot && ground.right > leftFoot);
             rightFootIn = (ground.left < rightFoot && ground.right > rightFoot);
 
-            // See if NinjaPlayer is straddling the platform
+            // See if RoninPlayer is straddling the platform
             straddle = (ground.left > leftFoot && ground.right < rightFoot);
 
         }
-        // Return whether or not NinjaPlayer had landed on the ground
+        // Return whether or not RoninPlayer had landed on the ground
         return leftFootIn || rightFootIn || straddle;
 
     }
@@ -377,7 +384,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players's feet were above the platform top last frame and below the platform top this frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= bridge.top &&
                 position.y - Constants.PLAYER_EYE_HEIGHT < bridge.top){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of RoninPlayer left and right toes
             float leftFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 5.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
@@ -385,11 +392,11 @@ public class NinjaPlayer extends InputAdapter implements Player {
             leftFootIn = (bridge.left < leftFoot && bridge.right > leftFoot);
             rightFootIn = (bridge.left < rightFoot && bridge.right > rightFoot);
 
-            // See if NinjaPlayer is straddling the platform
+            // See if RoninPlayer is straddling the platform
             straddle = (bridge.left > leftFoot && bridge.right < rightFoot);
 
         }
-        // Return whether or not NinjaPlayer had landed on the ground
+        // Return whether or not RoninPlayer had landed on the ground
         return leftFootIn || rightFootIn || straddle;
     }
 
@@ -408,15 +415,15 @@ public class NinjaPlayer extends InputAdapter implements Player {
         // First check if Players is above the spikes top last frame and below the spikes bottom frame
         if(lastFramePosition.y - Constants.PLAYER_EYE_HEIGHT >= spikes.position.y
                 && position.y - Constants.PLAYER_EYE_HEIGHT < spikes.position.y + 40){
-            // If so, find the position of NinjaPlayer left and right toes
+            // If so, find the position of RoninPlayer left and right toes
             float leftFoot = position.x - Constants.PLAYER_STANCE_WIDTH / 2.5f;
             float rightFoot = position.x + Constants.PLAYER_STANCE_WIDTH / 0.7f;
 
-            // See if NinjaPlayer is straddling the spikes
+            // See if RoninPlayer is straddling the spikes
             straddle = (spikes.position.x < leftFoot && spikes.position.x + 70 > rightFoot);
 
         }
-        // Return if NinjaPlayer had landed or not on the spike
+        // Return if RoninPlayer had landed or not on the spike
         return straddle;
     }
 
@@ -458,7 +465,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         jumpStartTime = TimeUtils.nanoTime();
 
         if(game.sound) {
-            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_NINJA).play();
+            SoundAssetsManager.bbbsounds.get(SoundAssetsManager.S_JUMP_RONIN).play();
         }
 
 
@@ -510,27 +517,27 @@ public class NinjaPlayer extends InputAdapter implements Player {
     public void render(SpriteBatch batch){
 
         // Render ninja standing static
-        TextureRegion region = Assets.instance.ninjaAssets.ninjaStatic;
+        TextureRegion region = Assets.instance.roninAssets.roninStatic;
 
         if(isAlive){
             // Select the correct sprite based on jumpState, and walkState
             if(attackState == AttackState.ATTACKING){
-                region = Assets.instance.ninjaAssets.ninjaAttacking;
+                region = Assets.instance.roninAssets.roninAttacking;
             } else if(jumpState != JumpState.GROUNDED){
-                region = Assets.instance.ninjaAssets.ninjaJumping;
+                region = Assets.instance.roninAssets.roninJumping;
             } else if(walkState == WalkState.BLOCKED){
-                region = Assets.instance.ninjaAssets.ninjaStatic;
+                region = Assets.instance.roninAssets.roninStatic;
             } else if(walkState == WalkState.WALKING){
 
                 // Calculate how long we've been walking in seconds
                 float walkTimeSeconds = MathUtils.nanoToSec * (TimeUtils.nanoTime() - walkStartTime);
 
                 // Select the correct frame from the walking  animation
-                region = (TextureRegion) Assets.instance.ninjaAssets.ninjaWalkingAnimation.getKeyFrame(walkTimeSeconds);
+                region = (TextureRegion) Assets.instance.roninAssets.roninWalkingAnimation.getKeyFrame(walkTimeSeconds);
 
             }
         }else{
-            region = Assets.instance.ninjaAssets.ninjaDead;
+            region = Assets.instance.roninAssets.roninDead;
         }
 
         Utils.drawTextureRegion(batch, region, position.x - Constants.PLAYER_EYE_POSITION.x, position.y - Constants.PLAYER_EYE_POSITION.y );
@@ -562,6 +569,7 @@ public class NinjaPlayer extends InputAdapter implements Player {
         ATTACKING,
         NOT_ATTACKING
     }
+
 
     @Override
     public Integer getScore() {
@@ -619,11 +627,6 @@ public class NinjaPlayer extends InputAdapter implements Player {
     }
 
     @Override
-    public void setGame(BlindBloodBlade game) {
-        this.game = game;
-    }
-
-    @Override
     public void setViewport(Viewport viewport) {
         this.viewport = viewport;
     }
@@ -634,8 +637,12 @@ public class NinjaPlayer extends InputAdapter implements Player {
     }
 
     @Override
+    public void setGame(BlindBloodBlade game) {
+        this.game = game;
+    }
+
+    @Override
     public Integer getPlayerId() {
         return playerId;
     }
-
 }

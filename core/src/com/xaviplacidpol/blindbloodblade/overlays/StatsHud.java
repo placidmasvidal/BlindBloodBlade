@@ -1,6 +1,6 @@
-package com.xaviplacidpol.blindbloodblade.scenes;
+package com.xaviplacidpol.blindbloodblade.overlays;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import  com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.xaviplacidpol.blindbloodblade.entities.NinjaPlayer;
+import com.xaviplacidpol.blindbloodblade.entities.Player;
 import com.xaviplacidpol.blindbloodblade.utils.Assets;
 import com.xaviplacidpol.blindbloodblade.utils.Constants;
 
@@ -25,26 +25,33 @@ public class StatsHud implements Disposable {
     private Label lblScoreHeader;
     private Label lblTime;
     private static Label lblScore;
-    private Label lblDeadsHeader;
-    private Label lblDeads;
 
-    private NinjaPlayer ninjaPlayer;
+    private Player player;
 
     private Label lblKillsHeader;
     private Label lblKills;
     private Integer kills;
 
-    public StatsHud(SpriteBatch sb, NinjaPlayer ninjaPlayer){
+    public StatsHud(SpriteBatch sb, Player player){
 
-        this.ninjaPlayer = ninjaPlayer;
+        this.player = player;
 
         timer = 0.0f;
         deads = 0;
         score = 0;
 
-        viewport = new FitViewport(Constants.SCREEN_W, Constants.SCREEN_H, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+        initComponents(sb);
 
+        Table table = initStageContent();
+
+        stage.addActor(table);
+
+    }
+
+    /**
+     * Initializs the content to shown
+     */
+    private Table initStageContent() {
         Table table = new Table();
         table.top();
         table.setFillParent(true);
@@ -62,59 +69,55 @@ public class StatsHud implements Disposable {
         table.add(lblKills).expandX();
         table.add(lblScoreHeader).expandX();
         table.add(lblScore).expandX().padRight(20);
+        return table;
+    }
 
-
-
-        stage.addActor(table);
-
+    /**
+     * Initializes those components used to show screen content
+     */
+    private void initComponents(SpriteBatch sb) {
+        viewport = new FitViewport(Constants.SCREEN_W, Constants.SCREEN_H, new OrthographicCamera());
+        stage = new Stage(viewport, sb);
     }
 
     public void update(float delta){
         timer += delta;
             lblTime.setText(String.format("%.0f", timer));
-        kills = ninjaPlayer.getKills();
+        kills = player.getKills();
         lblKills.setText(String.format("%02d", kills));
-        score = ninjaPlayer.getScore();
+        score = player.getScore();
         lblScore.setText(String.format("%06d", score));
     }
 
+    /**
+     * Show method inherited from ScreenAdapter draw elements on the screen at every frame
+     * given by delta time
+     */
     public void render(){
 
         stage.draw();
 
     }
 
+    /**
+     * loads player's score to the label
+     * @param value score to load
+     */
     public static void addScore(int value){
         score += value;
         lblScore.setText(String.format("%06d", score));
     }
 
+    /**
+     * free resources
+     */
     @Override
     public void dispose() {
         stage.dispose();
-    }
-
-    public float getTimer() {
-        return timer;
-    }
-
-    public void setTimer(float timer) {
-        this.timer = timer;
     }
 
     public static Integer getScore() {
         return score;
     }
 
-    public static void setScore(Integer score) {
-        StatsHud.score = score;
-    }
-
-    public Integer getDeads() {
-        return deads;
-    }
-
-    public void setDeads(Integer deads) {
-        this.deads = deads;
-    }
 }
