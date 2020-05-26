@@ -377,7 +377,8 @@ public class AutomataPlayer extends InputAdapter implements Player {
     /**
      * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
      * @param bridge where to check if player is landing
-     * @return
+     * @return true if player is landing on bridge,
+     *          false otherwise
      */
     @Override
     public boolean landedOnBridge(Bridge bridge){

@@ -10,7 +10,7 @@ public class Bridge {
     float right;
 
     /**
-     * Constructor with the position and the size of the ground
+     * Constructor with the position and the size of the bridge
      *
      */
     public Bridge(float left, float top, float width, float height) {
@@ -21,7 +21,7 @@ public class Bridge {
     }
 
     /**
-     * renderize the bridge
+     * render the bridge
      * @param batch
      */
     public void render(SpriteBatch batch) {
@@ -29,7 +29,7 @@ public class Bridge {
         float width = right - left;
         float height = top - bottom;
 
-        // Draw the ground using the NinePatch
+        // Draw the bridge using the NinePatch
         Assets.instance.bridgeAssets.groundNinePatch.draw(batch, left - 1, bottom - 1, width + 2, height + 2);
     }
 }

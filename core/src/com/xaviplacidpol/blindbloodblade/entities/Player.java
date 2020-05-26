@@ -55,7 +55,7 @@ public interface Player extends InputProcessor {
     public void update(float delta, Array<Ground> grounds, Array<Bridge> bridges);
 
     /**
-     * Checks if ninjaPlayer is landed on ground or have his foots out the ground,
+     * Checks if Player is landed on ground or have his foots out the ground,
      * for example he maybe is falling to the spikes
      *
      * @param ground piece of ground where to check if player is landing
@@ -64,16 +64,17 @@ public interface Player extends InputProcessor {
     boolean landedOnGround(Ground ground);
 
     /**
-     * Checks if ninjaPlayer is landed on bridge or have his foots out the bridge
+     * Checks if Player is landed on bridge or have his foots out the bridge
      *
      * @param bridge where to check if player is landing
-     * @return
+     * @return true if player is landing on bridge,
+     *          false otherwise
      */
     boolean landedOnBridge(Bridge bridge);
 
 
     /**
-     * Checks if ninjaPlayer had fall out to a spike
+     * Checks if Player had fall out to a spike
      *
      * @param spikes where to check if player are crossing them
      * @return true if ninjaPlayer had fall to the spike,
@@ -105,12 +106,12 @@ public interface Player extends InputProcessor {
     public void continueJump();
 
     /**
-     * If we're JUMPING and ended the jump, now we're FALLING
+     * If we where JUMPING and ended the jump, now we're FALLING
      */
     public void endJump();
 
     /**
-     * Renderize our ninjaPlayer
+     * Render our Player
      *
      * @param batch
      */

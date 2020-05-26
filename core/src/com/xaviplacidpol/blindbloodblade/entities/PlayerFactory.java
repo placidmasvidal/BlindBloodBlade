@@ -2,13 +2,7 @@ package com.xaviplacidpol.blindbloodblade.entities;
 
 public class PlayerFactory {
 
-    private static PlayerFactory instance = new PlayerFactory();
-
-    private PlayerFactory(){}
-
-    public static PlayerFactory getInstance(){
-        return instance;
-    }
+    public PlayerFactory(){}
 
     /**
      * Retrieves an instance of Player based on the string given
